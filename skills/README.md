@@ -18,8 +18,9 @@ Think of them as plugins for Claude: each skill teaches Claude how to handle a s
 
 | Skill | Description | Install |
 |---|---|---|
-| [ai-project-setup-kit](./ai-project-setup-kit/) | Create and improve Claude Projects — auto-detects context, shows guided menu when run outside a project, starts audit immediately when run inside a project with files | [Download](./ai-project-setup-kit/ai-project-setup-kit.skill) |
-| [prompt-improver](./prompt-improver/) | Rewrites any prompt using Anthropic's prompt engineering methodology — returns the improved prompt immediately, no commentary | [Download](./prompt-improver/prompt-improver.skill) |
+| [ai-project-setup-kit](./ai-project-setup-kit/) | Create and improve Claude Projects — principles-based architect v2 with automatic RAG optimization | [Download](./ai-project-setup-kit/ai-project-setup-kit.skill) |
+| [prompt-improver](./prompt-improver/) | Professional prompt engineering v2 — based on Anthropic best practices for heuristics and multi-shot prompts | [Download](./prompt-improver/prompt-improver.skill) |
+| [resume-docx-formatting](./resume-docx-formatting/) | Advanced resume/CV specialist — handles docx structure and professional formatting standards | [Download](./resume-docx-formatting/resume-docx-formatting.skill) |
 
 ---
 
