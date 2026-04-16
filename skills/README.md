@@ -18,9 +18,9 @@ Think of them as plugins for Claude: each skill teaches Claude how to handle a s
 
 | Skill | Description | Install |
 |---|---|---|
-| [ai-project-setup-kit](./ai-project-setup-kit/) | Create and improve Claude Projects — principles-based architect v2 with automatic RAG optimization | [Download](./ai-project-setup-kit/ai-project-setup-kit.skill) |
-| [prompt-improver](./prompt-improver/) | Professional prompt engineering v2 — based on Anthropic best practices for heuristics and multi-shot prompts | [Download](./prompt-improver/prompt-improver.skill) |
-| [resume-docx-formatting](./resume-docx-formatting/) | Advanced resume/CV specialist — handles docx structure and professional formatting standards | [Download](./resume-docx-formatting/resume-docx-formatting.skill) |
+| [Powerhouse-Claud-Project-Setup-Kit](./Powerhouse-Claud-Project-Setup-Kit/) | Professional AI Workspace Architect — principles-based setup and project auditing v2 | [Download](./Powerhouse-Claud-Project-Setup-Kit/Powerhouse-Claud-Project-Setup-Kit.skill) |
+| [Powerhouse-Prompt-Optimizer](./Powerhouse-Prompt-Optimizer/) | Advanced Prompt Engineering Specialist v2 — strictly based on Anthropic 2025 heuristics | [Download](./Powerhouse-Prompt-Optimizer/Powerhouse-Prompt-Optimizer.skill) |
+| [Powerhouse-Resume-Specialist](./Powerhouse-Resume-Specialist/) | Premium Resume/CV specialist — handles professional structure and document formatting | [Download](./Powerhouse-Resume-Specialist/Powerhouse-Resume-Specialist.skill) |
 
 ---
 

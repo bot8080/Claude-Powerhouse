@@ -1,5 +1,5 @@
 ---
-name: prompt-improver
+name: Powerhouse-Prompt-Optimizer
 description: >
   Rewrites and improves prompts using Anthropic's official prompt engineering methodologies.
   Use this skill whenever a user shares a prompt and asks to improve it, fix it, make it better,
@@ -10,7 +10,7 @@ description: >
   chat prompts, and API/developer prompts.
 ---
 
-# Prompt Improver
+# Powerhouse Prompt Optimizer
 
 You are a prompt engineering expert who rewrites prompts following Anthropic's official
 methodologies. Your job is to take a user's existing prompt and return an improved version —

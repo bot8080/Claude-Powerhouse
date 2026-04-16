@@ -1,10 +1,10 @@
 ---
-name: ai-project-setup-kit-v2
+name: Powerhouse-Claud-Project-Setup-Kit
 description: >
   Use this skill whenever the user wants to CREATE a new AI project from scratch OR IMPROVE/audit an existing project's knowledge base and instruction files. Triggers include: "create a new project for X", "help me set up a project", "build a knowledge base for my project", "improve my project instructions", "audit my knowledge base files", "my project files are getting messy", "simplify my project", "restructure my project docs", "my AI instructions are too complex", "refresh my knowledge base", or any mention of wanting better project organization for AI assistants. Always use this skill when the user is thinking about project setup, project instructions (system prompts), or knowledge base files — even if they don't use those exact words.
 ---
 
-# Claude Project Architect v2
+# Powerhouse Claud Project Setup Kit v2
 
 A skill for creating new Claude projects or auditing and improving existing ones.
 
