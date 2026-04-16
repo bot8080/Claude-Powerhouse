@@ -1,0 +1,419 @@
+---
+name: ai-project-setup-kit
+description: >
+  Use this skill whenever the user wants to CREATE a new AI project from scratch OR IMPROVE/audit an existing project's knowledge base and instruction files. Triggers include: "create a new project for X", "help me set up a project", "build a knowledge base for my project", "improve my project instructions", "audit my knowledge base files", "my project files are getting messy", "simplify my project", "restructure my project docs", "my AI instructions are too complex", "refresh my knowledge base", or any mention of wanting better project organization for AI assistants. Always use this skill when the user is thinking about project setup, project instructions (system prompts), or knowledge base files — even if they don't use those exact words.
+---
+
+# Claude Project Architect
+
+A skill for creating new Claude projects from scratch or auditing and improving existing ones. Always do deep web research (10+ searches) for both modes.
+
+---
+
+## Step 0 — Detect Context First
+
+Before doing anything else, detect the context you're running in. This determines everything.
+
+---
+
+### Case 1 — Files detected in context (inside a project with uploads)
+
+Project files are visible in the current context. Go directly to **Mode 2 — Improve**. Do not ask the user anything — start the audit immediately and tell them:
+
+```
+✅ I can see your project files. Starting audit now...
+```
+
+---
+
+### Case 2 — No files detected, but appears to be inside a project
+
+No knowledge base files are visible, but the conversation context suggests a project environment. Ask:
+
+```
+🔍 I don't see any project files in this conversation yet.
+
+To audit your existing project:
+→ Make sure your knowledge base files are uploaded in this project's settings
+→ Then come back and say "improve my project"
+
+Or if you're starting fresh:
+→ Say "create a new project" and I'll build everything from scratch
+```
+
+---
+
+### Case 3 — Running outside any project (no files, general chat)
+
+No project context detected. Show this menu immediately:
+
+```
+👋 Hi! I'm your Claude Project Setup Kit.
+
+What would you like to do?
+
+1. 🆕 Create a new Claude Project from scratch
+   → I'll research your domain, write all files, and deliver
+     a ready-to-upload project package
+
+2. 🔧 Improve an existing Claude Project
+   → First, open your Claude Project from the sidebar
+   → Then type "improve my project" inside that project chat
+   → I'll audit all your files and tell you exactly what
+     to replace, delete, or keep
+
+Reply 1 to create or 2 for instructions on how to improve.
+```
+
+If user replies **1** → proceed to **Mode 1 — Create**
+If user replies **2** → show this follow-up:
+
+```
+📂 How to improve your existing project:
+
+Step 1 — Find your project in the left sidebar on Claude.ai
+Step 2 — Click on it to open the project chat
+Step 3 — Type: "improve my project"
+Step 4 — I'll automatically detect your files and start the audit
+
+That's it. See you inside your project! 👋
+```
+
+---
+
+## Detecting the Mode
+
+After context detection, confirm which mode applies:
+
+- **Mode 1 — CREATE**: User wants to set up a new Claude project for a specific goal/domain
+- **Mode 2 — IMPROVE**: User wants to audit and improve an existing project (files are visible in context)
+
+---
+
+## Mode 1: Create New Project
+
+### Step 1 — Understand the Goal
+
+Ask the user:
+1. What is the project for? (e.g., "CELPIP prep", "customer support bot", "coding assistant")
+2. Who will use it? (just them, a team, end users?)
+3. Any specific tasks or workflows Claude should handle within this project?
+4. Any constraints or things Claude should always/never do?
+
+### Step 2 — Deep Web Research
+
+Conduct thorough research (10+ searches minimum) to gather domain knowledge before writing a single file. Poor research = generic output.
+
+**Mandatory search categories (run all that apply):**
+
+| Category | Example query pattern |
+|---|---|
+| Domain overview | "[domain] best practices 2024", "[domain] expert guide" |
+| Workflows & frameworks | "how to structure [task type]", "[domain] methodology" |
+| Terminology | "[domain] glossary", "key terms in [domain]" |
+| Common failures | "mistakes in [domain]", "[domain] pitfalls to avoid" |
+| Templates | "[domain] template", "[domain] checklist" |
+| Tooling/resources | "best tools for [domain]", "[domain] recommended resources" |
+| Audience-specific | "[domain] for [user type, e.g. beginners / teams / solo]" |
+
+**Research quality rules:**
+- Prefer primary sources: official docs, academic papers, industry standards, expert blogs
+- Avoid SEO-optimized listicles as primary sources — use them for leads only
+- Synthesize across sources — note where experts agree vs. disagree
+- Flag anything outdated (>3 years old) and search for current alternatives
+- Aim for coverage across at least 4 distinct categories above before writing
+
+### Step 3 — Draft the Plan
+
+Present a plan to the user before writing any files:
+
+```
+📋 PROJECT PLAN: [Project Name]
+
+🎯 Project Purpose:
+[1-2 sentence summary]
+
+📁 Files to be created:
+1. project_instructions.md — System prompt / AI behavior rules
+2. knowledge_[topic1].md — [what it covers]
+3. knowledge_[topic2].md — [what it covers]
+(etc.)
+
+📌 Key themes from research:
+- [Finding 1]
+- [Finding 2]
+- [Finding 3]
+
+💡 Proposed Claude behaviors:
+- [Behavior/rule 1]
+- [Behavior/rule 2]
+
+Do you approve this plan, or would you like changes before I write the files?
+```
+
+Wait for user approval before proceeding.
+
+### Step 4 — Write the Files
+
+After approval, produce all files:
+
+#### project_instructions.md
+Structure:
+```
+# Project: [Name]
+
+## Role & Purpose
+[What Claude is, who it serves, what it does]
+
+## Knowledge Base Files — When to Use Each
+List every knowledge base file in the project with a clear description of WHEN to reference it.
+Claude must consult the relevant file before responding to any task that matches its topic.
+Format:
+- knowledge_[topic1].md → Use when: [specific task types, user request patterns, keywords]
+- knowledge_[topic2].md → Use when: [specific task types, user request patterns, keywords]
+- knowledge_[topic3].md → Use when: [specific task types, user request patterns, keywords]
+
+Rules for file routing:
+- Always identify which knowledge file(s) are relevant BEFORE composing a response
+- If a request spans multiple files, consult all relevant ones
+- If no file matches, rely on general knowledge but flag that no specific reference was available
+- Never guess — if unsure which file applies, pick the closest match and mention it
+
+## Core Behaviors
+[Bullet list of how Claude should behave — tone, style, approach]
+
+## What Claude Should Always Do
+[Positive rules]
+
+## What Claude Should Never Do
+[Hard constraints]
+
+## Response Format Guidelines
+[Length, formatting, structure preferences]
+
+## Special Workflows
+[Any specific multi-step processes Claude should follow]
+```
+
+#### knowledge_[topic].md files
+Structure each file as:
+```
+# [Topic Name]
+
+## Overview
+[Brief intro — what this document covers and why it matters]
+
+## Key Concepts
+[Core ideas, definitions, frameworks]
+
+## Best Practices
+[Actionable guidance]
+
+## Common Pitfalls
+[What to avoid]
+
+## Quick Reference
+[Tables, checklists, or summaries for fast lookup]
+```
+
+**File writing principles:**
+- Keep each file focused on ONE topic — don't bundle unrelated things
+- Aim for clarity over completeness — useful > exhaustive
+- Use headers, bullet points, and tables for scanability
+- Every file should be independently useful (no "see other file" dead ends)
+- Avoid jargon unless it's domain-essential (and define it when used)
+
+### Step 5 — Apply Prompt-Improver Pass to project_instructions.md
+
+Before saving any files, run an automatic prompt engineering pass on `project_instructions.md`.
+
+This step is mandatory and always runs. Load the `prompt-improver` skill and apply it to the full `project_instructions.md` content.
+
+**What to improve in the instructions file:**
+
+Apply these prompt engineering principles (from Anthropic methodology):
+
+1. **Role assignment** — Open with a clear role definition: "You are a [domain] expert assistant that..."
+2. **Explicit task statements** — Replace implied behaviors with direct instructions; use positive framing ("always do X" not "don't avoid X")
+3. **Context / motivation** — Add a brief "why" for non-obvious rules so Claude follows intent, not just the letter
+4. **XML structure** — Wrap distinct sections (`<rules>`, `<output_format>`, `<knowledge_routing>`, `<constraints>`) if the file has 4+ distinct sections
+5. **Routing clarity** — Each knowledge file routing rule must state: trigger keywords, task type, and what Claude should do when it matches
+6. **Output format spec** — Ensure the instructions specify length, tone, and structure preferences explicitly
+7. **Constraints explicit** — Surface any implicit "never do" rules and write them as hard constraints
+
+**Do not:**
+- Change the intent of any rule — improve expression only
+- Add filler phrases or AI-isms
+- Over-tag short instruction files (under 4 sections)
+- Add chain-of-thought instructions unless the project involves multi-step reasoning tasks
+
+After the pass, the file should be noticeably tighter, more explicit, and better structured — not longer.
+
+### Step 6 — Deliver
+
+Save all files to `/mnt/user-data/outputs/` and present them to the user using `present_files`.
+
+Give the user a brief summary:
+- How many files were created
+- What each file covers
+- Note that `project_instructions.md` has been prompt-engineering optimized
+- Suggested next steps (e.g., "copy project_instructions.md into your Claude project's custom instructions field")
+
+---
+
+## Mode 2: Improve Existing Project
+
+### Step 1 — Audit All Available Files
+
+Read every knowledge base file and project instruction file available in the current context. Build a complete picture of:
+
+- Total number of files and their topics
+- Approximate length and complexity of each
+- Overlap between files (content that appears in multiple places)
+- Outdated or vague sections that need refreshing
+- Structural issues (poor headers, mixed topics, wall-of-text sections)
+- Instruction bloat (rules that are redundant, contradictory, or overly verbose)
+- **Missing file routing map** — does the project instructions file tell Claude WHEN to use each knowledge base file? If not, this must be added. Check whether each file has clear trigger conditions (task types, keywords, user request patterns) defined in the instructions.
+
+### Step 2 — Deep Research for Refresh
+
+Run 10+ web searches to verify and fill gaps. Use the same category framework as Mode 1:
+
+- **Accuracy check**: Has the existing advice been superseded? Search "[topic] best practices [current year]"
+- **Gap fill**: For any section that felt thin during the audit, search for depth
+- **Simplification leads**: Search "[topic] simplified guide" or "[topic] quick reference" — often reveals better explanations
+- **Tooling updates**: If the project references specific tools or methods, verify they're still current
+
+### Step 3 — Present the Improvement Plan
+
+Before touching any files, present a detailed audit report:
+
+```
+🔍 PROJECT AUDIT REPORT
+
+📊 Files Reviewed: [N files]
+
+🚨 Issues Found:
+
+1. [File name] — [Issue: e.g., "Overly long, covers 3 unrelated topics"]
+2. [File name] — [Issue: e.g., "Duplicates content from knowledge_x.md"]
+3. project_instructions.md — [Issue: e.g., "Contains 40+ rules, many contradictory"]
+
+📋 Proposed Actions:
+
+✂️ Simplify:
+- [File]: [What will be simplified and why]
+
+🔁 Remove Redundancy:
+- [Content X] appears in [File A] and [File B] → will consolidate into [File A]
+
+🗂️ Restructure:
+- [File]: [How structure will change]
+
+🗺️ Add/Fix File Routing Map:
+- project_instructions.md is missing routing rules → will add a "Knowledge Base Files — When to Use Each" section mapping every file to its trigger conditions (task types, keywords, user request patterns)
+
+🔄 Merge:
+- [File A] + [File B] → [New merged file name] (reason: [they cover the same topic])
+
+🌐 Re-research & Refresh:
+- [Section/topic]: [Why it needs updating, what was found]
+
+📁 Final file structure after improvements:
+- project_instructions.md
+- knowledge_[topic1].md
+- knowledge_[topic2].md
+(etc.)
+
+Shall I proceed with these improvements?
+```
+
+Wait for user approval. User may modify the plan before proceeding.
+
+### Step 4 — Rewrite the Files
+
+Apply all approved improvements:
+
+**Simplification rules:**
+- Cut any instruction or rule that can be inferred from common sense
+- Replace paragraph-form rules with concise bullets
+- Remove duplicate sentences even within the same file
+- Aim for each knowledge file to be under 400 lines unless content genuinely demands more
+
+**Redundancy removal:**
+- If two files cover the same concept, keep it in the most relevant file and remove from the other
+- Add a one-line cross-reference if needed: `> See also: knowledge_topic.md → Section X`
+
+**Restructuring:**
+- Add clear H2/H3 headers so users can navigate without reading everything
+- Group related rules/concepts together
+- Move "quick reference" material (tables, checklists) to the bottom of each file
+
+**Merging:**
+- When merging files, preserve all unique content — nothing should be lost, only deduplicated
+- Name the merged file after the broader topic
+
+**Re-researching:**
+- Replace outdated sections with up-to-date content from research
+- Cite sources inline if the information is specific or might change: `*(Source: [name], [year])*`
+
+### Step 4b — Apply Prompt-Improver Pass to project_instructions.md
+
+After rewriting, run a mandatory prompt engineering pass on `project_instructions.md` using the same rules as Mode 1 Step 5. The goal is the same: tighter, more explicit, better structured — not longer.
+
+Pay special attention in improvement mode to:
+- Rules that have been around since project creation and may have become stale or over-cautious
+- Routing instructions that have drifted out of sync with the actual file set (especially after merges/splits)
+- Tone and role definition — these often get lost during iterative edits
+
+### Step 5 — Deliver
+
+Save all improved files to `/mnt/user-data/outputs/` and present using `present_files`.
+
+After presenting the files, generate a **file-by-file handoff walkthrough** so the user knows exactly what to do in their Claude Project settings. Use this format:
+
+```
+📦 FILES READY — Here's what to do in your Claude Project:
+
+1. [filename].md
+   → ACTION: REPLACE / DELETE / ADD NEW
+   → Why: [specific reason — what changed, what was wrong, what improved]
+
+2. [filename].md
+   → ACTION: REPLACE
+   → Why: [e.g., "Merged with knowledge_x.md — they were 70% overlapping"]
+
+3. [filename].md + [filename].md
+   → ACTION: DELETE BOTH
+   → Why: [e.g., "Content consolidated into knowledge_topic.md above"]
+
+🛠️ How to apply:
+Step 1 — Open your Claude Project settings
+Step 2 — Delete any files marked DELETE above
+Step 3 — Upload all files marked REPLACE or ADD NEW
+Step 4 — Your project_instructions.md is already prompt-optimized — just paste it into the custom instructions field
+
+📊 Summary:
+- Files before: [N] → Files after: [N]
+- Estimated size reduction: ~[X]%
+- Key improvements: [2-3 bullet points]
+```
+
+Rules for the walkthrough:
+- Every file must have an explicit action: REPLACE, DELETE, or ADD NEW — never leave it ambiguous
+- The "Why" must reference the specific issue found in the audit, not a generic reason
+- If a file is unchanged, still list it with action KEEP and a one-line note so the user has a complete picture
+- Order files by importance: project_instructions.md always first, then knowledge files, then any deleted files last
+
+---
+
+## General Principles (Both Modes)
+
+- **Always include a file routing map.** The `project_instructions.md` must contain a "Knowledge Base Files — When to Use Each" section that explicitly tells Claude which file to consult for which task type, keywords, or user request pattern. Without this, Claude may ignore knowledge files entirely or use the wrong one.
+- **Always run the prompt-improver pass on project_instructions.md.** This is not optional. Every project instructions file produced or edited by this skill must go through a prompt engineering pass before delivery. The pass applies Anthropic's methodology: role assignment, explicit tasks, XML structure (if multi-section), routing clarity, output format spec, and hard constraints.
+- **Plan before you write.** Always show the plan and get approval first.
+- **Research deeply and structurally.** 10+ searches across at least 4 distinct categories (domain, workflows, failures, terminology, tooling). Broad then specific. Primary sources over listicles.
+- **Clarity over comprehensiveness.** A shorter file Claude can actually use beats a long one it glosses over.
+- **One topic per file.** Focused files are easier to update and less likely to cause confusion.
+- **Always deliver as downloadable files.** Use `present_files` at the end — never just paste content in chat.
+- **Respect existing structure.** In improvement mode, don't redesign everything unless the audit shows it's truly broken. Preserve what works.
