@@ -8,11 +8,12 @@ A professional-grade collection of **MCP Servers** and **Claude Skills** designe
 
 ```text
 Claude-Powerhouse/
-├── mcps/                   # Model Context Protocol Servers
-│   └── market-intelligence  # Flagship: US/India/CA Financial Intelligence
-├── skills/                 # Custom Claude.ai Skills (.skill)
-│   ├── ai-project-setup    # Automate project knowledge base audits
-│   └── prompt-improver     # Professional precision prompt engineering
+├── mcps/                        # Model Context Protocol Servers
+│   └── market_intelligence      # Flagship: US/India/CA Financial Intelligence
+├── skills/                      # Custom Claude.ai Skills (.skill)
+│   ├── Powerhouse-Claud-Project-Setup-Kit
+│   ├── Powerhouse-Prompt-Optimizer
+│   └── Powerhouse-Resume-Specialist
 └── README.md
 ```
 
@@ -22,16 +23,16 @@ Claude-Powerhouse/
 
 Our flagship MCP server provides deep financial intelligence across multiple markets.
 
-### 📈 [Market-Intelligence](./mcps/market-intelligence/)
+### 📈 [Market-Intelligence](./mcps/market_intelligence/)
 - **8 Pro Tools:** Multi-market resolution, technical analysis, scoring, and smart money tracking.
 - **Multi-Market:** Native support for **US (NASDAQ/NYSE)**, **India (NSE/BSE)**, and **Canada (TSX)**.
 - **Scoring Engine:** 4-pillar quantitative scoring (Valuation, Quality, Momentum, Risk).
 - **Setup:**
   ```bash
-  cd mcps/market-intelligence
+  cd mcps/market_intelligence
   uv sync
   ```
-  [View Market-Intelligence Documentation](./mcps/market-intelligence/README.md)
+  [View Market-Intelligence Documentation](./mcps/market_intelligence/README.md)
 
 ---
 
@@ -41,8 +42,9 @@ Extend Claude.ai's core behavior with installable `.skill` files. These trigger 
 
 | Skill | Purpose |
 |---|---|
-| **[AI Project Setup Kit](./skills/ai-project-setup-kit/)** | Audit and build Claude Project knowledge bases instantly. |
-| **[Prompt Improver](./skills/prompt-improver/)** | Professional-quality prompt rewriting using Anthropic's methodology. |
+| **[Claud Project Setup Kit](./skills/Powerhouse-Claud-Project-Setup-Kit/)** | Professional AI Workspace Architect for setup and auditing v2. |
+| **[Prompt Optimizer](./skills/Powerhouse-Prompt-Optimizer/)** | Expert-grade prompt engineering using latest heuristics v2. |
+| **[Resume Specialist](./skills/Powerhouse-Resume-Specialist/)** | Premium DOCX formatting and ATS optimization for careers. |
 
 ### 🛠️ How to Install Skills
 1. Download the `.skill` file from the relevant folder.
