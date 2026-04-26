@@ -237,7 +237,7 @@ Pre-compute financial analysis locally and hand Claude a 20–50 token prompt. C
 ### config.py
 ```python
 # Constants (not functions — imported directly)
-MCP_SERVER_CMD: str
+MCP_SERVER_CMD: Optional[str]          # from env-var MARKET_INTELLIGENCE_CMD; None when unset
 DEFAULT_MARKET: str                    # "US" | "CA" | "IN"
 ACCOUNT_MAP: dict[str, str]
 FUNDAMENTALS_MAX: int                  # 35
@@ -250,6 +250,7 @@ PAPER_MAX_POSITION_PCT: float          # 10.0
 PAPER_MAX_SECTOR_PCT: float            # 30.0
 PAPER_MIN_CASH_PCT: float              # 10.0
 PAPER_MAX_POSITIONS: int               # 25
+SCREENER_UNIVERSE: list[str]           # default ticker list for `main.py screen` when no tickers passed
 ```
 
 ### data_fetcher.py
