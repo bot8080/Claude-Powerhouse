@@ -1,0 +1,16 @@
+# Investment Brain - Requirements
+# Install: pip install -r requirements.txt
+
+# Data fetching (fallback when MCP unavailable)
+yfinance>=0.2.28
+
+# Web API (optional - for future web UI)
+fastapi>=0.104.0
+uvicorn>=0.24.0
+
+# HTTP client
+requests>=2.31.0
+
+# Data processing
+pandas>=2.0.0
+numpy>=1.24.0
