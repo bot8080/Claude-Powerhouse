@@ -1,7 +1,14 @@
 #!/usr/bin/env python3
-"""
-Investment Brain MCP Wrapper
-Exposes the Python engine as an MCP tool Claude calls directly.
+"""Investment Brain MCP Server (wraps the local engine for Claude).
+
+This is the SERVER side: exposes investment-brain itself as an MCP server so
+Claude can call `analyze_stock`, `screen_stocks`, etc. as tools directly.
+
+Not to be confused with `mcp_bridge.py`, which is the CLIENT side that
+investment-brain uses to fetch raw data from the market-intelligence MCP.
+
+  mcp_wrapper.py : Claude → investment-brain (this file, server)
+  mcp_bridge.py  : investment-brain → market-intelligence (client)
 """
 
 import asyncio
@@ -11,11 +18,11 @@ import sys
 from pathlib import Path
 
 from mcp.server import Server
-from mcp.server.stdio import stdio_server # Added this import
+from mcp.server.stdio import stdio_server
 from mcp.types import TextContent, Tool
 
-# Path to your investment_brain folder
-BRAIN_DIR = Path("C:/Users/abhik/OneDrive/Documents/Projects/Claude-Powerhouse/mcps/investment-brain")
+# Resolved relative to this file — works on any machine, any OS.
+BRAIN_DIR = Path(__file__).resolve().parent
 MAIN_PY = BRAIN_DIR / "main.py"
 
 
