@@ -36,6 +36,12 @@ A detailed comparison of why these skills were built and the results they delive
 | :--- | :--- | :--- |
 | • AI messily formatting DOCX files<br>• Dates jumping or overflowing margins<br>• Unprofessional colors and inconsistent fonts<br>• Resumes being "rejected" by ATS scanners | • Exact US Letter margin/page constraints<br>• Strict professional navy/steel blue color palette<br>• Tab-stop alignment for perfect date positioning<br>• Clean typography (Calibri-only) for ATS parsing | • **Market-Ready Resumes**: 100% professional look.<br>• **Perfect Alignment**: Dates and text never skip. <br>• **ATS-Optimized**: Guaranteed readability for recruiters. |
 
+### 🤖 4. software-team
+
+| The Issue (Before) ❌ | The Powerhouse Solution ✅ | The Result 🚀 |
+| :--- | :--- | :--- |
+| • Claude starts coding before requirements are clear<br>• No enforced order — Layer 5 built before Layer 2<br>• Token budget blown on re-explaining context each session<br>• No QA step — bugs slip into every PR | • Three anchor documents (TECH_SPEC, SCREEN_SPEC, BUILD_STATUS) written before any code<br>• Strict 7-layer gate: Layer N cannot start until N-1 is merged<br>• Four specialized agents (PM, Research, Dev, QA) with clear scope<br>• Git state + BUILD_STATUS used for context recovery | • **No Scope Creep**: Tickets are bounded — no more, no less.<br>• **Stable Builds**: Each layer is solid before the next begins.<br>• **Resilient Sessions**: Clear context with four git commands, no re-explaining. |
+
 ---
 
 ## Skills in this repo
@@ -45,6 +51,7 @@ A detailed comparison of why these skills were built and the results they delive
 | [Powerhouse-Claud-Project-Setup-Kit](./Powerhouse-Claud-Project-Setup-Kit/) | Professional AI Workspace Architect — principles-based setup and project auditing v2 | [Download](./Powerhouse-Claud-Project-Setup-Kit/Powerhouse-Claud-Project-Setup-Kit.skill) |
 | [Powerhouse-Prompt-Optimizer](./Powerhouse-Prompt-Optimizer/) | Advanced Prompt Engineering Specialist v2 — strictly based on Anthropic 2025 heuristics | [Download](./Powerhouse-Prompt-Optimizer/Powerhouse-Prompt-Optimizer.skill) |
 | [Powerhouse-Resume-Specialist](./Powerhouse-Resume-Specialist/) | Premium Resume/CV specialist — handles professional structure and document formatting | [Download](./Powerhouse-Resume-Specialist/Powerhouse-Resume-Specialist.skill) |
+| [software-team](./software-team/) | Complete AI software team — spec-first, 7-layer build order, PM → Dev → QA agent pipeline | [Download](./software-team/software-team.skill) |
 
 ---
 

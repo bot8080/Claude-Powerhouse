@@ -13,7 +13,8 @@ Claude-Powerhouse/
 ├── skills/                      # Custom Claude.ai Skills (.skill)
 │   ├── Powerhouse-Claud-Project-Setup-Kit
 │   ├── Powerhouse-Prompt-Optimizer
-│   └── Powerhouse-Resume-Specialist
+│   ├── Powerhouse-Resume-Specialist
+│   └── software-team
 └── README.md
 ```
 
@@ -45,6 +46,7 @@ Extend Claude.ai's core behavior with installable `.skill` files. These trigger 
 | **[Claud Project Setup Kit](./skills/Powerhouse-Claud-Project-Setup-Kit/)** | Professional AI Workspace Architect for setup and auditing v2. |
 | **[Prompt Optimizer](./skills/Powerhouse-Prompt-Optimizer/)** | Expert-grade prompt engineering using latest heuristics v2. |
 | **[Resume Specialist](./skills/Powerhouse-Resume-Specialist/)** | Premium DOCX formatting and ATS optimization for careers. |
+| **[Software Team](./skills/software-team/)** | Complete AI dev team — spec-first, layered build order, PM → Dev → QA pipeline. |
 
 ### 🛠️ How to Install Skills
 1. Download the `.skill` file from the relevant folder.
