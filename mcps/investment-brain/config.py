@@ -12,10 +12,14 @@ DATA_DIR = BASE_DIR / "data"
 DATA_DIR.mkdir(exist_ok=True)
 
 # ─── MCP Server ───
-# Path to your market-intelligence MCP server
-# Example: "uv run --directory C:/.../market-intelligence python -m market_intelligence"
-# Leave empty to use yfinance fallback only
-MCP_SERVER_CMD = "uv run --directory C:/Users/abhik/OneDrive/Documents/Projects/Claude-Powerhouse/mcps/market-intelligence python -m market_intelligence"
+# Path to your market-intelligence MCP server.
+# Set via env-var MARKET_INTELLIGENCE_CMD. If unset, investment-brain
+# runs in yfinance-only mode (no MCP).
+#
+# Examples:
+#   Linux/Mac: export MARKET_INTELLIGENCE_CMD="uv run --directory /path/to/Claude-Powerhouse/mcps/market-intelligence python -m market_intelligence"
+#   Windows:   set MARKET_INTELLIGENCE_CMD=uv run --directory C:\path\to\Claude-Powerhouse\mcps\market-intelligence python -m market_intelligence
+MCP_SERVER_CMD = os.environ.get("MARKET_INTELLIGENCE_CMD") or None
 
 # ─── Markets ───
 DEFAULT_MARKET = "US"  # US, CA, IN
@@ -73,3 +77,11 @@ RSI_SCALE = {"oversold": 30, "neutral_low": 45, "neutral_high": 65, "overbought"
 
 # ─── Output ───
 DATE_FORMAT = "%Y-%m-%d"
+
+# ─── Screener Universe ───
+# Default ticker universe used by `python main.py screen` when no tickers
+# are passed on the CLI. Override per-run by passing tickers as positional args.
+SCREENER_UNIVERSE = [
+    "AAPL", "MSFT", "GOOGL", "AMZN", "NVDA",
+    "META", "TSLA", "TSM", "ASML", "AVGO",
+]

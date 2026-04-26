@@ -1,8 +1,3 @@
----
-name: software-team
-description: Use when starting or structuring any complex software project with AI — establishes a full team workflow with spec-first anchor documents, enforced layered build order, PM → Dev → QA agent pipeline, and a unified project command skill
----
-
 # Software Team
 
 ## Overview
@@ -10,6 +5,8 @@ description: Use when starting or structuring any complex software project with 
 Run a complete AI software development team: PM plans, Dev builds, QA reviews — all gated by spec documents and a strict layer build order.
 
 **Core principle:** No code without a spec. No Layer N without Layer N-1 complete.
+
+**Target:** Claude Code (CLI). Works in both single-project repos and monorepos.
 
 ---
 
@@ -60,13 +57,29 @@ PM Tech Lead → [Research] → Dev Engineer → QA Engineer → Human Approve �
 
 Create agent files at `.claude/agents/` — one markdown file per agent with role, trigger, and output format.
 
-**Step 5b — Browser verification (web projects only):** After code review, the QA Engineer uses `/gstack` to verify the built UI in a real browser:
-- `$B console` — no JS errors after page load
-- `$B is visible ".key-element"` — critical UI elements present
-- `$B goto → fill → click → snapshot` — main user flow works end-to-end
-- `$B responsive /tmp/check` — layout holds at mobile + desktop
+**Step 5b — Browser verification (web projects only):** After code review, the QA Engineer uses `/browse` to verify the built UI in a real browser:
+- Console — no JS errors after page load
+- Critical UI elements present
+- Main user flow works end-to-end
+- Layout holds at mobile + desktop
 
 Skip this step for mobile apps, CLIs, and backend-only features.
+
+---
+
+## Monorepo Support
+
+If your project is a monorepo with multiple sub-projects, scope all commands to the active sub-project.
+
+**Sub-project detection (in order):**
+1. User passes `--project <name>` explicitly → use it
+2. CWD is inside a sub-project directory → infer from path
+3. CWD is repo root → show root-level `BUILD_STATUS.md`
+4. Ambiguous → ask once: "Which sub-project?"
+
+**Per sub-project anchor docs:** Each sub-project gets its own `TECH_SPEC.md` and `BUILD_STATUS.md` inside its directory. Agents are shared at the repo root (`.claude/agents/`).
+
+**Root `BUILD_STATUS.md`:** Track the monorepo's meta-work (which sub-projects are shipped, docs done, distribution ready) separately from each sub-project's layer checklist.
 
 ---
 
@@ -76,13 +89,13 @@ Create a project-level skill (e.g. `/myapp`) with these sub-commands:
 
 | Sub-command | Action |
 |-------------|--------|
-| `status` | Read BUILD_STATUS, show current layer + next unchecked task |
+| `status [--project <name>]` | Read BUILD_STATUS, show current layer + next unchecked task |
 | `plan [feature]` | Invoke PM Tech Lead → produce structured ticket |
 | `build` | Invoke Dev Engineer → implement current ticket |
 | `review` | Invoke QA Engineer → validate changes |
-| `branch [name]` | Create `feature/L{N}-{name}` branch from develop |
-| `pr` | Type-check → sync develop → create PR with standard template |
-| `next` | Find first unchecked item in BUILD_STATUS |
+| `branch [name]` | Create `feature/L{N}-{name}` branch from main |
+| `pr` | Type-check → sync main → create PR with standard template |
+| `next` | Find first unchecked item in BUILD_STATUS (all sub-projects) |
 
 Route all user intent through this single entry point — never ask users which agent to call.
 
@@ -104,10 +117,12 @@ Never ask "which agent should I use?" — route automatically.
 
 ## Session Hygiene
 
-- `BUILD_STATUS.md` updates on `develop` only — never on feature branches (prevents recurring merge conflicts)
+- `BUILD_STATUS.md` updates on `main` only — never on feature branches (prevents recurring merge conflicts)
 - Start a fresh session after each merged PR (preserves token budget)
 - Use Claude's persistent memory system for cross-session project context
 - Branch naming: `feature/L{N}-{name}` — layer number visible in the branch name
+
+---
 
 ## Context Recovery (chat cleared mid-work)
 
@@ -115,8 +130,8 @@ If a session is cleared before a PR is merged, git state is the recovery source 
 
 ```bash
 git branch --show-current          # what feature you were building
-git diff develop...HEAD --stat     # all files changed in this branch
-git diff develop...HEAD            # full diff of everything built so far
+git diff main...HEAD --stat        # all files changed in this branch
+git diff main...HEAD               # full diff of everything built so far
 git status                         # any uncommitted work still in progress
 ```
 
@@ -126,6 +141,7 @@ Combined with `BUILD_STATUS.md` (what layers are fully done), these four command
 
 ## New Project Setup Checklist
 
+### Single-project repo
 1. Write `TECH_SPEC.md` — all schemas, service signatures, build layer map
 2. Write `SCREEN_SPEC.md` — ASCII spec for every screen before any UI work
 3. Create `BUILD_STATUS.md` — all items unchecked, grouped by layer
@@ -133,3 +149,11 @@ Combined with `BUILD_STATUS.md` (what layers are fully done), these four command
 5. Create `.claude/agents/` — pm-tech-lead.md, dev-engineer.md, qa-engineer.md, research-engineer.md
 6. Create `.claude/skills/[project]/SKILL.md` — unified command skill with all sub-commands
 7. Start Layer 1. Never skip ahead.
+
+### Monorepo
+1. Write root `CLAUDE.md` — auto-routing, hard rules, agent pipeline reference, CLI/web split
+2. Create root `BUILD_STATUS.md` — tracks meta-work (skills shipped, MCPs shipped, docs done)
+3. Create `.claude/agents/` at repo root — shared across all sub-projects
+4. Create `.claude/skills/[project]/SKILL.md` — unified command with `--project` flag support
+5. For each active sub-project: write `TECH_SPEC.md` + `BUILD_STATUS.md` inside its directory
+6. Start Layer 1 of the first sub-project. Never skip ahead.

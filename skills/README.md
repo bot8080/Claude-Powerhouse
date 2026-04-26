@@ -46,12 +46,14 @@ A detailed comparison of why these skills were built and the results they delive
 
 ## Skills in this repo
 
-| Skill | Description | Install |
-|---|---|---|
-| [Powerhouse-Claud-Project-Setup-Kit](./Powerhouse-Claud-Project-Setup-Kit/) | Professional AI Workspace Architect — principles-based setup and project auditing v2 | [Download](./Powerhouse-Claud-Project-Setup-Kit/Powerhouse-Claud-Project-Setup-Kit.skill) |
-| [Powerhouse-Prompt-Optimizer](./Powerhouse-Prompt-Optimizer/) | Advanced Prompt Engineering Specialist v2 — strictly based on Anthropic 2025 heuristics | [Download](./Powerhouse-Prompt-Optimizer/Powerhouse-Prompt-Optimizer.skill) |
-| [Powerhouse-Resume-Specialist](./Powerhouse-Resume-Specialist/) | Premium Resume/CV specialist — handles professional structure and document formatting | [Download](./Powerhouse-Resume-Specialist/Powerhouse-Resume-Specialist.skill) |
-| [software-team](./software-team/) | Complete AI software team — spec-first, 7-layer build order, PM → Dev → QA agent pipeline | [Download](./software-team/software-team.skill) |
+> **Target labels:** `[CLI]` = Claude Code terminal only. `[Both]` = Claude Code + Claude.ai web.
+
+| Skill | Target | Description | Install |
+|---|---|---|---|
+| [software-team](./software-team/) | **CLI** | Complete AI dev team — spec-first, 7-layer build order, PM → Dev → QA pipeline. Use in Claude Code when building any product. | [Download](./software-team/software-team.skill) |
+| [Powerhouse-Claud-Project-Setup-Kit](./Powerhouse-Claud-Project-Setup-Kit/) | **Both** | Professional AI Workspace Architect — principles-based setup and project auditing v2 | [Download](./Powerhouse-Claud-Project-Setup-Kit/Powerhouse-Claud-Project-Setup-Kit.skill) |
+| [Powerhouse-Prompt-Optimizer](./Powerhouse-Prompt-Optimizer/) | **Both** | Advanced Prompt Engineering Specialist v2 — strictly based on Anthropic 2025 heuristics | [Download](./Powerhouse-Prompt-Optimizer/Powerhouse-Prompt-Optimizer.skill) |
+| [Powerhouse-Resume-Specialist](./Powerhouse-Resume-Specialist/) | **Both** | Premium Resume/CV specialist — handles professional structure and document formatting | [Download](./Powerhouse-Resume-Specialist/Powerhouse-Resume-Specialist.skill) |
 
 ---
 

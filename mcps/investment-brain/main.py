@@ -18,7 +18,7 @@ import argparse
 from datetime import datetime
 from typing import List, Optional
 
-from config import DATA_DIR, MCP_SERVER_CMD
+from config import DATA_DIR, MCP_SERVER_CMD, SCREENER_UNIVERSE
 from data_fetcher import DataFetcher
 from deal_breaker import check_deal_breakers
 from scorer import score_stock
@@ -72,8 +72,8 @@ def cmd_screen(args):
     if args.sector:
         print(f"   Sector: {args.sector}")
 
-    # For screener, we need a universe. User provides tickers or we use a default list.
-    tickers = args.tickers or ["AAPL", "MSFT", "GOOGL", "AMZN", "NVDA", "META", "TSLA", "TSM", "ASML", "AVGO"]
+    # For screener, we need a universe. User provides tickers or we use SCREENER_UNIVERSE from config.
+    tickers = args.tickers or SCREENER_UNIVERSE
     print(f"   Universe: {len(tickers)} stocks")
 
     with DataFetcher() as fetcher:
