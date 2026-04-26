@@ -1,16 +1,118 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working in this repository.
+
+---
 
 ## What This Repo Is
 
-A monorepo with two components:
-1. **`mcps/`** — MCP servers that give Claude real-time financial data tools
-2. **`skills/`** — `.skill` files that extend Claude.ai's behavior (installed via Settings → Skills)
+**Claude-Powerhouse** is a monorepo shipping two categories of AI tooling:
+
+| Category | Target | Location |
+|---|---|---|
+| **MCP Servers** | Claude Desktop + Claude Code (CLI) | `mcps/` |
+| **Skills** | Claude.ai web + Claude Code (CLI) | `skills/` |
+
+> The `skills/` folder contains skills for **both** targets — each skill's README states which target it supports. Never assume all skills run in the same environment.
+
+---
+
+## Auto-Routing (Hard Rules)
+
+Claude must route automatically — never ask "which agent should I use?":
+
+| User says | Action |
+|---|---|
+| "build X", "create X", "add X", "implement X" | PM Tech Lead ticket first — no code without a ticket |
+| "review", "check", "QA", "test" | QA Engineer |
+| "done", "merge", "PR", "ship" | Finish-feature flow |
+| "status", "what's next", "where are we" | Read `BUILD_STATUS.md`, suggest next unchecked task |
+| "research X", "how does X work", "investigate X" | Research Engineer |
+| "plan X", "design X", "architect X" | PM Tech Lead |
+
+---
+
+## Agent Pipeline (every feature)
+
+```
+PM Tech Lead → [Research Engineer?] → Dev Engineer → QA Engineer → Human Approve → Merge
+```
+
+Agent definitions live in `.claude/agents/`. Load the relevant agent file at the start of each role.
+
+**Skip Research Engineer** for standard CRUD/config work. Use it for new APIs, third-party integrations, or unfamiliar libraries.
+
+---
+
+## Layered Build Order — Gate Rule
+
+Layer N cannot start until Layer N-1 is merged to `main`.
+
+| Layer | Name | Contents |
+|---|---|---|
+| 1 | Types & Constants | Interfaces, enums, config, tokens |
+| 2 | Services | Data access — CRUD, auth, storage, API clients |
+| 3 | Context & Hooks | State management, business logic |
+| 4 | Base Components | Reusable UI primitives (skip for CLI/backend projects) |
+| 5 | Screens / Pages | Full route implementations |
+| 6 | Backend Functions | Cloud functions, webhooks, scheduled jobs |
+| 7 | Integration & Polish | Wire together, performance, real data |
+
+Adapt layer names to the sub-project's stack. The gate rule is universal.
+
+---
+
+## Spec Gate (Advisory)
+
+Before editing any source file in a sub-project, check that its anchor docs exist:
+- `TECH_SPEC.md` — schemas, service signatures, build layer map
+- `BUILD_STATUS.md` — layer checklist
+
+If either is missing, warn the user and suggest writing the spec first. Do not block — but do not silently skip the warning.
+
+`market-intelligence` is exempt (already shipped without specs). All new sub-projects must have specs before Layer 1 begins.
+
+---
+
+## Branch & Session Hygiene
+
+- Feature branches: `feature/L{N}-{description}` (layer number visible in the name)
+- `BUILD_STATUS.md` updates on `main` only — never commit it on a feature branch
+- Start a fresh session after each merged PR
+- Context recovery after a cleared session:
+
+```bash
+git branch --show-current          # what you were building
+git diff main...HEAD --stat        # all files changed in this branch
+git diff main...HEAD               # full diff
+git status                         # uncommitted work
+```
+
+Combined with `BUILD_STATUS.md` these four commands fully restore context — no re-explaining needed.
+
+---
+
+## Unified Command Skill
+
+Use `/powerhouse` for all project operations:
+
+| Sub-command | Action |
+|---|---|
+| `status` | Show current layer + next unchecked task from `BUILD_STATUS.md` |
+| `plan [feature]` | Invoke PM Tech Lead → produce structured ticket |
+| `build` | Invoke Dev Engineer → implement current ticket |
+| `review` | Invoke QA Engineer → validate against specs |
+| `branch [name]` | Create `feature/L{N}-{name}` from `main` |
+| `pr` | Type-check → sync main → create PR with standard template |
+| `next` | Find first unchecked item in `BUILD_STATUS.md` |
+
+`/powerhouse` infers the active sub-project from CWD. Run from repo root to see Powerhouse meta-status.
 
 ---
 
 ## MCP Servers (`mcps/`)
+
+> **Target: Claude Desktop + Claude Code (CLI)**
 
 ### market-intelligence
 
@@ -67,6 +169,8 @@ src/market_intelligence/
 
 ### investment-brain (in development)
 
+> Status: Layer 1 not yet started. Requires `TECH_SPEC.md` before any code changes.
+
 Local Python engine that pre-computes analysis and generates minimal Claude prompts (~20–50 tokens vs ~3,500). Claude only formats output.
 
 **Commands:**
@@ -98,7 +202,7 @@ Scoring: Fundamental 35 / Technical 35 / Smart Money 30. Deal-breaker checks run
 
 ## Skills (`skills/`)
 
-Each skill lives in `skills/<skill-name>/` with a `.skill` file and `README.md`.
+Each skill lives in `skills/<skill-name>/` with a `.skill` file and `README.md`. The skill's README declares its **target** (CLI, Web, or Both).
 
 **`.skill` file format:**
 - YAML frontmatter: `name:` and `description:` fields
@@ -108,15 +212,17 @@ Each skill lives in `skills/<skill-name>/` with a `.skill` file and `README.md`.
 
 **Adding a skill:**
 1. Create `skills/<name>/<name>.skill` with YAML frontmatter + markdown instructions
-2. Create `skills/<name>/README.md`
+2. Create `skills/<name>/README.md` — include target (CLI / Web / Both) at the top
 3. Add a row to the skills table in the root `README.md` and `skills/README.md`
 
 **Current skills:**
-| Skill | Purpose |
-|---|---|
-| `Powerhouse-Claud-Project-Setup-Kit` | AI Workspace Architect for project setup and auditing |
-| `Powerhouse-Prompt-Optimizer` | Expert prompt engineering using latest heuristics |
-| `Powerhouse-Resume-Specialist` | DOCX formatting + ATS optimization |
+
+| Skill | Target | Purpose |
+|---|---|---|
+| `software-team` | **CLI** | Full PM→Dev→QA pipeline for structured AI-assisted development |
+| `Powerhouse-Claud-Project-Setup-Kit` | **Both** | AI Workspace Architect for project setup and auditing |
+| `Powerhouse-Prompt-Optimizer` | **Both** | Expert prompt engineering using latest heuristics |
+| `Powerhouse-Resume-Specialist` | **Both** | DOCX formatting + ATS optimization |
 
 **Authoring pattern:** detect context first, then branch into modes (see `Powerhouse-Claud-Project-Setup-Kit` as the reference implementation). Skills that produce file output should save to `/mnt/user-data/outputs/`.
 
