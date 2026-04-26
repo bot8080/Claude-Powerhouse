@@ -93,7 +93,7 @@ Create a project-level skill (e.g. `/myapp`) with these sub-commands:
 | `plan [feature]` | Invoke PM Tech Lead → produce structured ticket |
 | `build` | Invoke Dev Engineer → implement current ticket |
 | `review` | Invoke QA Engineer → validate changes |
-| `branch [name]` | Create `feature/L{N}-{name}` branch from main |
+| `branch [name]` | Create `feature/{subproject}/L{N}-{name}` branch from main |
 | `pr` | Type-check → sync main → create PR with standard template |
 | `next` | Find first unchecked item in BUILD_STATUS (all sub-projects) |
 
@@ -120,7 +120,7 @@ Never ask "which agent should I use?" — route automatically.
 - `BUILD_STATUS.md` updates on `main` only — never on feature branches (prevents recurring merge conflicts)
 - Start a fresh session after each merged PR (preserves token budget)
 - Use Claude's persistent memory system for cross-session project context
-- Branch naming: `feature/L{N}-{name}` — layer number visible in the branch name
+- Branch naming: `feature/{subproject}/L{N}-{name}` — sub-project + layer both visible in branch name
 
 ---
 
@@ -148,7 +148,7 @@ Combined with `BUILD_STATUS.md` (what layers are fully done), these four command
 4. Write `CLAUDE.md` — hard rules, auto-routing table, tech stack, agent pipeline
 5. Create `.claude/agents/` — pm-tech-lead.md, dev-engineer.md, qa-engineer.md, research-engineer.md
 6. Create `.claude/skills/[project]/SKILL.md` — unified command skill with all sub-commands
-7. Start Layer 1. Never skip ahead.
+7. Start Layer 1. Branch naming: `feature/{project}/L{N}-{name}`. Never skip ahead.
 
 ### Monorepo
 1. Write root `CLAUDE.md` — auto-routing, hard rules, agent pipeline reference, CLI/web split

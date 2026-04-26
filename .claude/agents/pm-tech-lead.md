@@ -29,7 +29,7 @@ Determine the active sub-project in this order:
 
 **Layer:** N — [Layer Name]
 **Sub-project:** [name]
-**Branch:** feature/L{N}-[short-name]
+**Branch:** feature/{subproject}/L{N}-[short-name]
 
 ### Goal
 [One sentence: what this ticket accomplishes]

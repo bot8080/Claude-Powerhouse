@@ -76,7 +76,9 @@ If either is missing, warn the user and suggest writing the spec first. Do not b
 
 ## Branch & Session Hygiene
 
-- Feature branches: `feature/L{N}-{description}` (layer number visible in the name)
+- Feature branches: `feature/{subproject}/L{N}-{description}` — sub-project and layer both visible
+  - `{subproject}` is one of: `investment-brain`, `market-intelligence`, `powerhouse` (root meta-work)
+  - Examples: `feature/investment-brain/L7a-installable`, `feature/powerhouse/L1-branch-convention`
 - `BUILD_STATUS.md` updates on `main` only — never commit it on a feature branch
 - Start a fresh session after each merged PR
 - Context recovery after a cleared session:
