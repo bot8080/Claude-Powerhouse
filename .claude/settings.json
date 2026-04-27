@@ -1,4 +1,21 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(opencode run:*)",
+      "Bash(opencode auth list:*)",
+      "Bash(opencode auth login:*)",
+      "Bash(opencode --version:*)",
+      "Bash(command -v opencode:*)",
+      "Bash(git worktree add:*)",
+      "Bash(git worktree list:*)",
+      "Bash(git worktree remove:*)",
+      "Bash(git worktree prune:*)",
+      "Bash(git -C .powerhouse/wt/*:*)",
+      "Bash(tail -f .powerhouse/dispatches/*:*)",
+      "Bash(cat .powerhouse/tickets/*:*)",
+      "Bash(cat .powerhouse/dispatch-log.md:*)"
+    ]
+  },
   "hooks": {
     "PreToolUse": [
       {

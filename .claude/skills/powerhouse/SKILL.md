@@ -36,14 +36,18 @@ Invoke PM Tech Lead to create a structured ticket.
 
 ### `build`
 
-Invoke Dev Engineer to implement the current approved ticket.
+Invoke Dev Engineer (or OpenCode Dispatcher) to implement the current approved ticket.
 
 1. Confirm an approved ticket exists in the conversation
-2. Load `.claude/agents/dev-engineer.md`
+2. **Route by `dispatch_score`:**
+   - If the ticket has `dispatch_score >= 7` and the user opts in → load `.claude/agents/opencode-dispatcher.md` and run via the `opencode-handoff` skill (executes on OpenCode + MiniMax M2 free in an isolated worktree).
+   - Otherwise → load `.claude/agents/dev-engineer.md` and implement in Claude Code.
 3. Run pre-flight checks (branch, spec)
 4. Implement the ticket
 5. Report files changed + acceptance criteria met
 6. Hand off to QA with "Ready for QA Engineer review."
+
+See `skills/opencode-handoff/SKILL.md` for the dispatch flow, classifier, and quota guard.
 
 ---
 
