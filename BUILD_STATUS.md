@@ -24,20 +24,20 @@ Tracks the shipping status of Claude-Powerhouse itself: skills, MCPs, infrastruc
 - [x] `Powerhouse-Prompt-Optimizer` — shipped
 - [x] `Powerhouse-Resume-Specialist` — shipped
 - [x] `software-team` — shipped (CLI target)
-- [ ] `software-team` — monorepo improvements (--project flag, CWD detection) merged back
+- [x] `software-team` — monorepo improvements (--project flag, CWD detection) merged back
 
 ---
 
 ## Layer 3 — MCP Servers: Core Shipping
 
 - [x] `market-intelligence` — shipped (US/India/Canada markets)
-- [ ] `investment-brain` — Layer 1 (Types & Config) complete
-- [ ] `investment-brain` — Layer 2 (Services) complete
-- [ ] `investment-brain` — Layer 3 (Scorer + Deal-breaker) complete
-- [ ] `investment-brain` — Layer 4 (Paper Trading) complete
-- [ ] `investment-brain` — Layer 5 (MCP Bridge + Prompt Builder) complete
-- [ ] `investment-brain` — Layer 6 (CLI) complete
-- [ ] `investment-brain` — Layer 7 (Integration & Polish) complete
+- [x] `investment-brain` — Layer 1 (Types & Config) complete
+- [x] `investment-brain` — Layer 2 (Services) complete
+- [x] `investment-brain` — Layer 3 (Scorer + Deal-breaker) complete
+- [x] `investment-brain` — Layer 4 (Paper Trading) complete
+- [x] `investment-brain` — Layer 5 (MCP Bridge + Prompt Builder) complete
+- [x] `investment-brain` — Layer 6 (CLI) complete
+- [x] `investment-brain` — Layer 7 (Integration & Polish) complete
 
 ---
 

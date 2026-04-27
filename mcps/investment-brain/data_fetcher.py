@@ -72,6 +72,17 @@ class DataFetcher:
         if self._yf_available:
             self._enrich_with_yfinance(data, symbol)
 
+            # Fetch financial statements for Altman Z calculation
+            financials = self.get_financial_statements(symbol)
+            if financials.get("available"):
+                data["financial_statements"] = financials
+
+            # Check regulatory news
+            company_name = data.get("profile", {}).get("identity", {}).get("name", "")
+            regulatory = self.check_regulatory_news(symbol, company_name)
+            if regulatory.get("headlines"):
+                data["regulatory_check"] = regulatory
+
         return data if data.get("profile") or data.get("mcp_scoring") else None
 
     def _enrich_with_yfinance(self, data: Dict, symbol: str):
@@ -252,6 +263,129 @@ class DataFetcher:
             if data:
                 results.append(data)
         return results
+
+    def get_financial_statements(self, symbol: str) -> Dict:
+        """Fetch balance sheet and income statement for Altman Z calculation.
+
+        Returns:
+            Dict with balance_sheet, income_statement, and derived metrics
+        """
+        result = {
+            "balance_sheet": {},
+            "income_statement": {},
+            "derived": {},
+            "available": False,
+        }
+
+        if not self._yf_available:
+            return result
+
+        try:
+            ticker = self._yf.Ticker(symbol)
+
+            # Get balance sheet (most recent annual)
+            bs = ticker.balance_sheet
+            if bs is not None and not bs.empty:
+                latest = bs.iloc[:, 0]  # Most recent period
+
+                result["balance_sheet"] = {
+                    "total_assets": latest.get("Total Assets"),
+                    "total_liabilities": latest.get("Total Liabilities"),
+                    "total_equity": latest.get("Total Stockholder Equity"),
+                    "working_capital": latest.get("Working Capital"),
+                    "retained_earnings": latest.get("Retained Earnings"),
+                    "current_assets": latest.get("Current Assets"),
+                    "current_liabilities": latest.get("Current Liabilities"),
+                    "cash": latest.get("Cash And Cash Equivalents"),
+                    "marketable_securities": latest.get("Marketable Securities"),
+                }
+
+            # Get income statement (most recent annual)
+            isf = ticker.income_stmt
+            if isf is not None and not isf.empty:
+                latest = isf.iloc[:, 0]
+
+                result["income_statement"] = {
+                    "revenue": latest.get("Total Revenue"),
+                    "ebit": latest.get("Operating Income"),
+                    "net_income": latest.get("Net Income"),
+                    "interest_expense": latest.get("Interest Expense"),
+                    "ebitda": latest.get("Operating Income"),  # Approximate if EBITDA not available
+                }
+
+            # Calculate derived metrics for Altman Z
+            bs_data = result["balance_sheet"]
+            is_data = result["income_statement"]
+
+            ta = bs_data.get("total_assets")
+            tl = bs_data.get("total_liabilities")
+            wc = bs_data.get("working_capital")
+            re = bs_data.get("retained_earnings")
+            ebit = is_data.get("ebit")
+            equity = bs_data.get("total_equity")
+            revenue = is_data.get("revenue")
+            interest = is_data.get("interest_expense")
+
+            if ta and ta > 0:
+                result["derived"] = {
+                    "working_capital_to_assets": (wc / ta) if wc else None,
+                    "retained_earnings_to_assets": (re / ta) if re else None,
+                    "ebit_to_assets": (ebit / ta) if ebit else None,
+                    "equity_to_liabilities": (equity / tl) if (equity and tl) else None,
+                    "sales_to_assets": (revenue / ta) if revenue else None,
+                    "interest_coverage": (ebit / interest) if (ebit and interest and interest != 0) else None,
+                }
+
+            result["available"] = True
+
+        except Exception as e:
+            print(f"[financials] Error fetching for {symbol}: {e}")
+
+        return result
+
+    def check_regulatory_news(self, symbol: str, company_name: str) -> Dict:
+        """Check for regulatory actions via news search.
+
+        Returns:
+            Dict with has_regulatory_issues, headlines, source
+        """
+        result = {
+            "has_regulatory_issues": False,
+            "headlines": [],
+            "source": "yfinance_news",
+        }
+
+        if not self._yf_available:
+            return result
+
+        try:
+            ticker = self._yf.Ticker(symbol)
+            news = ticker.news
+
+            if not news:
+                return result
+
+            regulatory_keywords = [
+                "sec investigation", "sec inquiry", "sec probe",
+                "enforcement", "fine", "penalty", "violation",
+                "regulatory action", "doj", "department of justice",
+                "class action", "lawsuit", "litigation",
+            ]
+
+            for article in news[:10]:  # Check recent 10 articles
+                title = article.get("title", "").lower()
+                summary = article.get("summary", "").lower()
+
+                for keyword in regulatory_keywords:
+                    if keyword in title or keyword in summary:
+                        result["has_regulatory_issues"] = True
+                        result["headlines"].append(article.get("title", ""))
+                        break
+
+        except Exception as e:
+            print(f"[regulatory] Error checking news for {symbol}: {e}")
+
+        return result
 
     def get_macro(self, region: str = "US") -> Optional[Dict]:
         """Fetch macro data for a region."""
