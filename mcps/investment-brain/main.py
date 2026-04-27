@@ -18,6 +18,11 @@ import argparse
 from datetime import datetime
 from typing import List, Optional
 
+# Windows terminals default to cp1252 which can't render emoji — force UTF-8.
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 from config import DATA_DIR, MCP_SERVER_CMD, SCREENER_UNIVERSE
 from data_fetcher import DataFetcher
 from deal_breaker import check_deal_breakers

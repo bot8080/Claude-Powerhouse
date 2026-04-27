@@ -71,6 +71,59 @@ pip install -r requirements.txt
 python main.py analyze TSM
 ```
 
+[Full documentation →](./mcps/investment-brain/README.md)
+
+---
+
+### Powerhouse Stack — Running Both Together
+
+For the full experience, run `market-intelligence` as the data layer and `investment-brain` as the analysis engine on top of it.
+
+**Step 1 — Start market-intelligence:**
+```bash
+cd mcps/market-intelligence
+uv sync
+# Keep this terminal open (or add to Claude Desktop config below)
+uv run market-intelligence
+```
+
+**Step 2 — Wire investment-brain to it:**
+
+Mac / Linux:
+```bash
+export MARKET_INTELLIGENCE_CMD="uv run --directory /path/to/Claude-Powerhouse/mcps/market-intelligence market-intelligence"
+```
+
+Windows (PowerShell):
+```powershell
+$env:MARKET_INTELLIGENCE_CMD = "uv run --directory C:\path\to\Claude-Powerhouse\mcps\market-intelligence market-intelligence"
+```
+
+**Step 3 — Analyze:**
+```bash
+cd mcps/investment-brain
+pip install -r requirements.txt
+python main.py analyze TSM
+```
+
+**Step 4 (optional) — Claude Desktop config for both MCPs:**
+```json
+{
+  "mcpServers": {
+    "market-intelligence": {
+      "command": "uv",
+      "args": ["run", "--directory", "C:\\path\\to\\mcps\\market-intelligence", "market-intelligence"]
+    },
+    "investment-brain": {
+      "command": "python",
+      "args": ["C:\\path\\to\\mcps\\investment-brain\\mcp_wrapper.py"]
+    }
+  }
+}
+```
+
+When both MCPs are registered, Claude Desktop can call `analyze_stock`, `screen_stocks`, `paper_trade`, and `portfolio_review` as tools directly — no copy-pasting required.
+
 ---
 
 ## Skills

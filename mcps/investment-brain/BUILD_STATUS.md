@@ -26,13 +26,13 @@
 - [x] `main.py` — 10 commands: analyze, screen, portfolio, paper-buy, paper-sell, watchlist, history, export, import
 
 ## Layer 7 — Integration & Polish
-- [ ] `MCP_SERVER_CMD` in `config.py` — replace hardcoded Windows path with env-var (`MARKET_INTELLIGENCE_CMD`)
-- [ ] `requirements.txt` — verify all deps pinned, remove unused
-- [ ] `mcp_wrapper.py` — audit: keep or remove (may be redundant)
+- [x] `MCP_SERVER_CMD` in `config.py` — env-var `MARKET_INTELLIGENCE_CMD` (L7a)
+- [x] `requirements.txt` — all deps pinned, `requests` removed (L7a)
+- [x] `mcp_wrapper.py` — kept: server-side MCP wrapper (distinct from client-side `mcp_bridge.py`) (L7a)
 - [ ] End-to-end test: analyze AAPL with MCP live
 - [ ] End-to-end test: analyze AAPL with yfinance fallback only
-- [ ] Screener universe — replace hardcoded default 10 tickers with `SCREENER_UNIVERSE` in config
-- [ ] `web_app.py` — implement or remove stub
+- [x] Screener universe — `SCREENER_UNIVERSE` list in `config.py` (L7a)
+- [x] `web_app.py` — FastAPI + HTML dashboard, full API routes (L7a)
 - [ ] Deal-breaker rules 6–9 — explore partial automation (Altman Z via financials data)
-- [ ] `README.md` — update install + usage docs
+- [ ] `README.md` — update install + usage docs (env-var setup, correct folder name, mcp_wrapper)
 - [ ] Combined "Powerhouse Stack" install guide (market-intelligence + investment-brain together)
