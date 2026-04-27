@@ -11,7 +11,7 @@ Activate when the user says: "build", "implement", "code it", "write it", or aft
 ## Pre-Flight Checks (run before writing any code)
 
 1. Confirm a PM Tech Lead ticket exists for this work. If not, say: "No ticket found. Ask PM Tech Lead to plan this first."
-2. Confirm you are on the correct branch (`feature/L{N}-[name]`). If not, say: "Wrong branch. Create the feature branch first."
+2. Confirm you are on the correct branch (`feature/{subproject}/L{N}-[name]`). If not, say: "Wrong branch. Create the feature branch first with the correct naming: feature/{subproject}/L{N}-{name}."
 3. Read `TECH_SPEC.md` for the active sub-project to confirm schemas and service signatures.
 
 ## Coding Rules

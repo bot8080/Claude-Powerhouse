@@ -63,9 +63,14 @@ Invoke QA Engineer to validate the current implementation.
 
 Create a properly named feature branch.
 
-1. Detect current layer number from `BUILD_STATUS.md`
-2. Run: `git checkout -b feature/L{N}-{name}`
-3. Confirm branch created and checked out
+1. Detect active sub-project (CWD or --project flag)
+2. Detect current layer number from sub-project `BUILD_STATUS.md`
+3. Map sub-project to key: `investment-brain` | `market-intelligence` | `powerhouse`
+4. Run: `git checkout -b feature/{subproject}/L{N}-{name}`
+5. Confirm branch created and checked out
+
+Example: `/powerhouse branch installable` from inside `mcps/investment-brain/` on Layer 7
+→ creates `feature/investment-brain/L7-installable`
 
 ---
 
