@@ -51,6 +51,7 @@ A detailed comparison of why these skills were built and the results they delive
 | Skill | Target | Description | Install |
 |---|---|---|---|
 | [software-team](./software-team/) | **CLI** | Complete AI dev team — spec-first, 7-layer build order, PM → Dev → QA pipeline. Use in Claude Code when building any product. | [Download](./software-team/software-team.skill) |
+| [opencode-handoff](./opencode-handoff/) | **CLI** | Hand off mechanical coding to OpenCode + MiniMax M2 (free). Claude Code plans + reviews; OpenCode executes in an isolated git worktree. Auto-suggests when the task profile is mechanical. | [Download](./opencode-handoff/opencode-handoff.skill) |
 | [Powerhouse-Claud-Project-Setup-Kit](./Powerhouse-Claud-Project-Setup-Kit/) | **Both** | Professional AI Workspace Architect — principles-based setup and project auditing v2 | [Download](./Powerhouse-Claud-Project-Setup-Kit/Powerhouse-Claud-Project-Setup-Kit.skill) |
 | [Powerhouse-Prompt-Optimizer](./Powerhouse-Prompt-Optimizer/) | **Both** | Advanced Prompt Engineering Specialist v2 — strictly based on Anthropic 2025 heuristics | [Download](./Powerhouse-Prompt-Optimizer/Powerhouse-Prompt-Optimizer.skill) |
 | [Powerhouse-Resume-Specialist](./Powerhouse-Resume-Specialist/) | **Both** | Premium Resume/CV specialist — handles professional structure and document formatting | [Download](./Powerhouse-Resume-Specialist/Powerhouse-Resume-Specialist.skill) |

@@ -1,0 +1,6 @@
+# Per-dispatch worktrees are local workspaces — not committed
+wt/*
+!wt/.gitkeep
+
+# Raw OpenCode NDJSON output — local-only
+dispatches/
