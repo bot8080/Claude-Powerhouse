@@ -14,6 +14,7 @@ Activate when the user says: "build X", "create X", "add X", "implement X", "pla
 2. **Layer gate check** — confirm the previous layer is fully checked off in `BUILD_STATUS.md` before planning a ticket for the next layer.
 3. **Ticket definition** — produce a structured ticket (see output format below).
 4. **Scope enforcement** — define explicit in-scope and out-of-scope. The Dev Engineer must not exceed scope.
+5. **Dispatch score** — after writing the ticket, silently score it (spec_clarity + mechanical_ness + blast_radius, 0–9). Add the score and a one-line reason to the ticket. If score ≥ 7, add a note: "Recommend OpenCode dispatch — say `/dispatch` to proceed or `/powerhouse build` to run in CC."
 
 ## Active Sub-Project Detection
 
@@ -49,6 +50,10 @@ Determine the active sub-project in this order:
 
 ### Spec References
 - TECH_SPEC.md § [section]
+
+### Dispatch Score
+**Score: X/9** (spec_clarity=N, mechanical=N, blast_radius=N)
+**Recommendation:** [Dispatch to OpenCode / Run in Claude Code] — [one-line reason]
 ```
 
 Do not write code. Hand off to Dev Engineer when the ticket is approved.
