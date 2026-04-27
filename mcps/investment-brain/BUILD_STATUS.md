@@ -29,10 +29,10 @@
 - [x] `MCP_SERVER_CMD` in `config.py` — env-var `MARKET_INTELLIGENCE_CMD` (L7a)
 - [x] `requirements.txt` — all deps pinned, `requests` removed (L7a)
 - [x] `mcp_wrapper.py` — kept: server-side MCP wrapper (distinct from client-side `mcp_bridge.py`) (L7a)
-- [ ] End-to-end test: analyze AAPL with MCP live
-- [ ] End-to-end test: analyze AAPL with yfinance fallback only
+- [x] End-to-end test: analyze AAPL with MCP live (L7b)
+- [x] End-to-end test: analyze AAPL with yfinance fallback only (L7b)
 - [x] Screener universe — `SCREENER_UNIVERSE` list in `config.py` (L7a)
 - [x] `web_app.py` — FastAPI + HTML dashboard, full API routes (L7a)
 - [ ] Deal-breaker rules 6–9 — explore partial automation (Altman Z via financials data)
-- [ ] `README.md` — update install + usage docs (env-var setup, correct folder name, mcp_wrapper)
-- [ ] Combined "Powerhouse Stack" install guide (market-intelligence + investment-brain together)
+- [x] `README.md` — update install + usage docs (env-var setup, correct folder name, mcp_wrapper) (L7b)
+- [x] Combined "Powerhouse Stack" install guide (market-intelligence + investment-brain together) (L7b)
