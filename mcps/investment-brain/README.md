@@ -1,4 +1,4 @@
-# Investment Brain 🧠
+# Investment Brain
 
 **Local Python engine that does all the heavy lifting** — data fetching, scoring, screening, portfolio tracking, paper trading. Claude only formats the output.
 
@@ -15,6 +15,8 @@
 | **Portfolio Tracker** | SQLite-backed holdings with sector allocation, P&L, risk flags |
 | **Paper Trading** | Virtual ledger with rule enforcement (position limits, stop losses) |
 | **Prompt Builder** | Generates minimal prompts (20-50 tokens) + structured JSON for Claude |
+| **Web UI** | FastAPI dashboard at `:8000` — analyze, screen, paper trade from a browser |
+| **MCP Server** | Exposes investment-brain itself as an MCP tool for Claude Desktop / Claude Code |
 
 ---
 
@@ -22,11 +24,11 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  YOUR LOCAL MACHINE (Windows)                               │
+│  YOUR LOCAL MACHINE                                         │
 │                                                             │
 │  ┌─────────────────┐      ┌─────────────────────────────┐  │
 │  │ Claude Desktop  │◄────►│  market-intelligence MCP    │  │
-│  │                 │      │  (already running via uv)   │  │
+│  │                 │      │  (running via uv)           │  │
 │  └─────────────────┘      └─────────────────────────────┘  │
 │           ▲                            │                    │
 │           │ You paste minimal prompt   │ MCP data          │
@@ -41,11 +43,11 @@
 │  │  • You copy-paste into Claude                       │   │
 │  └─────────────────────────────────────────────────────┘   │
 │                            │                                │
-│                            │ Optional: deploy to Oracle    │
+│                            │ Optional: deploy to server    │
 │                            ▼                                │
 │  ┌─────────────────────────────────────────────────────┐   │
-│  │  ORACLE CLOUD SERVER (1GB RAM)                      │   │
-│  │  • Web UI for portfolio tracking                    │   │
+│  │  SERVER (any Linux/Mac/Windows)                     │   │
+│  │  • Web UI for portfolio tracking (:8000)            │   │
 │  │  • yfinance for autonomous data                     │   │
 │  │  • Sync SQLite DB via export/import                 │   │
 │  └─────────────────────────────────────────────────────┘   │
@@ -59,19 +61,30 @@
 ### 1. Install
 
 ```bash
-cd investment_brain
+cd mcps/investment-brain
 pip install -r requirements.txt
 ```
 
-### 2. Configure MCP Path
+### 2. Configure MCP (optional)
 
-Edit `config.py`:
+Set the `MARKET_INTELLIGENCE_CMD` environment variable to point at your running `market-intelligence` MCP server. If unset, investment-brain falls back to yfinance only.
 
-```python
-MCP_SERVER_CMD = "uv run --directory C:/\\Users\\abhik\\...\\market-intelligence python -m market_intelligence"
+**Mac / Linux:**
+```bash
+export MARKET_INTELLIGENCE_CMD="uv run --directory /path/to/Claude-Powerhouse/mcps/market-intelligence market-intelligence"
 ```
 
-Or leave empty to use yfinance only.
+**Windows (PowerShell):**
+```powershell
+$env:MARKET_INTELLIGENCE_CMD = "uv run --directory C:\path\to\Claude-Powerhouse\mcps\market-intelligence market-intelligence"
+```
+
+**Windows (Command Prompt):**
+```cmd
+set MARKET_INTELLIGENCE_CMD=uv run --directory C:\path\to\Claude-Powerhouse\mcps\market-intelligence market-intelligence
+```
+
+Add the export to your shell profile (`.bashrc`, `.zshrc`, PowerShell `$PROFILE`) to make it permanent.
 
 ### 3. Analyze a Stock
 
@@ -92,19 +105,13 @@ Output:
 Format this stock data into a Summary Card per my rules...
 [JSON payload]
 ============================================================
-
-📋 Dashboard JSON (paste into artifact):
-{
-  "t": "TSM",
-  "name": "Taiwan Semiconductor",
-  ...
-}
 ```
 
 ### 4. Run Screener
 
 ```bash
-python main.py screen --pe-max 25 --roe-min 15 --sector Semis
+python main.py screen --pe-max 25 --roe-min 15
+python main.py screen --pe-max 25 --roe-min 15 --sector Technology AAPL MSFT NVDA TSM ASML
 ```
 
 ### 5. Paper Trade
@@ -120,28 +127,36 @@ python main.py paper-sell TSM 10 185.00 --reason "Target hit"
 python main.py portfolio
 ```
 
+### 7. Web UI (optional)
+
+```bash
+python -m uvicorn web_app:app --host 0.0.0.0 --port 8000
+```
+
+Then open `http://localhost:8000` in a browser.
+
 ---
 
 ## Commands
 
 | Command | Description |
 |---------|-------------|
-| `analyze <ticker>` | Full analysis + Claude prompt |
-| `screen [tickers...]` | Filter + rank stocks |
+| `analyze <ticker> [--market US\|CA\|IN]` | Full analysis + Claude prompt |
+| `screen [tickers...] [--pe-max N] [--roe-min N] [--sector NAME]` | Filter + rank stocks |
 | `portfolio` | Review holdings + generate prompt |
-| `paper-buy <t> <shares> <price>` | Virtual buy with rule checks |
-| `paper-sell <t> <shares> <price>` | Virtual sell |
+| `paper-buy <t> <shares> <price> [--stop-loss] [--target]` | Virtual buy with rule checks |
+| `paper-sell <t> <shares> <price> [--reason]` | Virtual sell |
 | `watchlist` | Show watchlist |
 | `history` | Show decision log |
-| `export` | Backup to JSON |
+| `export [--file PATH]` | Backup to JSON |
 | `import <file>` | Restore from JSON |
 
 ---
 
 ## Token Savings
 
-| Task | Current (Claude alone) | New (Python + Claude) | Savings |
-|------|----------------------|----------------------|---------|
+| Task | Claude alone | Python + Claude | Savings |
+|------|-------------|-----------------|---------|
 | Single stock analysis | ~3,500 tokens | ~400 tokens | **88%** |
 | Portfolio review (20 holdings) | ~8,000 tokens | ~600 tokens | **92%** |
 | Screener (10 stocks) | ~5,000 tokens | ~500 tokens | **90%** |
@@ -151,18 +166,18 @@ python main.py portfolio
 
 ---
 
-## Deploy to Oracle Server
+## Deploy to a Server
 
 ```bash
-# On Oracle server
+# On any server with Python 3.10+
 git clone <repo>
-cd investment_brain
+cd mcps/investment-brain
 pip install -r requirements.txt
 
-# Run web UI (optional)
+# Run web UI
 python -m uvicorn web_app:app --host 0.0.0.0 --port 8000
 
-# Or just run CLI via SSH
+# Or just CLI via SSH
 python main.py analyze TSM
 ```
 
@@ -171,30 +186,22 @@ python main.py analyze TSM
 ## File Structure
 
 ```
-investment_brain/
-├── config.py              # Settings, thresholds, rules
-├── mcp_bridge.py          # JSON-RPC client for MCP server
+mcps/investment-brain/
+├── config.py              # Settings, thresholds, rules, env-var wiring
+├── mcp_bridge.py          # CLIENT: connects investment-brain → market-intelligence MCP
+├── mcp_wrapper.py         # SERVER: exposes investment-brain as MCP server for Claude
 ├── data_fetcher.py        # MCP primary, yfinance fallback
 ├── deal_breaker.py        # 9-rule disqualification checker
 ├── scorer.py              # 35/35/30 scoring engine
 ├── portfolio_db.py        # SQLite portfolio/watchlist/history
 ├── paper_trading.py       # Virtual ledger with rules
 ├── prompt_builder.py      # Claude prompt generator
+├── web_app.py             # FastAPI dashboard (browser UI + REST API)
 ├── main.py                # CLI entry point
-├── requirements.txt       # Dependencies
-└── data/                  # SQLite DB (auto-created)
+├── requirements.txt       # Pinned dependencies
+└── data/                  # SQLite DB (auto-created on first run)
     └── portfolio.db
 ```
-
----
-
-## Next Steps
-
-1. **Test locally** with `python main.py analyze TSM`
-2. **Paste the prompt** into Claude Desktop
-3. **Verify** the formatted output matches your rules
-4. **Deploy to Oracle** for 24/7 web access
-5. **Sync data** between local and Oracle via export/import
 
 ---
 

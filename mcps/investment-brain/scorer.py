@@ -457,6 +457,11 @@ def _calc_stop_loss(price: float, tech: Dict) -> float:
     return round(price * 0.9, 2)
 
 
+def _get_price(profile: Dict) -> float:
+    """Extract current price from profile."""
+    return _f(profile.get("price", {}).get("current")) or 0.0
+
+
 def _suggest_account(market: str, profile: Dict) -> str:
     """Suggest best account type."""
     from config import ACCOUNT_MAP
