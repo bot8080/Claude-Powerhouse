@@ -48,6 +48,46 @@ After the skill runs, your project has:
 
 ---
 
+## Monorepo Support
+
+This skill works in both single-project repos and monorepos. When your project has multiple sub-projects (e.g., `mcps/`, `skills/`), use the `--project` flag to scope commands.
+
+### Sub-project Detection
+
+The skill detects the active sub-project in this order:
+
+1. **Explicit flag:** `--project <name>` → use that sub-project
+2. **CWD inference:** If you're inside `mcps/investment-brain/`, it auto-detects "investment-brain"
+3. **Root fallback:** Running from repo root shows the root-level BUILD_STATUS.md
+
+### Examples
+
+| Command | Result |
+|---------|--------|
+| `software-team --project investment-brain status` | Shows investment-brain's BUILD_STATUS.md |
+| `software-team plan "add new feature"` | Uses CWD to detect which project to plan for |
+| `software-team` (from repo root) | Shows root BUILD_STATUS.md with meta-work |
+
+### Project Structure
+
+```
+repo/
+├── BUILD_STATUS.md          # Root meta-work tracker
+├── TECH_SPEC.md            # Root-level spec (if needed)
+├── mcps/
+│   ├── market-intelligence/
+│   │   ├── BUILD_STATUS.md # Per-sub-project layer tracking
+│   │   └── TECH_SPEC.md
+│   └── investment-brain/
+│       ├── BUILD_STATUS.md
+│       └── TECH_SPEC.md
+├── skills/
+│   └── software-team/
+│       └── ...
+```
+
+---
+
 ## Contents
 
 - `SKILL.md`: The full skill instructions — agent pipeline, build layers, session hygiene, context recovery.

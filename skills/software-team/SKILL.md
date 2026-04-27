@@ -77,6 +77,31 @@ If your project is a monorepo with multiple sub-projects, scope all commands to 
 3. CWD is repo root → show root-level `BUILD_STATUS.md`
 4. Ambiguous → ask once: "Which sub-project?"
 
+**Implementation:**
+
+```python
+# Sub-project detection logic
+import os
+import re
+
+def detect_project(args: list, cwd: str, root_path: str) -> str:
+    # 1. Check --project flag
+    if "--project" in args:
+        idx = args.index("--project")
+        return args[idx + 1]
+
+    # 2. Infer from CWD
+    rel = os.path.relpath(cwd, root_path)
+    parts = rel.split(os.sep)
+
+    # Check if inside mcps/ or skills/
+    if parts[0] in ("mcps", "skills") and len(parts) >= 2:
+        return parts[1]  # e.g., "investment-brain"
+
+    # 3. Default to root
+    return "root"
+```
+
 **Per sub-project anchor docs:** Each sub-project gets its own `TECH_SPEC.md` and `BUILD_STATUS.md` inside its directory. Agents are shared at the repo root (`.claude/agents/`).
 
 **Root `BUILD_STATUS.md`:** Track the monorepo's meta-work (which sub-projects are shipped, docs done, distribution ready) separately from each sub-project's layer checklist.

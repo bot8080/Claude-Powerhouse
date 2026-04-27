@@ -33,6 +33,6 @@
 - [x] End-to-end test: analyze AAPL with yfinance fallback only (L7b)
 - [x] Screener universe — `SCREENER_UNIVERSE` list in `config.py` (L7a)
 - [x] `web_app.py` — FastAPI + HTML dashboard, full API routes (L7a)
-- [ ] Deal-breaker rules 6–9 — explore partial automation (Altman Z via financials data)
+- [x] Deal-breaker rules 6–9 — explore partial automation (Altman Z via financials data)
 - [x] `README.md` — update install + usage docs (env-var setup, correct folder name, mcp_wrapper) (L7b)
 - [x] Combined "Powerhouse Stack" install guide (market-intelligence + investment-brain together) (L7b)
