@@ -2,15 +2,15 @@
 
 Every ticket under `.powerhouse/tickets/{id}.md` must conform to this schema.
 
-Both Claude Code (planner + reviewer) and OpenCode (executor) parse this. Keep it stable.
+Both Claude Code (planner + reviewer) and OpenCode (executor) read this. Keep it stable.
 
 ---
 
 ## Filename
 
-`{id}.md` where `id = {layer}-{slug}-{shortid}` and `shortid` is 4 hex chars.
+`{id}.md` where `id = {slug}-{timestamp}` — slug is a short kebab-case description, timestamp is Unix seconds (last 6 digits).
 
-Examples: `L2-auth-svc-9f3a.md`, `L1-types-config-c0a3.md`
+Examples: `auth-svc-239f3a.md`, `rsi-indicator-c0a312.md`
 
 ---
 
@@ -18,22 +18,14 @@ Examples: `L2-auth-svc-9f3a.md`, `L1-types-config-c0a3.md`
 
 ```yaml
 ---
-id: L2-auth-svc-9f3a
-layer: 2
-sub_project: investment-brain        # root | market-intelligence | investment-brain | <new>
-branch: feature/L2-auth-svc          # feature/L{N}-{slug}
-dispatch_score: 8                    # 0..9, total from classifier
-score_breakdown:
-  spec_clarity: 3                    # 0..3
-  mechanical: 3                      # 0..3
-  blast_radius_inverted: 2           # 0..3 (3 = lowest blast)
-model: openrouter/minimax/minimax-m2:free
-status: planned                      # planned | dispatched | reviewing | merged | failed
+id: auth-svc-239f3a
+branch: feature/investment-brain/auth-svc
 files_to_touch:
   - src/services/auth.py
   - tests/services/test_auth.py
-created_at: 2026-04-27T18:32:00Z
-created_by: claude-code              # claude-code | human
+acceptance_criteria:
+  - Auth token is returned on valid login
+  - Invalid credentials return 401
 ---
 ```
 
@@ -42,80 +34,37 @@ created_by: claude-code              # claude-code | human
 | Field | Required | Notes |
 |---|---|---|
 | `id` | yes | Must match filename stem |
-| `layer` | yes | Integer 1..7, matches CLAUDE.md layer table |
-| `sub_project` | yes | Use `root` for monorepo-level work |
-| `branch` | yes | Always `feature/L{N}-{slug}` |
-| `dispatch_score` | yes | 0..9 |
-| `score_breakdown` | yes | All three sub-scores must be present |
-| `model` | yes | Fully qualified `provider/model` for OpenCode |
-| `status` | yes | Lifecycle state |
-| `files_to_touch` | yes | Exhaustive list — OC may not touch others |
-| `created_at` | yes | ISO 8601 UTC |
-| `created_by` | yes | Audit field |
+| `branch` | yes | `feature/{subproject}/{slug}` — must exist before dispatch |
+| `files_to_touch` | yes | Exhaustive list — OC may not touch files outside this list |
+| `acceptance_criteria` | yes | Testable, one criterion per line — QA Engineer checks each one |
 
 ---
 
 ## Body
 
-After the closing `---`, write the standard PM Tech Lead ticket body:
+After the closing `---`, write the ticket body:
 
 ```markdown
-## Ticket: <short name>
-
-**Layer:** N — <Layer Name>
-**Sub-project:** <name>
-**Branch:** feature/L{N}-<short-name>
-
-### Goal
+## Goal
 <One sentence: what this ticket accomplishes>
 
-### In Scope
-- <bullet list of exactly what must be built>
+## In Scope
+- <bullet: exactly what must be built>
 
-### Out of Scope
-- <bullet list of what is explicitly NOT included>
+## Out of Scope
+- <bullet: explicitly excluded>
 
-### Acceptance Criteria
-- [ ] <testable criterion 1>
-- [ ] <testable criterion 2>
-
-### Files to Touch
-- <file path> — <what changes>
-
-### Spec References
-- TECH_SPEC.md § <section>
-- CLAUDE.md § <section>
+## Notes
+<Any context OC needs: patterns to follow, gotchas, relevant CLAUDE.md sections>
 ```
-
-The body is identical to the existing `.claude/agents/pm-tech-lead.md` output format. The frontmatter is the only addition.
 
 ---
 
-## Lifecycle
+## Dispatch rules
 
-```
-planned ──► dispatched ──► reviewing ──► merged
-   │             │              │
-   │             ▼              ▼
-   └──────► failed (any time, with reason in dispatch-log.md)
-```
+`dispatch.sh` refuses to run if:
 
-State transitions are written by:
-- `planned` — PM Tech Lead writes the ticket
-- `dispatched` — opencode-dispatcher agent at start of OC run
-- `reviewing` — QA Engineer at start of review
-- `merged` — opencode-dispatcher agent on QA PASS
-- `failed` — anyone, with a row in dispatch-log.md
-
----
-
-## Validation
-
-The dispatcher refuses to run a ticket if:
-
-- Any required field is missing or empty
-- `id` doesn't match filename
-- `dispatch_score < 4` (always reject)
-- `dispatch_score in 4..6` and no human override note in the body
-- `status != planned` at dispatch time (a ticket can only be dispatched once)
+- Any required frontmatter field is missing or empty
 - `files_to_touch` is empty
+- The branch does not exist in git
+- A worktree for this id already exists under `.powerhouse/wt/`

@@ -1,7 +1,7 @@
 ---
 description: Follow a Powerhouse ticket exactly. Read the ticket file passed as the argument, implement only what's In Scope, touch only Files to Touch, verify each Acceptance Criterion, and emit a structured completion JSON before stopping.
 agent: build
-model: openrouter/minimax/minimax-m2:free
+model: opencode/minimax-m2.5-free
 ---
 
 # /follow-ticket

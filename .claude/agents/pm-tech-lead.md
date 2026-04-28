@@ -25,35 +25,43 @@ Determine the active sub-project in this order:
 
 ## Output Format
 
-```
-## Ticket: [short name]
+First write the ticket file to `.powerhouse/tickets/{id}.md` where `id = {slug}-{last6ofunixts}`.
 
-**Layer:** N — [Layer Name]
-**Sub-project:** [name]
-**Branch:** feature/{subproject}/L{N}-[short-name]
+```markdown
+---
+id: auth-svc-239f3a
+branch: feature/{subproject}/{slug}
+files_to_touch:
+  - src/services/auth.py
+  - tests/services/test_auth.py
+acceptance_criteria:
+  - Auth token is returned on valid login
+  - Invalid credentials return 401
+---
 
-### Goal
+## Goal
 [One sentence: what this ticket accomplishes]
 
-### In Scope
-- [bullet list of exactly what Dev Engineer must build]
+## In Scope
+- [bullet: exactly what must be built]
 
-### Out of Scope
-- [bullet list of what is explicitly NOT included]
+## Out of Scope
+- [bullet: explicitly excluded]
 
-### Acceptance Criteria
-- [ ] [testable criterion 1]
-- [ ] [testable criterion 2]
-
-### Files to Touch
-- [file path] — [what changes]
-
-### Spec References
-- TECH_SPEC.md § [section]
-
-### Dispatch Score
-**Score: X/9** (spec_clarity=N, mechanical=N, blast_radius=N)
-**Recommendation:** [Dispatch to OpenCode / Run in Claude Code] — [one-line reason]
+## Notes
+[Context OC or Dev Engineer needs: patterns to follow, relevant CLAUDE.md sections, gotchas]
 ```
 
-Do not write code. Hand off to Dev Engineer when the ticket is approved.
+Then print a summary to the user:
+
+```
+Ticket written: .powerhouse/tickets/{id}.md
+Branch: feature/{subproject}/{slug}
+Files: [list]
+
+[One-line dispatch recommendation: "Mechanical + bounded → good OpenCode candidate. Say `/dispatch` to proceed, or `/powerhouse build` to run in CC."]
+```
+
+The dispatch recommendation is **one line only** — no score breakdown unless the user asks.
+
+Do not write code. Hand off when the ticket is approved.
