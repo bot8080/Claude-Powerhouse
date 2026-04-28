@@ -124,6 +124,8 @@ Create a project-level skill (e.g. `/myapp`) with these sub-commands:
 
 Route all user intent through this single entry point — never ask users which agent to call.
 
+Add project-specific scaffolding sub-commands (e.g., `setup`, `seed`, `reset-db`) to this same skill — centralizing all project operations in one entry point.
+
 ---
 
 ## Auto-Routing (put in CLAUDE.md)
@@ -161,6 +163,53 @@ git status                         # any uncommitted work still in progress
 ```
 
 Combined with `BUILD_STATUS.md` (what layers are fully done), these four commands give complete context: what the feature is, what was already implemented, and what still needs to be written. No need to start over — resume from exactly where the session stopped.
+
+---
+
+## Persistence Model
+
+Three layers, each with a distinct job. They complement — not duplicate — each other.
+
+| Layer | Where | Stores | Lifetime |
+|-------|-------|--------|----------|
+| **Memory files** | `~/.claude/projects/<hash>/memory/` | *Why* — decisions, constraints, locked choices | Cross-session |
+| **BUILD_STATUS.md** | Repo root or sub-project dir | *What* — which layers are done, what's in progress | Updated after each merge |
+| **Git** | Branch + commits | *How* — the actual implementation | Permanent |
+
+**Rule of thumb:** If you'd need to explain it to a new agent every session, it belongs in memory. If it tracks progress, it belongs in BUILD_STATUS. If it's code, it belongs in git.
+
+### Lock a decision
+
+When a design choice is settled and should not be re-litigated, write it to a memory file with a lock flag:
+
+```markdown
+---
+name: Auth Strategy
+description: Chosen auth approach — read before any auth work
+type: project
+---
+
+Chosen: JWT with refresh tokens stored in httpOnly cookies.
+
+**DO NOT re-brainstorm this.** Decision locked after L1 implementation.
+Why: compliance requirement — session tokens must be httpOnly.
+```
+
+Agents recovering from a cleared session will read this and skip straight to implementing — no re-debate.
+
+### Memory file format (Claude Code)
+
+```markdown
+---
+name: <short name>
+description: <one-line trigger — when should an agent read this?>
+type: project | user | feedback | reference
+---
+
+<content — lead with the fact, then Why: and How to apply: lines>
+```
+
+Keep a `MEMORY.md` index in the same folder. One line per entry: `- [Title](file.md) — one-line hook`.
 
 ---
 
