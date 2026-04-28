@@ -29,7 +29,7 @@ Claude must route automatically — never ask "which agent should I use?":
 | "status", "what's next", "where are we" | Read `BUILD_STATUS.md`, suggest next unchecked task |
 | "research X", "how does X work", "investigate X" | Research Engineer |
 | "plan X", "design X", "architect X" | PM Tech Lead |
-| "dispatch", "/dispatch", "send to opencode", "minimax this", "opencode handoff" | OpenCode Dispatcher (see `skills/opencode-handoff/`) |
+| "dispatch", "/dispatch", "send to opencode", "minimax this", "opencode handoff" | OpenCode Dispatcher (see `skills/Powerhouse-opencode-handoff/`) |
 
 ---
 
@@ -46,7 +46,7 @@ For mechanical, well-spec'd, low-blast-radius tickets, hand execution off to **O
 
 **OpenCode reads this `CLAUDE.md` automatically** as a fallback for `AGENTS.md` (per opencode.ai/docs/rules), so all the rules in this file apply to both agents — no duplication needed.
 
-The `opencode-handoff` skill auto-suggests dispatch when a task scores ≥ 7/9 on (spec clarity + mechanical-ness + inverse blast radius). Each dispatch runs in `.powerhouse/wt/{id}/` (a git worktree) so the main working tree is never touched. See `skills/opencode-handoff/SKILL.md` for the full flow.
+The `Powerhouse-opencode-handoff` skill auto-suggests dispatch when a task scores ≥ 7/9 on (spec clarity + mechanical-ness + inverse blast radius). Each dispatch runs in `.powerhouse/wt/{id}/` (a git worktree) so the main working tree is never touched. See `skills/Powerhouse-opencode-handoff/SKILL.md` for the full flow.
 
 ---
 
@@ -241,8 +241,8 @@ Each skill lives in `skills/<skill-name>/` with a `.skill` file and `README.md`.
 
 | Skill | Target | Purpose |
 |---|---|---|
-| `software-team` | **CLI** | Full PM→Dev→QA pipeline for structured AI-assisted development |
-| `opencode-handoff` | **CLI** | Hand off mechanical coding to OpenCode + MiniMax M2 (free) — CC plans + reviews, OC executes in an isolated git worktree |
+| `Powerhouse-software-team` | **CLI** | Full PM→Dev→QA pipeline for structured AI-assisted development |
+| `Powerhouse-opencode-handoff` | **CLI** | Hand off mechanical coding to OpenCode + MiniMax M2 (free) — CC plans + reviews, OC executes in an isolated git worktree |
 | `Powerhouse-Claud-Project-Setup-Kit` | **Both** | AI Workspace Architect for project setup and auditing |
 | `Powerhouse-Prompt-Optimizer` | **Both** | Expert prompt engineering using latest heuristics |
 | `Powerhouse-Resume-Specialist` | **Both** | DOCX formatting + ATS optimization |

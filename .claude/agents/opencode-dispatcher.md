@@ -16,7 +16,7 @@ Activate when the user says: "dispatch", "/dispatch", "send to opencode", "minim
 2. **OpenRouter authed.** Run `opencode auth list`. If `openrouter` not present: tell user to run `opencode auth login`.
 3. **Ticket exists.** Confirm `.powerhouse/tickets/{id}.md` exists with required frontmatter fields (see `.powerhouse/tickets/SCHEMA.md`).
 4. **Dispatch score gate.** `dispatch_score >= 7` OR the user explicitly overrode for a 4–6 score (note the override in `dispatch-log.md`).
-5. **Quota guard.** Estimate remaining OpenRouter free RPD from the last 24h of `dispatch-log.md`. If <10, refuse and offer paid fallback (see `skills/opencode-handoff/references/quota-and-fallback.md`).
+5. **Quota guard.** Estimate remaining OpenRouter free RPD from the last 24h of `dispatch-log.md`. If <10, refuse and offer paid fallback (see `skills/Powerhouse-opencode-handoff/references/quota-and-fallback.md`).
 6. **Branch exists or can be created.** The ticket's `branch:` field gives the target. Create it from `main` if missing.
 7. **Worktree path is clear.** `.powerhouse/wt/{id}` must not already exist. If it does, ask the user before clobbering — it's likely an orphan from a previous failed dispatch.
 
@@ -153,6 +153,6 @@ Update the ticket status to `failed` if the user discards.
 
 ## See Also
 
-- `skills/opencode-handoff/SKILL.md` — the user-facing skill (mode detection, classifier, full flow)
-- `skills/opencode-handoff/references/dispatch-protocol.md` — the exact contract
+- `skills/Powerhouse-opencode-handoff/SKILL.md` — the user-facing skill (mode detection, classifier, full flow)
+- `skills/Powerhouse-opencode-handoff/references/dispatch-protocol.md` — the exact contract
 - `.opencode/commands/follow-ticket.md` — the OC slash command that pins behavior

@@ -23,8 +23,8 @@ Tracks the shipping status of Claude-Powerhouse itself: skills, MCPs, infrastruc
 - [x] `Powerhouse-Claud-Project-Setup-Kit` — shipped
 - [x] `Powerhouse-Prompt-Optimizer` — shipped
 - [x] `Powerhouse-Resume-Specialist` — shipped
-- [x] `software-team` — shipped (CLI target)
-- [x] `software-team` — monorepo improvements (--project flag, CWD detection) merged back
+- [x] `Powerhouse-software-team` — shipped (CLI target)
+- [x] `Powerhouse-software-team` — monorepo improvements (--project flag, CWD detection) merged back
 
 ---
 
@@ -45,7 +45,7 @@ Tracks the shipping status of Claude-Powerhouse itself: skills, MCPs, infrastruc
 
 - [x] Root README.md — restructured with CLI / Multi-Target / MCP sections
 - [x] `skills/README.md` — CLI vs multi-target labels added
-- [x] `skills/software-team/README.md` — monorepo usage guide added
+- [x] `skills/Powerhouse-software-team/README.md` — monorepo usage guide added
 - [x] `mcps/market-intelligence/` — TECH_SPEC.md written retrospectively
 - [x] GitHub releases — v1.0 tag for market-intelligence
 

@@ -30,10 +30,10 @@ Layer 1:
 - [ ] `.claude/hooks/warn-missing-specs.sh` — advisory spec-gate hook
 
 Layer 2:
-- [ ] `software-team` skill — monorepo improvements (--project flag, CWD detection)
+- [ ] `Powerhouse-software-team` skill — monorepo improvements (--project flag, CWD detection)
 
 Layer 4 — Docs:
-- [ ] `skills/software-team/README.md` — add monorepo usage guide
+- [ ] `skills/Powerhouse-software-team/README.md` — add monorepo usage guide
 - [ ] `mcps/market-intelligence/TECH_SPEC.md` — write retrospectively
 - [ ] GitHub releases — tag v1.0 for market-intelligence
 
@@ -44,11 +44,11 @@ Layer 5 — Distribution:
 - [ ] Demo GIF or screenshot in root README
 
 ### What to work on next
-Default: **software-team monorepo improvements** (just completed). 
+Default: **Powerhouse-software-team monorepo improvements** (just completed). 
 
 Other open items:
 - `.claude/hooks/warn-missing-specs.sh` — advisory spec-gate hook
-- Layer 4 docs (skills/software-team/README.md — added)
+- Layer 4 docs (skills/Powerhouse-software-team/README.md — added)
 - Layer 5 distribution (GitHub topics, install docs, demo)
 
 ---

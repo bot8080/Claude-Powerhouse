@@ -12,8 +12,8 @@ Claude-Powerhouse/
 │   ├── market-intelligence/           # US/India/CA financial intelligence (shipped)
 │   └── investment-brain/              # AI-driven analysis engine (in development)
 ├── skills/                            # Skills — Claude.ai Web + Claude Code CLI
-│   ├── software-team/                 # [CLI] Full PM→Dev→QA pipeline
-│   ├── opencode-handoff/              # [CLI] Hand off mechanical coding to OpenCode + MiniMax M2 (free)
+│   ├── Powerhouse-software-team/          # [CLI] Full PM→Dev→QA pipeline
+│   ├── Powerhouse-opencode-handoff/      # [CLI] Hand off mechanical coding to OpenCode + MiniMax M2 (free)
 │   ├── Powerhouse-Claud-Project-Setup-Kit/   # [Both] AI Workspace Architect
 │   ├── Powerhouse-Prompt-Optimizer/   # [Both] Expert prompt engineering
 │   └── Powerhouse-Resume-Specialist/  # [Both] DOCX + ATS optimization
@@ -144,8 +144,8 @@ When both MCPs are registered, Claude Desktop can call `analyze_stock`, `screen_
 
 | Skill | Target | Purpose |
 |---|---|---|
-| [Software Team](./skills/software-team/) | **CLI only** | Full AI dev team — PM plans, Dev builds, QA reviews. Spec-first, layer-gated, four-agent pipeline. |
-| [OpenCode Handoff](./skills/opencode-handoff/) | **CLI only** | Hand off mechanical coding tasks to OpenCode + MiniMax M2 (free). CC plans + reviews; OC executes in an isolated git worktree. Auto-suggests when the task profile is mechanical. |
+| [Software Team](./skills/Powerhouse-software-team/) | **CLI only** | Full AI dev team — PM plans, Dev builds, QA reviews. Spec-first, layer-gated, four-agent pipeline. |
+| [OpenCode Handoff](./skills/Powerhouse-opencode-handoff/) | **CLI only** | Hand off mechanical coding tasks to OpenCode + MiniMax M2 (free). CC plans + reviews; OC executes in an isolated git worktree. Auto-suggests when the task profile is mechanical. |
 | [Project Setup Kit](./skills/Powerhouse-Claud-Project-Setup-Kit/) | **CLI + Web** | AI Workspace Architect — project setup, structure auditing, CLAUDE.md generation. |
 | [Prompt Optimizer](./skills/Powerhouse-Prompt-Optimizer/) | **CLI + Web** | Expert-grade prompt engineering using the latest heuristics. |
 | [Resume Specialist](./skills/Powerhouse-Resume-Specialist/) | **CLI + Web** | Premium DOCX formatting and ATS optimization. |
@@ -224,9 +224,9 @@ For any skill in this repo, use the raw URL directly:
 # Use the raw URL: https://raw.githubusercontent.com/bot8080/Claude-Powerhouse/main/skills/<skill-name>/SKILL.md
 ```
 
-### Example: software-team skill
+### Example: Powerhouse-software-team skill
 
-1. Go to: `https://raw.githubusercontent.com/bot8080/Claude-Powerhouse/main/skills/software-team/SKILL.md`
+1. Go to: `https://raw.githubusercontent.com/bot8080/Claude-Powerhouse/main/skills/Powerhouse-software-team/SKILL.md`
 2. Copy the content
 3. Claude.ai → Settings → Skills → Install Skill → Paste
 
