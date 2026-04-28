@@ -45,7 +45,7 @@ Tracks the shipping status of Claude-Powerhouse itself: skills, MCPs, infrastruc
 
 - [x] Root README.md — restructured with CLI / Multi-Target / MCP sections
 - [x] `skills/README.md` — CLI vs multi-target labels added
-- [ ] `skills/software-team/README.md` — monorepo usage guide added
+- [x] `skills/software-team/README.md` — monorepo usage guide added
 - [x] `mcps/market-intelligence/` — TECH_SPEC.md written retrospectively
 - [x] GitHub releases — v1.0 tag for market-intelligence
 
