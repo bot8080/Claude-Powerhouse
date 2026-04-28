@@ -40,7 +40,7 @@ For mechanical, well-spec'd, low-blast-radius tickets, hand execution off to **O
 | Phase | Runs in | Model |
 |---|---|---|
 | Plan / spec / ticket | Claude Code | Opus 4.7 (or Sonnet 4.6) |
-| Code execution | OpenCode | `openrouter/minimax/minimax-m2:free` |
+| Code execution | OpenCode | `opencode/minimax-m2.5-free` |
 | Code review / QA | Claude Code | Sonnet 4.6 |
 | Architecture / research | Claude Code | Opus 4.7 + WebSearch |
 

@@ -55,7 +55,7 @@ echo "→ OpenCode + ${MODEL}, ticket ${TICKET_ID}, worktree ${WT}"
 # 6. Run OpenCode (background-friendly — long-running)
 cd "${WT}"
 opencode run \
-  --model "${MODEL}" \
+  --model "opencode/minimax-m2.5-free" \
   --format json \
   --quiet \
   --file ".powerhouse/tickets/${TICKET_ID}.md" \

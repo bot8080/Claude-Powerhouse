@@ -33,7 +33,7 @@ Claude Code burns Opus tokens on mechanical work — boilerplate, renames, well-
 
 - 10B activated / 230B total params, 204k context window
 - Strong on SWE-Bench Verified, Multi-SWE-Bench, Terminal-Bench
-- Free on OpenRouter (`minimax-m2:free`) at ~20 RPM / ~200 RPD
+- Free via OpenCode (`opencode/minimax-m2.5-free`) at ~20 RPM / ~200 RPD
 - Tool-use and reasoning supported
 - **Reads your existing `CLAUDE.md` automatically** as a fallback for `AGENTS.md` — no duplicate config
 
@@ -42,7 +42,7 @@ Claude Code burns Opus tokens on mechanical work — boilerplate, renames, well-
 | Phase | Runs in | Model |
 |---|---|---|
 | Plan / spec / ticket | Claude Code | Opus 4.7 (or Sonnet 4.6) |
-| Code execution | OpenCode | `openrouter/minimax/minimax-m2:free` |
+| Code execution | OpenCode | `opencode/minimax-m2.5-free` |
 | Code review / QA | Claude Code | Sonnet 4.6 |
 | Architecture / research | Claude Code | Opus 4.7 + WebSearch |
 
