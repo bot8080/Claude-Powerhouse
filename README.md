@@ -38,10 +38,21 @@ Real-time financial intelligence across US (NASDAQ/NYSE), India (NSE/BSE), and C
 
 **8 tools:** multi-market ticker resolution, full company profiles, technical analysis (RSI/MACD/ADX/Bollinger), 4-pillar scoring, insider/institutional activity, FII/DII flows, Nifty valuation, US macro data.
 
-```bash
-cd mcps/market-intelligence
-uv sync
-uv run market-intelligence
+```
+$ uvx market-intelligence
+> get_scoring_data("NVDA")
+{
+  "symbol": "NVDA",
+  "total_score": 82,
+  "verdict_suggestion": "BUY",
+  "pillar_scores": {
+    "valuation": {"score": 23, "reason": "PE=65.2, PEG=1.2"},
+    "quality": {"score": 22, "reason": "ROE=65%, Insider=4.2%"},
+    "momentum": {"score": 22, "reason": "above 50/200DMA, RSI=58"},
+    "risk": {"score": 15, "beta": 1.68}
+  },
+  "piotroski_f_score": {"score": 8, "verdict": "strong"}
+}
 ```
 
 **Claude Desktop config:**
@@ -183,6 +194,41 @@ cd Claude-Powerhouse
 git clone --depth 1 https://github.com/garrytan/gstack.git ~/.claude/skills/gstack
 cd ~/.claude/skills/gstack && ./setup --team
 ```
+
+---
+
+## Installing MCP Servers
+
+### Via uvx (recommended)
+
+```bash
+uvx market-intelligence
+```
+
+### Via pip
+
+```bash
+pip install git+https://github.com/bot8080/Claude-Powerhouse.git#subdirectory=mcps/market-intelligence
+```
+
+---
+
+## Installing Skills
+
+### From GitHub (raw URL)
+
+For any skill in this repo, use the raw URL directly:
+
+```bash
+# Upload to Claude.ai via Settings → Skills → Install Skill
+# Use the raw URL: https://raw.githubusercontent.com/bot8080/Claude-Powerhouse/main/skills/<skill-name>/SKILL.md
+```
+
+### Example: software-team skill
+
+1. Go to: `https://raw.githubusercontent.com/bot8080/Claude-Powerhouse/main/skills/software-team/SKILL.md`
+2. Copy the content
+3. Claude.ai → Settings → Skills → Install Skill → Paste
 
 ---
 

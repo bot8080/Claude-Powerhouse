@@ -46,17 +46,17 @@ Tracks the shipping status of Claude-Powerhouse itself: skills, MCPs, infrastruc
 - [x] Root README.md — restructured with CLI / Multi-Target / MCP sections
 - [x] `skills/README.md` — CLI vs multi-target labels added
 - [ ] `skills/software-team/README.md` — monorepo usage guide added
-- [ ] `mcps/market-intelligence/` — TECH_SPEC.md written retrospectively
-- [ ] GitHub releases — v1.0 tag for market-intelligence
+- [x] `mcps/market-intelligence/` — TECH_SPEC.md written retrospectively
+- [x] GitHub releases — v1.0 tag for market-intelligence
 
 ---
 
 ## Layer 5 — Distribution & Discovery
 
-- [ ] GitHub topics set (mcp, claude, ai-tools, finance, skills)
-- [ ] `skills/` installable from GitHub raw URL documented
-- [ ] `mcps/` installable via uvx / pip documented
-- [ ] Demo GIF or screenshot in root README
+- [x] GitHub topics set (mcp, claude, ai-tools, finance, skills)
+- [x] `skills/` installable from GitHub raw URL documented
+- [x] `mcps/` installable via uvx / pip documented
+- [x] Demo GIF or screenshot in root README
 
 ---
 
