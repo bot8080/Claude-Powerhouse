@@ -13,8 +13,8 @@ Tracks the shipping status of Claude-Powerhouse itself: skills, MCPs, infrastruc
 - [x] Create `.claude/agents/` — PM Tech Lead, Research Engineer, Dev Engineer, QA Engineer
 - [x] Create `.claude/skills/powerhouse/SKILL.md` — unified /powerhouse command
 - [x] Create `.claude/hooks/check-gstack.sh` — gstack install gate
-- [ ] Create `.claude/hooks/warn-missing-specs.sh` — advisory spec-gate hook
-- [ ] Write TECH_SPEC.md for investment-brain (required before Layer 1 of that sub-project)
+- [x] Create `.claude/hooks/warn-missing-specs.sh` — advisory spec-gate hook
+- [x] Write TECH_SPEC.md for investment-brain (required before Layer 1 of that sub-project)
 
 ---
 

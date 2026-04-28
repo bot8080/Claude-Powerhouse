@@ -1,68 +1,57 @@
-#!/bin/bash
-# Advisory spec-gate: warns when editing source files in a sub-project that has no TECH_SPEC.md.
-# Does NOT block — exits 0 always. Upgrade to blocking by changing the final echo + exit.
+#!/usr/bin/env bash
+# Advisory spec-gate: warns when editing a source file in an mcps/ sub-project
+# that is missing TECH_SPEC.md or BUILD_STATUS.md.
+# Never blocks — always exits 0.
+#
+# Register in .claude/settings.json PreToolUse for matcher "Edit|Write":
+#   {"matcher": "Edit|Write", "hooks": [{"type": "command", "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/warn-missing-specs.sh\""}]}
 
-TOOL_INPUT="${CLAUDE_TOOL_INPUT:-}"
-REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
+TOOL_NAME="${CLAUDE_TOOL_NAME:-}"
 
 # Only check Edit and Write tool calls
-TOOL_NAME="${CLAUDE_TOOL_NAME:-}"
 if [[ "$TOOL_NAME" != "Edit" && "$TOOL_NAME" != "Write" ]]; then
   echo '{}'
   exit 0
 fi
 
-# Extract file path from tool input (JSON field "file_path")
-FILE_PATH=$(echo "$TOOL_INPUT" | grep -o '"file_path":"[^"]*"' | cut -d'"' -f4)
-if [[ -z "$FILE_PATH" ]]; then
+# Extract file_path from JSON tool input
+FILE_PATH=$(printf '%s' "${CLAUDE_TOOL_INPUT:-}" | grep -o '"file_path":"[^"]*"' | cut -d'"' -f4)
+[[ -z "$FILE_PATH" ]] && { echo '{}'; exit 0; }
+
+# Skip if the file being edited is a spec file itself
+BASENAME="${FILE_PATH##*/}"
+if [[ "$BASENAME" == "TECH_SPEC.md" || "$BASENAME" == "BUILD_STATUS.md" ]]; then
   echo '{}'
   exit 0
 fi
 
-# Exempt: .claude/, skills/, root files, and market-intelligence (pre-spec)
-case "$FILE_PATH" in
-  */.claude/*|*/skills/*|*market-intelligence*|*.md|*.json|*.sh|*.gitignore)
-    echo '{}'
-    exit 0
-    ;;
-esac
-
-# Detect sub-project from file path
-SUBPROJECT_DIR=""
-if [[ "$FILE_PATH" == */mcps/investment-brain/* ]]; then
-  SUBPROJECT_DIR="$REPO_ROOT/mcps/investment-brain"
-elif [[ "$FILE_PATH" == */mcps/* ]]; then
-  # Other future sub-projects
-  SUBPROJECT_DIR=$(echo "$FILE_PATH" | grep -o ".*/mcps/[^/]*" | head -1)
-fi
-
-if [[ -z "$SUBPROJECT_DIR" ]]; then
+# Extract sub-project from mcps/<subproject>/... (handles absolute and relative paths)
+if [[ "$FILE_PATH" =~ /mcps/([^/]+)/ ]]; then
+  SUBPROJECT="${BASH_REMATCH[1]}"
+elif [[ "$FILE_PATH" =~ ^mcps/([^/]+)/ ]]; then
+  SUBPROJECT="${BASH_REMATCH[1]}"
+else
+  # Not under mcps/ — skip (.claude/, .powerhouse/, skills/, repo root, etc.)
   echo '{}'
   exit 0
 fi
 
-# Check for TECH_SPEC.md
-if [[ ! -f "$SUBPROJECT_DIR/TECH_SPEC.md" ]]; then
-  cat >&2 <<MSG
-ADVISORY: No TECH_SPEC.md found in $SUBPROJECT_DIR.
-
-Best practice: write TECH_SPEC.md before editing source files in this sub-project.
-  - Define schemas, service signatures, and the build layer map
-  - Then run: /powerhouse plan [feature] to get a proper ticket
-
-Proceeding anyway (advisory mode). Set enforce-spec-gate=true in settings to block.
-MSG
+# market-intelligence is exempt: shipped before spec discipline was established
+if [[ "$SUBPROJECT" == "market-intelligence" ]]; then
+  echo '{}'
+  exit 0
 fi
 
-# Check for BUILD_STATUS.md
-if [[ ! -f "$SUBPROJECT_DIR/BUILD_STATUS.md" ]]; then
-  cat >&2 <<MSG
-ADVISORY: No BUILD_STATUS.md found in $SUBPROJECT_DIR.
+# Resolve sub-project root
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
+SUBPROJECT_ROOT="${REPO_ROOT}/mcps/${SUBPROJECT}"
 
-Create BUILD_STATUS.md to track layer progress and enable /powerhouse status.
-MSG
-fi
+# Check for each required spec file; warn if missing
+for SPEC_FILE in TECH_SPEC.md BUILD_STATUS.md; do
+  if [[ ! -f "${SUBPROJECT_ROOT}/${SPEC_FILE}" ]]; then
+    echo "[spec-gate] WARNING: mcps/${SUBPROJECT} is missing ${SPEC_FILE} — consider writing the spec first." >&2
+  fi
+done
 
-# Always allow — advisory only
 echo '{}'
 exit 0
