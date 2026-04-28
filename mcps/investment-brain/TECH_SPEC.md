@@ -13,13 +13,14 @@ Pre-compute financial analysis locally and hand Claude a 20–50 token prompt. C
 | Config & Thresholds | `config.py` | Done |
 | MCP Bridge | `mcp_bridge.py` | Done |
 | Data Fetcher | `data_fetcher.py` | Done |
-| Deal-Breaker | `deal_breaker.py` | Done (3 rules need manual check) |
+| Deal-Breaker | `deal_breaker.py` | Done (rules 6, 8 need manual check; 7, 9 auto) |
 | Scoring Engine | `scorer.py` | Done |
 | Portfolio DB | `portfolio_db.py` | Done |
 | Paper Trading | `paper_trading.py` | Done |
 | Prompt Builder | `prompt_builder.py` | Done |
 | CLI | `main.py` | Done |
-| Web App | `web_app.py` | Stub — not yet implemented |
+| Web App | `web_app.py` | Done (FastAPI + vanilla JS, 5-tab UI) |
+| MCP Server | `mcp_wrapper.py` | Done (exposes 4 tools to Claude Desktop) |
 
 ---
 
@@ -393,11 +394,11 @@ class PromptBuilder:
 | 4 | Insider selling > $50M in 90d | $50M net sell | Yes |
 | 5 | Promoter pledge (India) | > 50% pledged | Yes (config) |
 | 6 | QoE Ratio (CFO/NI) < 0.7 | 2+ years | **Manual check required** |
-| 7 | Altman Z-Score < 1.81 | Bankruptcy zone | **Manual check required** |
+| 7 | Altman Z-Score < 1.81 | Bankruptcy zone | Yes (Banks/Insurance exempt) |
 | 8 | Accounting red flags / auditor qualification | Any | **Manual check required** |
-| 9 | Active regulatory action (SEC/SEBI) | Any | **Manual check required** |
+| 9 | Active regulatory action (SEC/SEBI) | Any | Yes (keyword scan on news headlines) |
 
-Rules 6–9 are flagged in `needs_manual_check` list in the DealBreakerResult — never silently skipped.
+Rules 6 and 8 are flagged in `needs_manual_check` in DealBreakerResult — never silently skipped.
 
 ---
 
@@ -482,18 +483,5 @@ Total payload to Claude: ~40 tokens (instruction) + ~300 tokens (JSON). Claude o
 | 3 | Intelligence | `deal_breaker.py`, `scorer.py` | Done |
 | 4 | Storage | `portfolio_db.py`, `paper_trading.py` | Done |
 | 5 | Output | `prompt_builder.py` | Done |
-| 6 | CLI | `main.py` | Done |
-| 7 | Integration & Polish | Wire together, real-data tests, requirements, docs | In progress |
-
----
-
-## Open Items (Layer 7)
-
-- [ ] `web_app.py` — stub only, not yet implemented
-- [ ] `requirements.txt` — verify all deps are pinned
-- [ ] End-to-end test with live market data (MCP connected)
-- [ ] End-to-end test with yfinance fallback only
-- [ ] `MCP_SERVER_CMD` in `config.py` hard-codes a Windows path — make env-var driven
-- [ ] Deal-breaker rules 6–9 (manual check) — explore partial automation via market-intelligence scoring data
-- [ ] `mcp_wrapper.py` — verify role and remove if redundant
-- [ ] Screener universe — replace hardcoded default 10 tickers with configurable list
+| 6 | CLI + Web + MCP Server | `main.py`, `web_app.py`, `mcp_wrapper.py` | Done |
+| 7 | Integration & Polish | End-to-end tests, requirements pinned, docs updated | Done |
