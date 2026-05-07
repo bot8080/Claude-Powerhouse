@@ -30,7 +30,7 @@ Layer 1:
 - [ ] `.claude/hooks/warn-missing-specs.sh` — advisory spec-gate hook
 
 Layer 2:
-- [ ] `Powerhouse-software-team` skill — monorepo improvements (--project flag, CWD detection)
+- [x] `Powerhouse-software-team` skill — monorepo improvements (--project flag, CWD detection)
 
 Layer 4 — Docs:
 - [ ] `skills/Powerhouse-software-team/README.md` — add monorepo usage guide

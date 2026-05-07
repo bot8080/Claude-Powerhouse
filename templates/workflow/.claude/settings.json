@@ -5,6 +5,10 @@
     ],
     "post-write": [
       "{{TYPECHECK_CMD}}"
+    ],
+    "post-tool-use": [
+      "node .claude/hooks/branch-name.js",
+      "node .claude/hooks/commit-msg.js"
     ]
   }
 }
