@@ -6,6 +6,11 @@
     "docs/CONVENTIONS.md",
     "docs/ARCHITECTURE.md"
   ],
+  "agent": {
+    "advisor": {
+      "model": "opencode/minimax-m2.5-free"
+    }
+  },
   "providers": {
     "opencode": {}
   },

@@ -5,6 +5,14 @@
     ],
     "post-write": [
       "npx tsc --noEmit --incremental"
+    ],
+    "pre-tool-use": [
+      "bash .claude/hooks/warn-missing-specs.sh",
+      "bash .claude/hooks/check-gstack.sh"
+    ],
+    "post-tool-use": [
+      "node .claude/hooks/branch-name.js",
+      "node .claude/hooks/commit-msg.js"
     ]
   }
 }
