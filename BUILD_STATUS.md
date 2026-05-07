@@ -83,3 +83,4 @@ Tracks the shipping status of Claude-Powerhouse itself: skills, MCPs, infrastruc
 - `market-intelligence` is exempt from spec-gate (shipped before spec discipline was established)
 - Branch naming: `feature/{subproject}/L{N}-{description}` — sub-project + layer both visible (e.g. `feature/powerhouse/L1-branch-convention`)
 - Recovery: `git diff main...HEAD --stat` + this file = full context after session reset
+

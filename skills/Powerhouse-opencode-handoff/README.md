@@ -166,4 +166,5 @@ The skill activates on:
 
 ---
 
-*Part of the [Claude-Powerhouse](../../README.md) suite. Pairs with [Powerhouse-software-team](../Powerhouse-software-team/) (PM/Dev/QA pipeline) and `/powerhouse` (unified command).*
+*Part of the [Claude-Powerhouse](../../README.md) suite. Pairs with [Powerhouse-software-team](../pst-software-team/) (PM/Dev/QA pipeline) and `/pst` (unified command).*
+

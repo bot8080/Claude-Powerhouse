@@ -17,7 +17,7 @@ A **complete AI software development team** skill — spec-first, layer-gated, a
 
 ## Installation
 
-1. Download [Powerhouse-software-team.skill](./Powerhouse-software-team.skill)
+1. Download [Powerhouse-software-team.skill](./pst-software-team.skill)
 2. Open [Claude.ai](https://claude.ai) → **Settings** → **Skills**
 3. Click **Install Skill** and upload the file
 
@@ -96,3 +96,4 @@ repo/
 ---
 
 *Part of the [Claude-Powerhouse](../../README.md) suite.*
+

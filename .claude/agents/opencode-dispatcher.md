@@ -56,7 +56,7 @@ Then wait for the user to confirm before invoking Dev Engineer.
 
 **Success** → hand off to REVIEW:
 
-> "Dispatch complete. Ticket `{id}` — {N} files changed in {duration}. Ready for QA Engineer review — say 'review the dispatch' or `/powerhouse review`."
+> "Dispatch complete. Ticket `{id}` — {N} files changed in {duration}. Ready for QA Engineer review — say 'review the dispatch' or `/pst review`."
 
 ---
 
@@ -98,7 +98,8 @@ Then instruct the user to merge the feature branch via normal PR flow.
 
 ## See also
 
-- `skills/Powerhouse-opencode-handoff/SKILL.md` — user-facing skill
+- `skills/pst-opencode-handoff/SKILL.md` — user-facing skill
 - `.opencode/commands/follow-ticket.md` — OC slash command
 - `.powerhouse/setup.sh` — one-time environment check
 - `.powerhouse/dispatch.sh` — orchestration script
+

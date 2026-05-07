@@ -6,14 +6,14 @@ Transforms AI coding agents into a structured, professional engineering team wit
 - 🏗️ **Project scaffolding** — Expo, React, Next.js stacks with Firebase/Stripe addons
 - 📋 **Spec-first discipline** — TECH_SPEC + BUILD_STATUS gates before any code
 - 🤖 **Multi-agent pipeline** — PM → Research → Dev → QA with automatic routing
-- 🔧 **CLI + Skills** — `npx powerhouse` for scaffolding, `/powerhouse` for execution
+- 🔧 **CLI + Skills** — `npx powerhouse` for scaffolding, `/pst` for execution
 - 🌍 **Cross-tool compatible** — Works with Claude Code, OpenCode, Kimi Code, Cursor, Windsurf, +15 more
 
 ---
 
 ## Quick Start
 
-> **Prerequisites:** Node.js 20+, Claude Code (CLI) for `/powerhouse` commands
+> **Prerequisites:** Node.js 20+, Claude Code (CLI) for `/pst` commands
 
 ```bash
 # Scaffold a new project with interactive setup
@@ -23,10 +23,10 @@ npx powerhouse init my-app
 npx powerhouse apply
 
 # Then use the agent pipeline in Claude Code
-/powerhouse status
-/powerhouse plan "user auth"
-/powerhouse build
-/powerhouse review
+/pst status
+/pst plan "user auth"
+/pst build
+/pst review
 
 # Need help? Ask @advisor anything
 ```
@@ -81,13 +81,13 @@ npx powerhouse apply
 
 | Command | What it does |
 |---|---|
-| `/powerhouse status` | Current layer + next unchecked task |
-| `/powerhouse plan [feature]` | PM Tech Lead produces a structured ticket |
-| `/powerhouse build` | Dev Engineer implements (or OpenCode dispatch if mechanical) |
-| `/powerhouse review` | QA Engineer full 7-point validation |
-| `/powerhouse branch [name]` | Creates `feature/{subproject}/L{N}-{name}` |
-| `/powerhouse pr` | Type-check → rebase → push → create PR |
-| `/powerhouse next` | First unchecked task across all sub-projects |
+| `/pst status` | Current layer + next unchecked task |
+| `/pst plan [feature]` | PM Tech Lead produces a structured ticket |
+| `/pst build` | Dev Engineer implements (or OpenCode dispatch if mechanical) |
+| `/pst review` | QA Engineer full 7-point validation |
+| `/pst branch [name]` | Creates `feature/{subproject}/L{N}-{name}` |
+| `/pst pr` | Type-check → rebase → push → create PR |
+| `/pst next` | First unchecked task across all sub-projects |
 
 ---
 
@@ -109,7 +109,7 @@ Claude-Powerhouse/
 │       └── opencode-ai/           # Multi-agent AI workflow
 ├── .claude/
 │   ├── agents/                    # PM, Dev, QA, Research, Advisor, Dispatcher
-│   ├── skills/powerhouse/         # /powerhouse unified command
+│   ├── skills/pst/         # /pst unified command
 │   └── hooks/                     # Spec-gate + gstack hooks
 ├── .agents/                       # Cross-tool alias (OpenCode, Kimi, Cursor)
 │   ├── agents/                    # Agent definitions
@@ -165,17 +165,17 @@ Every feature flows through a fixed pipeline with automatic routing:
 ```
 User → @advisor (ad-hoc help, anytime)
    ↓ (formal ticket)
-/powerhouse plan "feature"
+/pst plan "feature"
    ↓
 PM Tech Lead → writes ticket with scope + acceptance criteria
    ↓ (optional, for unfamiliar APIs)
 Research Engineer → investigates, produces findings doc
    ↓
-/powerhouse build
+/pst build
    ↓
 Dev Engineer → implements ticket exactly (or OpenCode dispatch if score >= 7)
    ↓
-/powerhouse review
+/pst review
    ↓
 QA Engineer → 7-point validation → PASS/FAIL
    ↓
@@ -312,11 +312,11 @@ When both MCPs are registered, Claude Desktop can call `analyze_stock`, `screen_
 
 | Skill | Target | Purpose |
 |---|---|---|
-| [Software Team](./skills/Powerhouse-software-team/) | **CLI only** | Full AI dev team — PM plans, Dev builds, QA reviews. Spec-first, layer-gated, four-agent pipeline. |
-| [OpenCode Handoff](./skills/Powerhouse-opencode-handoff/) | **CLI only** | Hand off mechanical coding tasks to OpenCode + MiniMax M2 (free). CC plans + reviews; OC executes in an isolated git worktree. Auto-suggests when the task profile is mechanical. |
-| [Project Setup Kit](./skills/Powerhouse-Claud-Project-Setup-Kit/) | **CLI + Web** | AI Workspace Architect — project setup, structure auditing, CLAUDE.md generation. |
-| [Prompt Optimizer](./skills/Powerhouse-Prompt-Optimizer/) | **CLI + Web** | Expert-grade prompt engineering using the latest heuristics. |
-| [Resume Specialist](./skills/Powerhouse-Resume-Specialist/) | **CLI + Web** | Premium DOCX formatting and ATS optimization. |
+| [Software Team](./skills/pst-software-team/) | **CLI only** | Full AI dev team — PM plans, Dev builds, QA reviews. Spec-first, layer-gated, four-agent pipeline. |
+| [OpenCode Handoff](./skills/pst-opencode-handoff/) | **CLI only** | Hand off mechanical coding tasks to OpenCode + MiniMax M2 (free). CC plans + reviews; OC executes in an isolated git worktree. Auto-suggests when the task profile is mechanical. |
+| [Project Setup Kit](./skills/pst-Claud-Project-Setup-Kit/) | **CLI + Web** | AI Workspace Architect — project setup, structure auditing, CLAUDE.md generation. |
+| [Prompt Optimizer](./skills/pst-Prompt-Optimizer/) | **CLI + Web** | Expert-grade prompt engineering using the latest heuristics. |
+| [Resume Specialist](./skills/pst-Resume-Specialist/) | **CLI + Web** | Premium DOCX formatting and ATS optimization. |
 
 ### Installing Web Skills (Claude.ai)
 1. Download the `.skill` file from the skill's folder.
@@ -336,17 +336,17 @@ This repo runs its own software-team pipeline. Every feature follows:
 PM Tech Lead → [Research?] → Dev Engineer → QA Engineer → Human Approve → Merge
 ```
 
-Use the `/powerhouse` command for all development operations:
+Use the `/pst` command for all development operations:
 
 | Command | What it does |
 |---|---|
-| `/powerhouse status` | Current layer + next unchecked task |
-| `/powerhouse plan [feature]` | PM Tech Lead produces a ticket |
-| `/powerhouse build` | Dev Engineer implements the ticket |
-| `/powerhouse review` | QA Engineer validates the changes |
-| `/powerhouse branch [name]` | Creates `feature/L{N}-[name]` |
-| `/powerhouse pr` | Type-check → rebase → create PR |
-| `/powerhouse next` | First unchecked task across all sub-projects |
+| `/pst status` | Current layer + next unchecked task |
+| `/pst plan [feature]` | PM Tech Lead produces a ticket |
+| `/pst build` | Dev Engineer implements the ticket |
+| `/pst review` | QA Engineer validates the changes |
+| `/pst branch [name]` | Creates `feature/L{N}-[name]` |
+| `/pst pr` | Type-check → rebase → create PR |
+| `/pst next` | First unchecked task across all sub-projects |
 
 See [BUILD_STATUS.md](./BUILD_STATUS.md) for current progress.
 
@@ -359,7 +359,7 @@ See [BUILD_STATUS.md](./BUILD_STATUS.md) for current progress.
 | Tool | Required For | Install |
 |------|-------------|---------|
 | **Node.js 20+** | CLI scaffolding (`npx powerhouse`) | [nodejs.org](https://nodejs.org) |
-| **Claude Code** | `/powerhouse` skill commands | [docs.anthropic.com](https://docs.anthropic.com/en/docs/claude-code) |
+| **Claude Code** | `/pst` skill commands | [docs.anthropic.com](https://docs.anthropic.com/en/docs/claude-code) |
 | **uv** (optional) | Running MCP servers via `uvx` | [astral.sh/uv](https://astral.sh/uv) |
 | **Python 3.10+** (optional) | `investment-brain` engine | [python.org](https://python.org) |
 | **gstack** (optional) | Browser automation in skills | [github.com/garrytan/gstack](https://github.com/garrytan/gstack) |
@@ -411,7 +411,7 @@ For any skill in this repo, use the raw URL directly:
 
 ### Example: Powerhouse-software-team skill
 
-1. Go to: `https://raw.githubusercontent.com/bot8080/Claude-Powerhouse/main/skills/Powerhouse-software-team/SKILL.md`
+1. Go to: `https://raw.githubusercontent.com/bot8080/Claude-Powerhouse/main/skills/pst-software-team/SKILL.md`
 2. Copy the content
 3. Claude.ai → Settings → Skills → Install Skill → Paste
 
@@ -422,3 +422,5 @@ For any skill in this repo, use the raw URL directly:
 MIT — see [LICENSE](./LICENSE).
 
 > Financial data is for informational purposes only. Always verify before making investment decisions.
+
+

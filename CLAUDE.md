@@ -29,7 +29,7 @@ Claude must route automatically — never ask "which agent should I use?":
 | "status", "what's next", "where are we" | Read `BUILD_STATUS.md`, suggest next unchecked task |
 | "research X", "how does X work", "investigate X" | Research Engineer |
 | "plan X", "design X", "architect X" | PM Tech Lead |
-| "dispatch", "/dispatch", "send to opencode", "minimax this", "opencode handoff" | OpenCode Dispatcher (see `skills/Powerhouse-opencode-handoff/`) |
+| "dispatch", "/dispatch", "send to opencode", "minimax this", "opencode handoff" | OpenCode Dispatcher (see `skills/pst-opencode-handoff/`) |
 
 ---
 
@@ -46,7 +46,7 @@ For mechanical, well-spec'd, low-blast-radius tickets, hand execution off to **O
 
 **OpenCode reads this `CLAUDE.md` automatically** as a fallback for `AGENTS.md` (per opencode.ai/docs/rules), so all the rules in this file apply to both agents — no duplication needed.
 
-The `Powerhouse-opencode-handoff` skill auto-suggests dispatch when a task scores ≥ 7/9 on (spec clarity + mechanical-ness + inverse blast radius). Each dispatch runs in `.powerhouse/wt/{id}/` (a git worktree) so the main working tree is never touched. See `skills/Powerhouse-opencode-handoff/SKILL.md` for the full flow.
+The `Powerhouse-opencode-handoff` skill auto-suggests dispatch when a task scores ≥ 7/9 on (spec clarity + mechanical-ness + inverse blast radius). Each dispatch runs in `.powerhouse/wt/{id}/` (a git worktree) so the main working tree is never touched. See `skills/pst-opencode-handoff/SKILL.md` for the full flow.
 
 ---
 
@@ -98,7 +98,7 @@ If either is missing, warn the user and suggest writing the spec first. Do not b
 
 - Feature branches: `feature/{subproject}/L{N}-{description}` — sub-project and layer both visible
   - `{subproject}` is one of: `investment-brain`, `market-intelligence`, `powerhouse` (root meta-work)
-  - Examples: `feature/investment-brain/L7a-installable`, `feature/powerhouse/L1-branch-convention`
+  - Examples: `feature/investment-brain/L7a-installable`, `feature/pst/L1-branch-convention`
 - `BUILD_STATUS.md` updates on `main` only — never commit it on a feature branch
 - Start a fresh session after each merged PR
 - Context recovery after a cleared session:
@@ -116,7 +116,7 @@ Combined with `BUILD_STATUS.md` these four commands fully restore context — no
 
 ## Unified Command Skill
 
-Use `/powerhouse` for all project operations:
+Use `/pst` for all project operations:
 
 | Sub-command | Action |
 |---|---|
@@ -128,7 +128,7 @@ Use `/powerhouse` for all project operations:
 | `pr` | Type-check → sync main → create PR with standard template |
 | `next` | Find first unchecked item in `BUILD_STATUS.md` |
 
-`/powerhouse` infers the active sub-project from CWD. Run from repo root to see Powerhouse meta-status.
+`/pst` infers the active sub-project from CWD. Run from repo root to see Powerhouse meta-status.
 
 ---
 
@@ -302,3 +302,4 @@ Verify: `test -d ~/.claude/skills/gstack/bin && echo "GSTACK_OK" || echo "GSTACK
 | `/unfreeze` | Unfreeze changes |
 | `/gstack-upgrade` | Upgrade gstack |
 | `/learn` | Learning workflow |
+

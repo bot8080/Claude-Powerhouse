@@ -251,9 +251,9 @@ node cli/apply.js
 
 ```bash
 # In Claude Code
-/powerhouse status
-/powerhouse next
-/powerhouse branch test-feature
+/pst status
+/pst next
+/pst branch test-feature
 ```
 
 ---
@@ -291,9 +291,10 @@ node cli/apply.js
 
 - [ ] `npx powerhouse init my-app` scaffolds Expo project
 - [ ] `npx powerhouse apply` adds conventions to existing project
-- [ ] `/powerhouse status` shows correct layer + next task
-- [ ] `/powerhouse plan/build/review` pipeline works end-to-end
+- [ ] `/pst status` shows correct layer + next task
+- [ ] `/pst plan/build/review` pipeline works end-to-end
 - [ ] `@advisor` is available for ad-hoc help
 - [ ] All 7 layers of both MCP servers remain functional
 - [ ] CI/CD + Husky hooks work in scaffolded projects
 - [ ] Session tracking (shell + git) documented and tested
+
