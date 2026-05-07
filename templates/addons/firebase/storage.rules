@@ -1,0 +1,32 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isAuth() {
+      return request.auth != null;
+    }
+
+    function isImage() {
+      return request.resource.contentType.matches('image/.*');
+    }
+
+    function isUnder10MB() {
+      return request.resource.size <= 10 * 1024 * 1024;
+    }
+
+    function canUpload(uid) {
+      return isAuth() && request.auth.uid == uid && isImage() && isUnder10MB();
+    }
+
+    match /profiles/{uid}/{allPaths=**} {
+      allow read: if isAuth();
+      allow write: if canUpload(uid);
+    }
+
+    match /uploads/{uid}/{allPaths=**} {
+      allow read: if isAuth();
+      allow write: if canUpload(uid);
+    }
+  }
+}

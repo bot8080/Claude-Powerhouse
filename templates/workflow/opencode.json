@@ -1,0 +1,13 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode/big-pickle",
+  "instructions": [
+    "AGENTS.md",
+    "docs/CONVENTIONS.md",
+    "docs/ARCHITECTURE.md"
+  ],
+  "providers": {
+    "opencode": {}
+  },
+  "theme": "opencode"
+}

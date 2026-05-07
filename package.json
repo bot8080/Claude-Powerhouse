@@ -1,0 +1,51 @@
+{
+  "name": "claude-powerhouse",
+  "version": "1.0.0",
+  "description": "Full-stack development workflow — scaffolding + spec-first agent pipeline",
+  "type": "module",
+  "bin": {
+    "powerhouse": "./cli/cli.js"
+  },
+  "files": [
+    "cli/",
+    "templates/",
+    ".claude/",
+    ".agents/",
+    "skills/",
+    "scripts/"
+  ],
+  "scripts": {
+    "init": "node cli/init.js",
+    "apply": "node cli/apply.js"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bot8080/Claude-Powerhouse.git"
+  },
+  "keywords": [
+    "workflow",
+    "scaffold",
+    "expo",
+    "react-native",
+    "cli",
+    "boilerplate",
+    "template",
+    "mcp",
+    "claude",
+    "ai-tools",
+    "finance",
+    "skills",
+    "agent-pipeline",
+    "spec-first"
+  ],
+  "author": "Anomaly",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bot8080/Claude-Powerhouse/issues"
+  },
+  "homepage": "https://github.com/bot8080/Claude-Powerhouse#readme"
+}

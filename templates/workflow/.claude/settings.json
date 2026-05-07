@@ -1,0 +1,10 @@
+{
+  "hooks": {
+    "pre-commit": [
+      "{{TYPECHECK_CMD}}"
+    ],
+    "post-write": [
+      "{{TYPECHECK_CMD}}"
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+# Architecture
+
+## Project Structure
+
+<!-- Define your {{STACK}} project structure here -->
+
+```
+├── src/
+│   ├── components/         # Reusable UI components
+│   ├── constants/          # Constants and configuration
+│   ├── context/            # State management providers
+│   ├── hooks/              # Custom hooks
+│   ├── services/           # API/backend service layer
+│   ├── types/              # Type definitions
+│   ├── utils/              # Utility functions
+│   └── __tests__/          # Test files
+├── docs/                   # Project documentation
+└── scripts/                # Utility scripts
+```
+
+## Layered Build Order
+
+1. **Foundation** — `src/types/`, `src/constants/`, `src/utils/`
+2. **Services** — `src/services/` (API clients, etc.)
+3. **Context & Hooks** — `src/context/`, `src/hooks/`
+4. **Components** — `src/components/`
+5. **Screens** — Application screens/pages
+6. **Backend** — Server-side functions (if applicable)
+7. **Infrastructure** — CI/CD, security rules, config
+
+## Data Flow
+
+```
+Screen → Hook/Context → Service → Backend API → Database
+                             ↕
+                        State updates
+```

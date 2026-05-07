@@ -60,6 +60,24 @@ Tracks the shipping status of Claude-Powerhouse itself: skills, MCPs, infrastruc
 
 ---
 
+## Layer 6 — Merger: development-protocols → Claude-Powerhouse
+
+- [x] Phase 1: Create directory structure (cli/, templates/, .agents/)
+- [x] Phase 1: Copy CLI scripts from development-protocols (cli.js, init.js, apply.js)
+- [x] Phase 1: Copy templates (workflow, stacks/expo, addons/firebase/stripe/opencode-ai)
+- [x] Phase 1: Create .agents/ as cross-tool alias (OpenCode, Kimi, Cursor compatible)
+- [x] Phase 2: Add advisor.md agent from development-protocols
+- [x] Phase 2: Copy CI/CD and Husky templates
+- [x] Phase 2: Copy session tracking scripts (save.sh, restore.sh)
+- [x] Phase 3: Update package.json (rename to claude-powerhouse, bin entry, keywords)
+- [x] Phase 3: Update CLI branding (cli.js, init.js, apply.js)
+- [x] Phase 4: Update README.md with unified docs (CLI + agent pipeline + multi-tool)
+- [x] Phase 4: Create TECH_SPEC.md for the merger
+- [x] Phase 5: Test CLI commands (init, apply) — manual testing in temp directory
+- [x] Phase 5: Test /powerhouse skill commands — verify no regressions
+
+---
+
 ## Notes
 
 - `market-intelligence` is exempt from spec-gate (shipped before spec discipline was established)

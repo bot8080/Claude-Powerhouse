@@ -1,0 +1,19 @@
+{
+  "name": "Expo (React Native)",
+  "language": "TypeScript",
+  "variables": {
+    "PKG_MANAGER": "npm",
+    "TYPECHECK_CMD": "npx tsc --noEmit --incremental",
+    "LINT_CMD": "npm run lint",
+    "TEST_CMD": "npm test -- --coverage --watchAll=false",
+    "START_CMD": "npx expo start --lan",
+    "INSTALL_CMD": "npm install --legacy-peer-deps",
+    "INSTALL_FLAGS": "--legacy-peer-deps",
+    "NODE_VERSION": "20",
+    "STACK": "Expo (React Native)",
+    "LANGUAGE": "TypeScript"
+  },
+  "hooks": {
+    "pre_commit": ["npx tsc --noEmit --incremental"]
+  }
+}

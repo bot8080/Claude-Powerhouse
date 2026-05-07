@@ -34,7 +34,7 @@ MCP server for financial intelligence across US, Indian, and Canadian markets. 8
 
 ```bash
 pip install uv   # if not already installed
-git clone https://github.com/[YOUR-USERNAME]/Claude-Powerhouse.git
+git clone https://github.com/bot8080/Claude-Powerhouse.git
 cd Claude-Powerhouse/mcps/market-intelligence
 uv sync
 ```
