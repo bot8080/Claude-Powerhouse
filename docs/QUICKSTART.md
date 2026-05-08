@@ -8,12 +8,17 @@
 
 **Goal:** Scaffold a new app with the full agent pipeline.
 
+> **Note:** Not on npm. Requires `npm link` from the cloned repo first.
+
 ```bash
-npx powerhouse init my-app
+# From your clone of MultiAgents-Powerhouse:
+npm link
+# Then in any directory:
+powerhouse init my-app
 ```
 
 You'll be prompted to choose:
-- **Stack:** Expo (React Native) / React / Next.js / Vue / Svelte
+- **Stack:** Expo (React Native)
 - **Backend:** None / Firebase / Supabase
 - **Payments:** No / Stripe
 - **AI Workflow:** None / OpenCode AI
@@ -32,8 +37,10 @@ You'll be prompted to choose:
 
 **Goal:** Add workflow conventions without touching your source code.
 
+> **Note:** Not on npm. Requires `npm link` from the cloned repo first (same as Option A).
+
 ```bash
-npx powerhouse apply
+powerhouse apply
 ```
 
 **What changes:**

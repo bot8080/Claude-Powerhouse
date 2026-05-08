@@ -12,7 +12,9 @@ One-page reference for the most common commands and concepts.
 | `npx powerhouse apply` | Add workflow to existing project |
 | `npx powerhouse --help` | Show all CLI options |
 
-During `init`, you pick: **Stack** (Expo/React/Next.js) → **Backend** (None/Firebase/Supabase) → **Payments** (No/Stripe) → **AI Workflow** (None/OpenCode)
+During `init`, you pick: **Stack** (Expo) → **Backend** (None/Firebase/Supabase) → **Payments** (No/Stripe) → **AI Workflow** (None/OpenCode)
+
+> Not on npm — requires `npm link` from the cloned repo.
 
 ---
 
@@ -42,10 +44,9 @@ Type these inside a **Claude Code** session:
 |-------|---------|-----|
 | @advisor | `@advisor` | Quick help, brainstorming |
 | PM Tech Lead | `/pst plan` | Writes ticket, checks spec-gate |
-| Research Engineer | Read this skill | Investigates unfamiliar APIs |
+| Research Engineer | `/pst plan` (auto) | Investigates unfamiliar APIs |
 | Dev Engineer | `/pst build` | Implements the ticket |
 | QA Engineer | `/pst review` | 7-point validation |
-| OpenCode Dispatcher | "send to opencode" | Routes mechanical work to free model |
 
 ---
 
@@ -68,7 +69,6 @@ Type these inside a **Claude Code** session:
 | Skill | Install | Trigger |
 |-------|---------|---------|
 | Software Team | [Download](../skills/Powerhouse-software-team/Powerhouse-software-team.skill) | "Set up AI dev team" |
-| OpenCode Handoff | [Download](../skills/Powerhouse-opencode-handoff/Powerhouse-opencode-handoff.skill) | "Send to opencode" |
 | Project Setup Kit | [Download](../skills/Powerhouse-Claud-Project-Setup-Kit/Powerhouse-Claud-Project-Setup-Kit.skill) | "Audit my project" |
 | Prompt Optimizer | [Download](../skills/Powerhouse-Prompt-Optimizer/Powerhouse-Prompt-Optimizer.skill) | "Improve this prompt" |
 | Resume Specialist | [Download](../skills/Powerhouse-Resume-Specialist/Powerhouse-Resume-Specialist.skill) | "Format my resume" |
@@ -102,14 +102,14 @@ python main.py portfolio
 
 ## Multi-Model Routing (OpenCode Go Plan)
 
-| Agent | Model | Quota/5hr |
-|-------|-------|-----------|
-| PM Tech Lead | kimi-k2-0711 | 1,150 |
-| Dev Engineer | deepseek-v4-pro | 3,450 |
-| Worker-Mechanical | deepseek-v4-flash | 31,650 |
-| QA Engineer | qwen3.6-plus | 3,300 |
-| Research Engineer | qwen3.5-plus | 10,200 |
-| Advisor | kimi-k2-0711 | 1,150 |
+| Agent | Model |
+|-------|-------|
+| PM Tech Lead | kimi-k2-0711 |
+| Dev Engineer | deepseek-v4-pro |
+| Worker-Mechanical | deepseek-v4-flash |
+| QA Engineer | qwen3.6-plus |
+| Research Engineer | qwen3.5-plus |
+| Advisor | kimi-k2-0711 |
 
 **Activate:** `cp opencode.go.json opencode.json`
 

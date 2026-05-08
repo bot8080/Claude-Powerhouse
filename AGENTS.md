@@ -158,14 +158,14 @@ cp opencode.go.json opencode.json
 
 ### Model Routing
 
-| Agent | Model | Quota (req/5hr) | Use Case |
-|---|---|---|---|
-| PM Tech Lead | `opencode/kimi-k2-0711` | 1,150 | Planning, tool use, specs |
-| Dev Engineer | `opencode/deepseek-v4-pro` | 3,450 | Complex implementation |
-| Worker-Mechanical | `opencode/deepseek-v4-flash` | 31,650 | High-volume mechanical work |
-| QA Engineer | `opencode/qwen3.6-plus` | 3,300 | Validation, testing |
-| Research Engineer | `opencode/qwen3.5-plus` | 10,200 | Research, investigation |
-| Advisor | `opencode/kimi-k2-0711` | 1,150 | Architecture, guidance |
+| Agent | Model | Use Case |
+|---|---|---|
+| PM Tech Lead | `opencode/kimi-k2-0711` | Planning, tool use, specs |
+| Dev Engineer | `opencode/deepseek-v4-pro` | Complex implementation |
+| Worker-Mechanical | `opencode/deepseek-v4-flash` | High-volume mechanical work |
+| QA Engineer | `opencode/qwen3.6-plus` | Validation, testing |
+| Research Engineer | `opencode/qwen3.5-plus` | Research, investigation |
+| Advisor | `opencode/kimi-k2-0711` | Architecture, guidance |
 
 ### Model Discontinuation Safety
 
