@@ -1,5 +1,7 @@
 # Investment Brain
 
+> **You are here:** Home → MCP Servers → investment-brain
+
 **Local Python engine that does all the heavy lifting** — data fetching, scoring, screening, portfolio tracking, paper trading. Claude only formats the output.
 
 **Result: ~80% less Claude token usage per analysis.**
@@ -220,10 +222,12 @@ mcps/investment-brain/
 
 ## Related
 
-| Project | Relationship | What it provides |
-|---------|--------------|-----------------|
-| [market-intelligence](../market-intelligence/) | Data layer | MCP data feed — faster than raw yfinance |
-| [Root README](../../README.md) | Parent docs | Full repo + CLI tools |
+| Resource | Purpose |
+|----------|---------|
+| [All MCP Servers](../README.md) | Browse both servers + install guide |
+| [market-intelligence](../market-intelligence/) | Data layer — investment-brain calls this |
+| [Root README](../../README.md) | Full repo documentation |
+| [Quick Start](../../docs/QUICKSTART.md) | 5-minute setup guide |
 
 ---
 

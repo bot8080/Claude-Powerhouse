@@ -1,6 +1,8 @@
 # OpenCode Handoff
 
-> **Target:** Claude Code (CLI) only.
+> **You are here:** Home → Skills → OpenCode Handoff
+>
+> **[CLI only]** — This skill runs in **Claude Code** (terminal).
 
 A Powerhouse skill that hands off mechanical coding tasks from Claude Code to **OpenCode + MiniMax M2 (free tier)** — saving Claude tokens for planning and review.
 
@@ -180,5 +182,15 @@ The skill activates on:
 
 ---
 
-*Part of the [Claude-Powerhouse](../../README.md) suite. Pairs with [Powerhouse-software-team](../pst-software-team/) (PM/Dev/QA pipeline) and `/pst` (unified command).*
+## Related
+
+| Resource | Purpose |
+|----------|---------|
+| [All Skills](../README.md) | Browse all 5 skills + install guide |
+| [Software Team](../Powerhouse-software-team/) | PM→Dev→QA pipeline (pairs with this skill) |
+| [Root README](../../README.md) | Full repo documentation |
+
+---
+
+*Part of the [Claude-Powerhouse](../../README.md) suite.*
 

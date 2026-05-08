@@ -194,9 +194,11 @@ Download the `.skill` file and upload to Claude.ai → Settings → Skills. Note
 
 | Resource | Purpose |
 |----------|---------|
-| [OpenCode Handoff](../Powerhouse-opencode-handoff/) | Saves tokens by dispatching mechanical work to free model |
+| [All Skills](../README.md) | Browse all 5 skills + install guide |
+| [OpenCode Handoff](../Powerhouse-opencode-handoff/) | Save tokens by dispatching mechanical work |
 | [Project Setup Kit](../Powerhouse-Claud-Project-Setup-Kit/) | Set up project knowledge base |
 | [Root README](../../README.md) | Full repo documentation |
+| [Quick Start](../../docs/QUICKSTART.md) | 5-minute setup guide |
 
 ---
 

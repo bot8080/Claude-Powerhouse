@@ -1,5 +1,7 @@
 # Powerhouse Prompt Optimizer v2
 
+> **You are here:** Home → Skills → Prompt Optimizer
+>
 > **[CLI + Web]** — Works in Claude Code and Claude.ai
 
 Transform basic instructions into professional-grade prompts using **Anthropic's latest 2025 heuristics.**
@@ -90,10 +92,12 @@ Write a type-safe sort function that orders users by:
 
 ## Related
 
-| Skill | Purpose |
-|-------|---------|
+| Resource | Purpose |
+|----------|---------|
+| [All Skills](../README.md) | Browse all 5 skills + install guide |
 | [Project Setup Kit](../Powerhouse-Claud-Project-Setup-Kit/) | Set up project knowledge base |
 | [Software Team](../Powerhouse-software-team/) | Full PM→Dev→QA pipeline |
+| [Root README](../../README.md) | Full repo documentation |
 
 ---
 

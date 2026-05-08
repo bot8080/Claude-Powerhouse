@@ -1,5 +1,7 @@
 # market-intelligence MCP
 
+> **You are here:** Home → MCP Servers → market-intelligence
+
 > **For:** Investors, analysts, Claude Desktop users who need real-time financial data
 
 MCP server for financial intelligence across **US, Indian, and Canadian markets.** 8 tools, built with FastMCP + yfinance.
@@ -137,10 +139,12 @@ Restart Claude Desktop after adding.
 
 ## Related
 
-| Project | Purpose |
-|---------|---------|
+| Resource | Purpose |
+|----------|---------|
+| [All MCP Servers](../README.md) | Browse both servers + install guide |
 | [investment-brain](../investment-brain/) | Uses this as data layer for auto-scoring |
-| [Root README](../../README.md) | Full repo documentation + CLI tools |
+| [Root README](../../README.md) | Full repo documentation |
+| [Quick Start](../../docs/QUICKSTART.md) | 5-minute setup guide |
 
 ---
 

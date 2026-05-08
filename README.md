@@ -1,372 +1,72 @@
 # Claude-Powerhouse
 
-**Full-stack development workflow** — project scaffolding + spec-first agent pipeline in one tool.
-
-Transforms AI coding agents into a structured, professional engineering team with:
-- 🏗️ **Project scaffolding** — Expo, React, Next.js stacks with Firebase/Stripe addons
-- 📋 **Spec-first discipline** — TECH_SPEC + BUILD_STATUS gates before any code
-- 🤖 **Multi-agent pipeline** — PM → Research → Dev → QA with automatic routing
-- 🔧 **CLI + Skills** — `npx powerhouse` for scaffolding, `/pst` for execution
-- 🌍 **Cross-tool compatible** — Works with Claude Code, OpenCode, Kimi Code, Cursor, Windsurf, +15 more
+**Full-stack development workflow with AI agents** — project scaffolding + spec-first pipeline + financial MCPs in one repo.
 
 ---
 
-## Quick Start
+## Choose Your Path
 
-> **Prerequisites:** Node.js 20+, Claude Code (CLI) for `/pst` commands
-
-```bash
-# Scaffold a new project with interactive setup
-npx powerhouse init my-app
-
-# Or add workflow conventions to existing project (non-destructive)
-npx powerhouse apply
-
-# Then use the agent pipeline in Claude Code
-/pst status
-/pst plan "user auth"
-/pst build
-/pst review
-
-# Need help? Ask @advisor anything
-```
-
----
-
-## Features
-
-| Category | Feature | Description |
-|----------|---------|-------------|
-| **Scaffolding** | `npx powerhouse init` | Interactive project generator with stack + addon selection |
-| **Retrofit** | `npx powerhouse apply` | Adds conventions to existing projects (non-destructive) |
-| **Stacks** | Expo, React, Next.js | Production-ready templates with ESLint, Prettier, Jest, Husky |
-| **Addons** | Firebase, Stripe, OpenCode AI | Auth, payments, multi-agent workflow — checkbox install |
-| **Agent Pipeline** | PM → Dev → QA | Spec-first, layer-gated, 7-point QA validation |
-| **Cross-Tool** | AGENTS.md + Skills | Works with 15+ AI coding tools |
-| **MCP Servers** | market-intelligence, investment-brain | Financial data + analysis engines |
-| **Skills** | software-team, opencode-handoff, etc. | Reusable AI workflows |
-
-> **New here?** Start with [docs/QUICKSTART.md](./docs/QUICKSTART.md) (5 min setup), or keep scrolling for the full guide.
-
----
-
-## CLI Commands (Scaffolding)
-
-```bash
-# Show all commands
-npx powerhouse --help
-
-# Create new project (interactive — prompts for name if omitted)
-npx powerhouse init
-npx powerhouse init my-app
-
-# Create in current directory
-npx powerhouse init .
-
-# Add workflow conventions to existing project
-# Copies: AGENTS.md, .claude/, .github/, .husky/, docs/, session-tracking/
-# Never overwrites existing files or touches source code
-npx powerhouse apply
-```
-
-**During `init`, you'll select:**
-1. **Stack**: Expo (React Native), React, Next.js, Vue, Svelte
-2. **Backend**: None / Firebase / Supabase
-3. **Payments**: No / Stripe
-4. **AI Workflow**: None / OpenCode AI
-
----
-
-## Skill Commands (Execution)
-
-> **These are Claude Code slash commands** — type them in a Claude Code session, not your terminal.
-
-| Command | What it does |
+| I want to... | Go to |
 |---|---|
-| `/pst status` | Current layer + next unchecked task |
-| `/pst plan [feature]` | PM Tech Lead produces a structured ticket |
-| `/pst build` | Dev Engineer implements (or OpenCode dispatch if mechanical) |
-| `/pst review` | QA Engineer full 7-point validation |
-| `/pst branch [name]` | Creates `feature/{subproject}/L{N}-{name}` |
-| `/pst pr` | Type-check → rebase → push → create PR |
-| `/pst next` | First unchecked task across all sub-projects |
+| **Build an app with AI agents** | [docs/QUICKSTART.md](./docs/QUICKSTART.md) (5 min) |
+| **Browse AI skills for Claude** | [skills/README.md](./skills/README.md) |
+| **Get financial data in Claude Desktop** | [mcps/README.md](./mcps/README.md) |
+| **See all commands at a glance** | [docs/CHEATSHEET.md](./docs/CHEATSHEET.md) |
+| **Fix a problem** | [docs/TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md) |
 
 ---
 
-## Project Structure
-
-```
-Claude-Powerhouse/
-├── cli/                           # NPM-distributed CLI
-│   ├── cli.js                     # Entry: init | apply | --help
-│   ├── init.js                    # Project scaffolder
-│   └── apply.js                   # Workflow retrofit
-├── templates/
-│   ├── workflow/                  # Universal conventions (AGENTS.md, CI/CD, Husky)
-│   ├── stacks/
-│   │   └── expo/                  # Expo + TypeScript + Expo Router
-│   └── addons/
-│       ├── firebase/              # Auth, Firestore, Storage, Cloud Functions
-│       ├── stripe/                # Payment screens + webhooks
-│       └── opencode-ai/           # Multi-agent AI workflow
-├── .claude/
-│   ├── agents/                    # PM, Dev, QA, Research, Advisor, Dispatcher
-│   ├── skills/pst/         # /pst unified command
-│   └── hooks/                     # Spec-gate + gstack hooks
-├── .agents/                       # Cross-tool alias (OpenCode, Kimi, Cursor)
-│   ├── agents/                    # Agent definitions
-│   └── skills/                    # Skills for non-Claude tools
-├── mcps/
-│   ├── market-intelligence/       # Financial intelligence (shipped)
-│   └── investment-brain/          # AI analysis engine (dev)
-└── skills/
-    ├── Powerhouse-software-team/  # Full PM→Dev→QA pipeline
-    ├── Powerhouse-opencode-handoff/  # OpenCode dispatch
-    └── ...
-```
-
----
-
-## Multi-Tool Compatibility
-
-| Tool | AGENTS.md | Skills | Notes |
-|------|-----------|--------|-------|
-| **OpenCode** | ✅ Native | ✅ `.claude/skills/` or `.agents/skills/` | Primary file |
-| **Kimi Code** | ✅ Native | ✅ `.claude/skills/` or `.agents/skills/` | Uses `${KIMI_AGENTS_MD}` |
-| **Cursor** | ✅ Native | ✅ `.cursor/rules/` + skills | Alongside MDC rules |
-| **Windsurf** | ✅ Native | ✅ | Alongside `.windsurfrules` |
-| **GitHub Copilot** | ✅ Native | ✅ | Alongside `.github/copilot-instructions.md` |
-| **Claude Code** | ⚠️ Reference | ✅ `.claude/skills/` | Use CLAUDE.md (reference AGENTS.md) |
-| **Aider** | ✅ Native | ✅ | Alongside `.aider.conf.yml` |
-| **Gemini CLI** | ✅ Native | ✅ | Alongside `GEMINI.md` |
-
-**The `.agents/` directory** is a cross-tool alias — any tool that reads project files can access agent definitions and skills from there.
-
----
-
-## 7-Layer Build Order
-
-Layer N cannot start until Layer N-1 is fully checked off and merged to `main`:
-
-| Layer | Name | Contents |
-|-------|------|----------|
-| 1 | Types & Constants | Interfaces, enums, color tokens, config |
-| 2 | Services | Data access — CRUD, auth, storage |
-| 3 | Context & Hooks | State management, business logic |
-| 4 | Base Components | Reusable UI primitives (skip for CLI/backend) |
-| 5 | Screens / Pages | Full route implementations |
-| 6 | Backend Functions | Cloud functions, webhooks, scheduled jobs |
-| 7 | Integration & Polish | Wire together, performance, real data |
-
----
-
-## Agent Pipeline
-
-Every feature flows through a fixed pipeline with automatic routing:
-
-```
-User → @advisor (ad-hoc help, anytime)
-   ↓ (formal ticket)
-/pst plan "feature"
-   ↓
-PM Tech Lead → writes ticket with scope + acceptance criteria
-   ↓ (optional, for unfamiliar APIs)
-Research Engineer → investigates, produces findings doc
-   ↓
-/pst build
-   ↓
-Dev Engineer → implements ticket exactly (or OpenCode dispatch if score >= 7)
-   ↓
-/pst review
-   ↓
-QA Engineer → 7-point validation → PASS/FAIL
-   ↓
-Human approves → merge to main → update BUILD_STATUS.md
-```
-
-### Agent Roles
-
-| Agent | Trigger | Responsibility |
-|-------|---------|----------------|
-| **@advisor** | `@advisor` or "ask advisor" | Ad-hoc help, brainstorming, quick questions |
-| **PM Tech Lead** | "build X", "plan X", "create X" | Ticket creation, spec-gate + layer-gate checks, dispatch scoring |
-| **Research Engineer** | "research X", "how does X work" | API/library investigation (skipped for standard CRUD) |
-| **Dev Engineer** | "build", "implement", "code it" | Scoped implementation — no more, no less than the ticket |
-| **QA Engineer** | "review", "QA", "check", "test" | 7-point validation: spec, scope, quality, criteria, syntax, smoke, browser |
-| **OpenCode Dispatcher** | "dispatch", "send to opencode" | Mechanical work (score >= 7) → OpenCode + MiniMax M2 (free) in isolated worktree |
-
----
-
-## MCP Servers
-
-> **Target: Claude Desktop + Claude Code (CLI)**
-> Install via `claude_desktop_config.json` or as a Claude Code MCP.
-
-### Market-Intelligence (shipped)
-
-Real-time financial intelligence across US (NASDAQ/NYSE), India (NSE/BSE), and Canada (TSX).
-
-**8 tools:** multi-market ticker resolution, full company profiles, technical analysis (RSI/MACD/ADX/Bollinger), 4-pillar scoring, insider/institutional activity, FII/DII flows, Nifty valuation, US macro data.
-
-```
-$ uvx market-intelligence
-> get_scoring_data("NVDA")
-{
-  "symbol": "NVDA",
-  "total_score": 82,
-  "verdict_suggestion": "BUY",
-  "pillar_scores": {
-    "valuation": {"score": 23, "reason": "PE=65.2, PEG=1.2"},
-    "quality": {"score": 22, "reason": "ROE=65%, Insider=4.2%"},
-    "momentum": {"score": 22, "reason": "above 50/200DMA, RSI=58"},
-    "risk": {"score": 15, "beta": 1.68}
-  },
-  "piotroski_f_score": {"score": 8, "verdict": "strong"}
-}
-```
-
-**Claude Desktop config:**
-```json
-{
-  "mcpServers": {
-    "market-intelligence": {
-      "command": "uv",
-      "args": ["run", "--directory", "C:\\path\\to\\Claude-Powerhouse\\mcps\\market-intelligence", "market-intelligence"]
-    }
-  }
-}
-```
-
-[Full documentation →](./mcps/market-intelligence/README.md)
-
----
-
-### Investment-Brain (in development)
-
-Local Python engine that pre-computes analysis and generates minimal Claude prompts (~20–50 tokens). Claude only formats the output.
-
-Scoring: Fundamental 35 / Technical 35 / Smart Money 30. 9-rule deal-breaker check runs before scoring.
+## 30-Second Quick Start
 
 ```bash
-cd mcps/investment-brain
-pip install -r requirements.txt
-python main.py analyze TSM
-```
+# New project
+npx powerhouse init my-app
+cd my-app
+claude                    # start Claude Code
+/pst plan "user auth"    # PM writes a ticket
+/pst build                # Dev implements
+/pst review               # QA validates
 
-[Full documentation →](./mcps/investment-brain/README.md)
+# Or add to existing project
+npx powerhouse apply
+```
 
 ---
 
-### Powerhouse Stack — Running Both Together
+## What's in This Repo?
 
-For the full experience, run `market-intelligence` as the data layer and `investment-brain` as the analysis engine on top of it.
+### CLI — Project Scaffolding
 
-**Step 1 — Start market-intelligence:**
-```bash
-cd mcps/market-intelligence
-uv sync
-# Keep this terminal open (or add to Claude Desktop config below)
-uv run market-intelligence
-```
+`npx powerhouse init` scaffolds new projects (Expo, React, Next.js) with AI workflow built in. `npx powerhouse apply` adds conventions to existing projects without touching source code.
 
-**Step 2 — Wire investment-brain to it:**
+### Skills — AI Agents for Claude
 
-Mac / Linux:
-```bash
-export MARKET_INTELLIGENCE_CMD="uv run --directory /path/to/Claude-Powerhouse/mcps/market-intelligence market-intelligence"
-```
+5 installable skills that extend Claude's behavior:
 
-Windows (PowerShell):
-```powershell
-$env:MARKET_INTELLIGENCE_CMD = "uv run --directory C:\path\to\Claude-Powerhouse\mcps\market-intelligence market-intelligence"
-```
-
-**Step 3 — Analyze:**
-```bash
-cd mcps/investment-brain
-pip install -r requirements.txt
-python main.py analyze TSM
-```
-
-**Step 4 (optional) — Claude Desktop config for both MCPs:**
-```json
-{
-  "mcpServers": {
-    "market-intelligence": {
-      "command": "uv",
-      "args": ["run", "--directory", "C:\\path\\to\\mcps\\market-intelligence", "market-intelligence"]
-    },
-    "investment-brain": {
-      "command": "python",
-      "args": ["C:\\path\\to\\mcps\\investment-brain\\mcp_wrapper.py"]
-    }
-  }
-}
-```
-
-When both MCPs are registered, Claude Desktop can call `analyze_stock`, `screen_stocks`, `paper_trade`, and `portfolio_review` as tools directly — no copy-pasting required.
-
----
-
-## Skills
-
-> Each skill states its target. Install in the matching environment.
-
-| Skill | Target | Purpose |
+| Skill | Target | One-line summary |
 |---|---|---|
-| [Software Team](./skills/Powerhouse-software-team/) | **CLI only** | Full AI dev team — PM plans, Dev builds, QA reviews. Spec-first, layer-gated, four-agent pipeline. |
-| [OpenCode Handoff](./skills/Powerhouse-opencode-handoff/) | **CLI only** | Hand off mechanical coding tasks to OpenCode + MiniMax M2 (free). CC plans + reviews; OC executes in an isolated git worktree. Auto-suggests when the task profile is mechanical. |
-| [Project Setup Kit](./skills/Powerhouse-Claud-Project-Setup-Kit/) | **CLI + Web** | AI Workspace Architect — project setup, structure auditing, CLAUDE.md generation. |
-| [Prompt Optimizer](./skills/Powerhouse-Prompt-Optimizer/) | **CLI + Web** | Expert-grade prompt engineering using the latest heuristics. |
-| [Resume Specialist](./skills/Powerhouse-Resume-Specialist/) | **CLI + Web** | Premium DOCX formatting and ATS optimization. |
+| [Software Team](./skills/Powerhouse-software-team/) | CLI | PM → Dev → QA pipeline with spec-first discipline |
+| [OpenCode Handoff](./skills/Powerhouse-opencode-handoff/) | CLI | Dispatch mechanical work to free models |
+| [Project Setup Kit](./skills/Powerhouse-Claud-Project-Setup-Kit/) | Both | Audit and set up project knowledge bases |
+| [Prompt Optimizer](./skills/Powerhouse-Prompt-Optimizer/) | Both | Fix vague prompts using Anthropic heuristics |
+| [Resume Specialist](./skills/Powerhouse-Resume-Specialist/) | Both | ATS-optimized DOCX resume formatting |
 
-### Installing Web Skills (Claude.ai)
-1. Download the `.skill` file from the skill's folder.
-2. Open **Claude.ai → Settings → Skills**.
-3. Click **Install Skill** and upload the file.
+**Full details:** [skills/README.md](./skills/README.md) — install instructions, which skill for which job, troubleshooting
 
-### Installing CLI Skills (Claude Code)
-Skills in `.claude/skills/` activate automatically when you work in this repo. No manual install needed.
+### MCP Servers — Financial Intelligence
 
----
+2 servers that connect Claude to real-time financial data:
 
-## Development Workflow
+| Server | Markets | Best for |
+|---|---|---|
+| [market-intelligence](./mcps/market-intelligence/) | US, India, Canada | Real-time stock data, technicals, scoring |
+| [investment-brain](./mcps/investment-brain/) | US, India, Canada | Auto-scoring, paper trading, portfolio tracking |
 
-This repo runs its own software-team pipeline. Every feature follows:
-
-```
-PM Tech Lead → [Research?] → Dev Engineer → QA Engineer → Human Approve → Merge
-```
-
-Use the `/pst` command for all development operations:
-
-| Command | What it does |
-|---|---|
-| `/pst status` | Current layer + next unchecked task |
-| `/pst plan [feature]` | PM Tech Lead produces a ticket |
-| `/pst build` | Dev Engineer implements the ticket |
-| `/pst review` | QA Engineer validates the changes |
-| `/pst branch [name]` | Creates `feature/L{N}-[name]` |
-| `/pst pr` | Type-check → rebase → create PR |
-| `/pst next` | First unchecked task across all sub-projects |
-
-See [BUILD_STATUS.md](./BUILD_STATUS.md) for current progress.
+**Full details:** [mcps/README.md](./mcps/README.md) — quick start, Claude Desktop config, which server you need
 
 ---
 
-## Getting Started
-
-### Prerequisites
-
-| Tool | Required For | Install |
-|------|-------------|---------|
-| **Node.js 20+** | CLI scaffolding (`npx powerhouse`) | [nodejs.org](https://nodejs.org) |
-| **Claude Code** | `/pst` skill commands | [docs.anthropic.com](https://docs.anthropic.com/en/docs/claude-code) |
-| **uv** (optional) | Running MCP servers via `uvx` | [astral.sh/uv](https://astral.sh/uv) |
-| **Python 3.10+** (optional) | `investment-brain` engine | [python.org](https://python.org) |
-| **gstack** (optional) | Browser automation in skills | [github.com/garrytan/gstack](https://github.com/garrytan/gstack) |
-
-### Clone & Install
+## Installation
 
 ```bash
 git clone https://github.com/bot8080/Claude-Powerhouse.git
@@ -375,117 +75,60 @@ npm install
 npm link                    # makes `powerhouse` available globally
 ```
 
-### Install gstack (optional — for workflow skills)
+**Prerequisites:**
 
-```bash
-git clone --depth 1 https://github.com/garrytan/gstack.git ~/.claude/skills/gstack
-cd ~/.claude/skills/gstack && ./setup --team
+| Tool | Required For | Install |
+|---|---|---|
+| Node.js 20+ | CLI scaffolding | [nodejs.org](https://nodejs.org) |
+| Claude Code | `/pst` commands | [docs.anthropic.com](https://docs.anthropic.com/en/docs/claude-code) |
+| uv (optional) | MCP servers | [astral.sh/uv](https://astral.sh/uv) |
+| Python 3.10+ (optional) | investment-brain | [python.org](https://python.org) |
+
+---
+
+## Project Structure
+
+```
+Claude-Powerhouse/
+├── cli/                    # npx powerhouse (init, apply)
+├── templates/              # Stack + addon templates
+├── skills/                 # 5 AI skills for Claude
+│   ├── Powerhouse-software-team/
+│   ├── Powerhouse-opencode-handoff/
+│   ├── Powerhouse-Claud-Project-Setup-Kit/
+│   ├── Powerhouse-Prompt-Optimizer/
+│   └── Powerhouse-Resume-Specialist/
+├── mcps/                   # 2 MCP servers
+│   ├── market-intelligence/
+│   └── investment-brain/
+├── docs/                   # Guides
+│   ├── QUICKSTART.md
+│   ├── CHEATSHEET.md
+│   └── TROUBLESHOOTING.md
+└── .opencode/agents/       # Agent definitions (6 roles)
 ```
 
 ---
 
-## Installing MCP Servers
+## Development Workflow
 
-### Via uvx (recommended)
-
-```bash
-uvx market-intelligence
-```
-
-### Via pip
-
-```bash
-pip install git+https://github.com/bot8080/Claude-Powerhouse.git#subdirectory=mcps/market-intelligence
-```
-
----
-
-## Installing Skills
-
-### From GitHub (raw URL)
-
-For any skill in this repo, use the raw URL directly:
-
-```bash
-# Upload to Claude.ai via Settings → Skills → Install Skill
-# Use the raw URL: https://raw.githubusercontent.com/bot8080/Claude-Powerhouse/main/skills/<skill-name>/SKILL.md
-```
-
-### Example: Powerhouse-software-team skill
-
-1. Go to: `https://raw.githubusercontent.com/bot8080/Claude-Powerhouse/main/skills/Powerhouse-software-team/SKILL.md`
-2. Copy the content
-3. Claude.ai → Settings → Skills → Install Skill → Paste
-
----
-
-## Quick Reference Card
+This repo uses its own software-team pipeline:
 
 ```
-┌───────────────────────────────────────────────────────────────────┐
-│  NEW PROJECT                        EXISTING PROJECT              │
-│  ────────────                       ────────────────              │
-│  npx powerhouse init my-app         npx powerhouse apply          │
-│  cd my-app                                                       │
-│  claude  (start Claude Code)         claude                       │
-│  /pst status                        /pst status                   │
-│  /pst plan "auth"                   /pst plan "add feature"       │
-│  /pst build                         /pst build                    │
-│  /pst review                        /pst review                   │
-│                                                                   │
-│  MCP SERVERS                       SKILLS (Claude.ai)             │
-│  ────────────                       ─────────────────             │
-│  uv run market-intelligence         Download .skill file          │
-│  python main.py analyze TSM         Settings → Skills → Install   │
-│                                                                   │
-│  NEED HELP?                                                       │
-│  ──────────                                                       │
-│  docs/QUICKSTART.md    → 5-min setup                              │
-│  docs/CHEATSHEET.md    → One-page commands                        │
-│  docs/TROUBLESHOOTING.md → Fix common errors                      │
-└───────────────────────────────────────────────────────────────────┘
+/pst plan → [Research?] → /pst build → /pst review → Human Approve → Merge
 ```
 
----
+| Command | What it does |
+|---|---|
+| `/pst status` | Current layer + next task |
+| `/pst plan [feature]` | PM writes ticket |
+| `/pst build` | Dev implements |
+| `/pst review` | QA validates |
+| `/pst branch [name]` | Create feature branch |
+| `/pst pr` | Push + create PR |
+| `/pst next` | First unchecked task |
 
-## Multi-Model Architecture (OpenCode Go Plan)
-
-Claude-Powerhouse supports **quota-aware multi-model routing** via the OpenCode Go plan. Different agent roles use different models based on their workload:
-
-| Agent | Model | Quota (req/5hr) | Best For |
-|-------|-------|-----------------|----------|
-| PM Tech Lead, Advisor | `kimi-k2-0711` | 1,150 | Planning, specs, architecture |
-| Dev Engineer | `deepseek-v4-pro` | 3,450 | Complex implementations |
-| Worker-Mechanical | `deepseek-v4-flash` | 31,650 | High-volume mechanical work |
-| QA Engineer | `qwen3.6-plus` | 3,300 | Testing, validation |
-| Research Engineer | `qwen3.5-plus` | 10,200 | API research, investigation |
-
-**Activate Go plan:**
-```bash
-cp opencode.go.json opencode.json
-```
-
-**Without Go plan:** Falls back to your default model in `opencode.json` (no model field = your default).
-
-**Why this matters:**
-- Planning models (Kimi) are best at tool use and reasoning — use them for architecture
-- Flash models have huge quotas (31,650/5hr) — impossible to exhaust for mechanical work
-- Quality models (DeepSeek Pro, Qwen Plus) hit the sweet spot for dev and QA
-
----
-
-## Troubleshooting
-
-| Error | Cause | Fix |
-|-------|-------|-----|
-| `npx powerhouse: command not found` | CLI not linked | `npm link` in repo root |
-| `/pst: command not found` | Not in Claude Code | Run `claude` first, then type `/pst` |
-| `MCP tool call failed` | Server not running | Start `uv run market-intelligence` in separate terminal |
-| `Skill not triggering` | Wrong trigger phrase | Use exact phrases from skill's README |
-| `OpenRouter auth failed` | API key missing | `opencode auth login` |
-| `opencode: command not found` | Not installed | `curl -fsSL https://opencode.ai/install \| bash` |
-
-**Full troubleshooting:** [docs/TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md)
+See [BUILD_STATUS.md](./BUILD_STATUS.md) for current progress.
 
 ---
 
@@ -494,5 +137,3 @@ cp opencode.go.json opencode.json
 MIT — see [LICENSE](./LICENSE).
 
 > Financial data is for informational purposes only. Always verify before making investment decisions.
-
-

@@ -1,5 +1,7 @@
 # Powerhouse Claud Project Setup Kit v2
 
+> **You are here:** Home → Skills → Project Setup Kit
+>
 > **[CLI + Web]** — Works in Claude Code and Claude.ai
 
 A professional-grade **AI Workspace Architect** — creates new Claud projects from scratch or audits and improves existing ones.
@@ -111,10 +113,12 @@ For analysis requests:
 
 ## Related
 
-| Skill | Purpose |
-|-------|---------|
+| Resource | Purpose |
+|----------|---------|
+| [All Skills](../README.md) | Browse all 5 skills + install guide |
 | [Prompt Optimizer](../Powerhouse-Prompt-Optimizer/) | Optimize individual prompts |
 | [Software Team](../Powerhouse-software-team/) | Full PM→Dev→QA pipeline |
+| [Root README](../../README.md) | Full repo documentation |
 
 ---
 
