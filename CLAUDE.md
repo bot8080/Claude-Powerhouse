@@ -29,38 +29,24 @@ Claude must route automatically — never ask "which agent should I use?":
 | "status", "what's next", "where are we" | Read `BUILD_STATUS.md`, suggest next unchecked task |
 | "research X", "how does X work", "investigate X" | Research Engineer |
 | "plan X", "design X", "architect X" | PM Tech Lead |
-| "dispatch", "/dispatch", "send to opencode", "minimax this", "opencode handoff" | OpenCode Dispatcher (see `skills/pst-opencode-handoff/`) |
 
 ---
 
-## Token-Saving Routing (OpenCode Handoff)
+## OpenCode Compatibility
 
-For mechanical, well-spec'd, low-blast-radius tickets, hand execution off to **OpenCode + MiniMax M2 (free)** and keep Claude Code for planning + review.
-
-| Phase | Runs in | Model |
-|---|---|---|
-| Plan / spec / ticket | Claude Code | Opus 4.7 (or Sonnet 4.6) |
-| Code execution | OpenCode | `opencode/minimax-m2.5-free` |
-| Code review / QA | Claude Code | Sonnet 4.6 |
-| Architecture / research | Claude Code | Opus 4.7 + WebSearch |
-
-**OpenCode reads this `CLAUDE.md` automatically** as a fallback for `AGENTS.md` (per opencode.ai/docs/rules), so all the rules in this file apply to both agents — no duplication needed.
-
-The `Powerhouse-opencode-handoff` skill auto-suggests dispatch when a task scores ≥ 7/9 on (spec clarity + mechanical-ness + inverse blast radius). Each dispatch runs in `.powerhouse/wt/{id}/` (a git worktree) so the main working tree is never touched. See `skills/pst-opencode-handoff/SKILL.md` for the full flow.
+**OpenCode reads this `CLAUDE.md` automatically** as a fallback for `AGENTS.md` (per opencode.ai/docs/rules), so all routing rules in this file apply to both Claude Code and OpenCode sessions — no duplication needed.
 
 ---
 
 ## Agent Pipeline (every feature)
 
 ```
-PM Tech Lead → [Research Engineer?] → Dev Engineer | OpenCode Dispatcher → QA Engineer → Human Approve → Merge
+PM Tech Lead → [Research Engineer?] → Dev Engineer → QA Engineer → Human Approve → Merge
 ```
 
 Agent definitions live in `.claude/agents/`. Load the relevant agent file at the start of each role.
 
 **Skip Research Engineer** for standard CRUD/config work. Use it for new APIs, third-party integrations, or unfamiliar libraries.
-
-**Choose Dev Engineer vs OpenCode Dispatcher** at the build step: if the ticket's `dispatch_score >= 7` and the user approves, route to the OpenCode Dispatcher (OpenCode + MiniMax M2, free). Otherwise route to Dev Engineer (Claude Code). Both produce the same `Ready for QA Engineer review.` hand-off.
 
 ---
 
@@ -242,7 +228,6 @@ Each skill lives in `skills/<skill-name>/` with a `.skill` file and `README.md`.
 | Skill | Target | Purpose |
 |---|---|---|
 | `Powerhouse-software-team` | **CLI** | Full PM→Dev→QA pipeline for structured AI-assisted development |
-| `Powerhouse-opencode-handoff` | **CLI** | Hand off mechanical coding to OpenCode + MiniMax M2 (free) — CC plans + reviews, OC executes in an isolated git worktree |
 | `Powerhouse-Claud-Project-Setup-Kit` | **Both** | AI Workspace Architect for project setup and auditing |
 | `Powerhouse-Prompt-Optimizer` | **Both** | Expert prompt engineering using latest heuristics |
 | `Powerhouse-Resume-Specialist` | **Both** | DOCX formatting + ATS optimization |

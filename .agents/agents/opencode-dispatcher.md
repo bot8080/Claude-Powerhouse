@@ -98,7 +98,6 @@ Then instruct the user to merge the feature branch via normal PR flow.
 
 ## See also
 
-- `skills/pst-opencode-handoff/SKILL.md` — user-facing skill
 - `.opencode/commands/follow-ticket.md` — OC slash command
 - `.powerhouse/setup.sh` — one-time environment check
 - `.powerhouse/dispatch.sh` — orchestration script

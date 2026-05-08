@@ -10,12 +10,11 @@ A personal collection of AI tools in one monorepo: Claude skills, MCP servers, a
 
 ### 1. AI Skills (`skills/`)
 
-5 installable skills that extend Claude's behavior:
+4 installable skills that extend Claude's behavior:
 
 | Skill | Target | Purpose |
 |---|---|---|
 | [Software Team](./skills/Powerhouse-software-team/) | CLI | PM→Dev→QA pipeline with spec-first discipline |
-| [OpenCode Handoff](./skills/Powerhouse-opencode-handoff/) | CLI | Dispatch mechanical work to free models |
 | [Project Setup Kit](./skills/Powerhouse-Claud-Project-Setup-Kit/) | Both | Project knowledge base setup |
 | [Prompt Optimizer](./skills/Powerhouse-Prompt-Optimizer/) | Both | Prompt engineering with Anthropic heuristics |
 | [Resume Specialist](./skills/Powerhouse-Resume-Specialist/) | Both | ATS-optimized DOCX resume formatting |
@@ -48,6 +47,8 @@ A personal collection of AI tools in one monorepo: Claude skills, MCP servers, a
 
 These agent definitions are tool-agnostic — they work with any AI coding tool that reads project instruction files (OpenCode, Kimi Code, Cursor, Windsurf, GitHub Copilot, and others).
 
+**Use in your own project:** Run `powerhouse apply` to copy agents to your project, or clone this repo and manually copy `.opencode/agents/` and `.claude/agents/`.
+
 #### Model Routing (OpenCode)
 
 Each agent role is wired to a different model based on workload. Activate with:
@@ -79,6 +80,8 @@ powerhouse apply          # Add workflow to existing project
 ```
 
 **Install:** `git clone` → `npm link`
+
+> **`powerhouse` vs `/pst`:** `powerhouse init/apply` is a one-time project bootstrapper — run it once to scaffold or wire up a project. `/pst` commands (`/pst plan`, `/pst build`, `/pst review`) are Claude Code slash commands for the ongoing development workflow inside any project — no installation required.
 
 ---
 
@@ -135,9 +138,8 @@ MultiAgents-Powerhouse/
 ├── .opencode/
 │   ├── agents/              # 6 agent definitions (tool-agnostic)
 │   └── commands/            # OpenCode slash commands
-├── skills/                   # 5 AI skills for Claude
+├── skills/                   # 4 AI skills for Claude
 │   ├── Powerhouse-software-team/
-│   ├── Powerhouse-opencode-handoff/
 │   ├── Powerhouse-Claud-Project-Setup-Kit/
 │   ├── Powerhouse-Prompt-Optimizer/
 │   └── Powerhouse-Resume-Specialist/
