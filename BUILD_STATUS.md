@@ -1,6 +1,6 @@
-# BUILD_STATUS — Claude-Powerhouse (Meta)
+# BUILD_STATUS — MultiAgents-Powerhouse (Meta)
 
-Tracks the shipping status of Claude-Powerhouse itself: skills, MCPs, infrastructure, and documentation.
+Tracks the shipping status of MultiAgents-Powerhouse itself: skills, MCPs, infrastructure, and documentation.
 
 > **Rule:** Only update this file on `main` after a PR is merged — never on a feature branch.
 
@@ -60,7 +60,7 @@ Tracks the shipping status of Claude-Powerhouse itself: skills, MCPs, infrastruc
 
 ---
 
-## Layer 6 — Merger: development-protocols → Claude-Powerhouse
+## Layer 6 — Merger: development-protocols → MultiAgents-Powerhouse
 
 - [x] Phase 1: Create directory structure (cli/, templates/, .agents/)
 - [x] Phase 1: Copy CLI scripts from development-protocols (cli.js, init.js, apply.js)
@@ -69,7 +69,7 @@ Tracks the shipping status of Claude-Powerhouse itself: skills, MCPs, infrastruc
 - [x] Phase 2: Add advisor.md agent from development-protocols
 - [x] Phase 2: Copy CI/CD and Husky templates
 - [x] Phase 2: Copy session tracking scripts (save.sh, restore.sh)
-- [x] Phase 3: Update package.json (rename to claude-powerhouse, bin entry, keywords)
+- [x] Phase 3: Update package.json (rename to MultiAgents-Powerhouse, bin entry, keywords)
 - [x] Phase 3: Update CLI branding (cli.js, init.js, apply.js)
 - [x] Phase 4: Update README.md with unified docs (CLI + agent pipeline + multi-tool)
 - [x] Phase 4: Create TECH_SPEC.md for the merger

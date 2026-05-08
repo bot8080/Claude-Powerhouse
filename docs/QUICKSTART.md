@@ -1,4 +1,4 @@
-# Quick Start — Claude-Powerhouse in 5 Minutes
+# Quick Start — MultiAgents-Powerhouse in 5 Minutes
 
 > Pick the path below that matches your situation.
 

@@ -1,4 +1,4 @@
-# Claude-Powerhouse Skills
+# MultiAgents-Powerhouse Skills
 
 A personal collection of AI skills — reusable, installable, and open source.
 
@@ -81,7 +81,7 @@ Skills activate automatically when your request matches the trigger — no need 
 | "Invalid skill file" | Make sure you downloaded `.skill` file, not `SKILL.md` |
 | CLI skill in Claude.ai | Check the `[CLI]` vs `[Both]` badge — CLI-only skills need Claude Code |
 | Wrong output | Skill might conflict with another installed skill — disable others temporarily |
-| Download link broken | Use raw URL: `https://raw.githubusercontent.com/bot8080/Claude-Powerhouse/main/skills/{name}/{name}.skill` |
+| Download link broken | Use raw URL: `https://raw.githubusercontent.com/bot8080/MultiAgents-Powerhouse/main/skills/{name}/{name}.skill` |
 
 ---
 

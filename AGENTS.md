@@ -1,4 +1,4 @@
-# Claude-Powerhouse — OpenCode Session Brief
+# MultiAgents-Powerhouse — OpenCode Session Brief
 
 Monorepo with two outputs: MCP servers (`mcps/`) and Skills (`skills/`).
 Active sub-projects: `market-intelligence` (shipped), `investment-brain` (in development).

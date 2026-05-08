@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working in this
 
 ## What This Repo Is
 
-**Claude-Powerhouse** is a monorepo shipping two categories of AI tooling:
+**MultiAgents-Powerhouse** is a monorepo shipping two categories of AI tooling:
 
 | Category | Target | Location |
 |---|---|---|
@@ -179,7 +179,7 @@ src/market_intelligence/
   "mcpServers": {
     "market-intelligence": {
       "command": "uv",
-      "args": ["run", "--directory", "C:\\path\\to\\Claude-Powerhouse\\mcps\\market-intelligence", "market-intelligence"]
+      "args": ["run", "--directory", "C:\\path\\to\\MultiAgents-Powerhouse\\mcps\\market-intelligence", "market-intelligence"]
     }
   }
 }

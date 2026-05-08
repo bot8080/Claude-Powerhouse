@@ -1,4 +1,4 @@
-# Troubleshooting — Claude-Powerhouse
+# Troubleshooting — MultiAgents-Powerhouse
 
 Central troubleshooting guide for all components. Choose your error below.
 
@@ -25,7 +25,7 @@ npx powerhouse: command not found
 
 **Fix:**
 ```bash
-cd Claude-Powerhouse
+cd MultiAgents-Powerhouse
 npm link
 powerhouse --help    # Should work now
 ```
@@ -70,7 +70,7 @@ MCP tool call failed: connection refused
 
 **Fix:**
 ```bash
-cd Claude-Powerhouse/mcps/market-intelligence
+cd MultiAgents-Powerhouse/mcps/market-intelligence
 uv sync                  # First time only
 uv run market-intelligence
 ```
@@ -104,10 +104,10 @@ MARKET_INTELLIGENCE_CMD not found
 **Fix:**
 ```bash
 # Mac / Linux
-export MARKET_INTELLIGENCE_CMD="uv run --directory /path/to/Claude-Powerhouse/mcps/market-intelligence market-intelligence"
+export MARKET_INTELLIGENCE_CMD="uv run --directory /path/to/MultiAgents-Powerhouse/mcps/market-intelligence market-intelligence"
 
 # Windows (PowerShell)
-$env:MARKET_INTELLIGENCE_CMD = "uv run --directory C:\path\to\Claude-Powerhouse\mcps\market-intelligence market-intelligence"
+$env:MARKET_INTELLIGENCE_CMD = "uv run --directory C:\path\to\MultiAgents-Powerhouse\mcps\market-intelligence market-intelligence"
 ```
 
 Add this to your shell profile (`.bashrc`, `.zshrc`, `$PROFILE`) to make it permanent.
@@ -202,7 +202,7 @@ Skill content not loading or empty
 
 **Fix:** Raw GitHub URLs work best. Try:
 ```
-https://raw.githubusercontent.com/bot8080/Claude-Powerhouse/main/skills/{skill-name}/{skill-name}.skill
+https://raw.githubusercontent.com/bot8080/MultiAgents-Powerhouse/main/skills/{skill-name}/{skill-name}.skill
 ```
 
 ---
@@ -213,7 +213,7 @@ If your issue isn't listed here:
 
 1. Search this file for error keywords
 2. Check the component's `README.md` for component-specific docs
-3. Open a [GitHub issue](https://github.com/bot8080/Claude-Powerhouse/issues) with:
+3. Open a [GitHub issue](https://github.com/bot8080/MultiAgents-Powerhouse/issues) with:
    - Component name and version
    - Full error message (screenshot helps)
    - OS and versions (Node, Python, Claude Code)

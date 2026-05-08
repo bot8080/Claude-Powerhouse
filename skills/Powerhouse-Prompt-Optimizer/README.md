@@ -101,4 +101,4 @@ Write a type-safe sort function that orders users by:
 
 ---
 
-*Part of the [Claude-Powerhouse](../../README.md) suite.*
+*Part of the [MultiAgents-Powerhouse](../../README.md) suite.*

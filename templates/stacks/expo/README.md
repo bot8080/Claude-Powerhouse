@@ -1,13 +1,13 @@
 # App Name
 
-> A React Native + Expo project scaffolded using [Claude-Powerhouse](https://github.com/bot8080/Claude-Powerhouse).
+> A React Native + Expo project scaffolded using [MultiAgents-Powerhouse](https://github.com/bot8080/MultiAgents-Powerhouse).
 
 This project was created with:
 ```bash
 npx powerhouse init my-app --stack expo
 ```
 
-For full documentation on the development workflow, see the [Claude-Powerhouse README](https://github.com/bot8080/Claude-Powerhouse).
+For full documentation on the development workflow, see the [MultiAgents-Powerhouse README](https://github.com/bot8080/MultiAgents-Powerhouse).
 
 ---
 

@@ -202,4 +202,4 @@ Download the `.skill` file and upload to Claude.ai → Settings → Skills. Note
 
 ---
 
-*Part of the [Claude-Powerhouse](../../README.md) suite.*
+*Part of the [MultiAgents-Powerhouse](../../README.md) suite.*

@@ -1,7 +1,7 @@
 {
-  "name": "claude-powerhouse",
+  "name": "multiagents-powerhouse",
   "version": "1.0.0",
-  "description": "Full-stack development workflow — scaffolding + spec-first agent pipeline",
+  "description": "Multi-model AI agent framework — spec-first development with OpenCode Go plan",
   "type": "module",
   "bin": {
     "powerhouse": "./cli/cli.js"
@@ -24,28 +24,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bot8080/Claude-Powerhouse.git"
+    "url": "git+https://github.com/bot8080/MultiAgents-Powerhouse.git"
   },
   "keywords": [
-    "workflow",
-    "scaffold",
-    "expo",
-    "react-native",
-    "cli",
-    "boilerplate",
-    "template",
+    "opencode",
+    "multi-agent",
+    "ai-workflow",
+    "spec-first",
     "mcp",
     "claude",
-    "ai-tools",
-    "finance",
-    "skills",
+    "kimi",
+    "cursor",
     "agent-pipeline",
-    "spec-first"
+    "model-routing",
+    "finance",
+    "skills"
   ],
   "author": "Anomaly",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bot8080/Claude-Powerhouse/issues"
+    "url": "https://github.com/bot8080/MultiAgents-Powerhouse/issues"
   },
-  "homepage": "https://github.com/bot8080/Claude-Powerhouse#readme"
+  "homepage": "https://github.com/bot800/MultiAgents-Powerhouse#readme"
 }

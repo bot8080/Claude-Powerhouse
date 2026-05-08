@@ -1,4 +1,4 @@
-# Claude-Powerhouse Cheat Sheet
+# MultiAgents-Powerhouse Cheat Sheet
 
 One-page reference for the most common commands and concepts.
 

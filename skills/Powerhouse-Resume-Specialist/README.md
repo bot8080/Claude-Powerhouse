@@ -88,4 +88,4 @@ Generates and formats pixel-perfect, **ATS-optimized resumes** in `.docx` format
 
 ---
 
-*Part of the [Claude-Powerhouse](../../README.md) suite.*
+*Part of the [MultiAgents-Powerhouse](../../README.md) suite.*

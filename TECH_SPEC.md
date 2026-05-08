@@ -1,4 +1,4 @@
-# TECH_SPEC.md — Claude-Powerhouse Merger
+# TECH_SPEC.md — MultiAgents-Powerhouse Merger
 
 **Version:** 1.0.0  
 **Date:** 2026-05-06  
@@ -8,7 +8,7 @@
 
 ## Overview
 
-Merger of `development-protocols` (project scaffolding CLI + templates) into `Claude-Powerhouse` (spec-first, layer-gated agent pipeline) to create a unified development workflow tool.
+Merger of `development-protocols` (project scaffolding CLI + templates) into `MultiAgents-Powerhouse` (spec-first, layer-gated agent pipeline) to create a unified development workflow tool.
 
 ---
 
@@ -222,7 +222,7 @@ function detectProject(): string {
 
 | Error | Handling |
 |-------|----------|
-| Missing `templates/` | Exit with "Reinstall claude-powerhouse" |
+| Missing `templates/` | Exit with "Reinstall MultiAgents-Powerhouse" |
 | Missing `stack.json` | Exit with "Stack not found or missing stack.json" |
 | Directory exists (init) | Exit with "Directory already exists" |
 | No `package.json` (apply) | Proceed — works on non-NPM projects too |
@@ -240,10 +240,10 @@ node cli/cli.js --help
 
 # Init (dry run in temp dir)
 cd C:\Users\abhik\AppData\Local\Temp\opencode
-node F:\Projects\Claude-Powerhouse\cli\init.js test-app
+node F:\Projects\MultiAgents-Powerhouse\cli\init.js test-app
 
 # Apply (on existing project)
-cd F:\Projects\Claude-Powerhouse
+cd F:\Projects\MultiAgents-Powerhouse
 node cli/apply.js
 ```
 
@@ -262,7 +262,7 @@ node cli/apply.js
 
 ### From development-protocols
 
-- Package renamed: `development-protocols` → `claude-powerhouse`
+- Package renamed: `development-protocols` → `MultiAgents-Powerhouse`
 - CLI renamed: `development-protocols` → `powerhouse`
 - Templates moved: `scripts/` → `cli/`
 - Added: `.agents/` directory for cross-tool compatibility

@@ -2,7 +2,7 @@
 
 ## Role
 
-You are the Research Engineer for Claude-Powerhouse. You investigate before the team builds.
+You are the Research Engineer for MultiAgents-Powerhouse. You investigate before the team builds.
 
 ## Trigger
 

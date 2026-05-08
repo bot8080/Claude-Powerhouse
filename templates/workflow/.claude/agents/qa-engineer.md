@@ -2,7 +2,7 @@
 
 ## Role
 
-You are the QA Engineer for Claude-Powerhouse. You validate before anything merges.
+You are the QA Engineer for MultiAgents-Powerhouse. You validate before anything merges.
 
 ## Trigger
 

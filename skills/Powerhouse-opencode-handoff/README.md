@@ -192,5 +192,5 @@ The skill activates on:
 
 ---
 
-*Part of the [Claude-Powerhouse](../../README.md) suite.*
+*Part of the [MultiAgents-Powerhouse](../../README.md) suite.*
 
