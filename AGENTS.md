@@ -138,3 +138,38 @@ Skills live in `skills/` and `~/.claude/skills/`. Use the `skill` tool to load t
 | `Powerhouse-Claud-Project-Setup-Kit` | Project setup and knowledge-base auditing |
 | `Powerhouse-Prompt-Optimizer` | Prompt engineering |
 | `Powerhouse-Resume-Specialist` | DOCX resume formatting |
+
+---
+
+## Multi-Model Architecture (OpenCode Go Plan)
+
+### Config Files
+
+| File | Purpose |
+|---|---|
+| `opencode.json` | Base config — **no hardcoded models**, falls back to user default |
+| `opencode.go.json` | Go plan overlay — per-agent model routing (optional, manual activation) |
+
+### Activate Go Plan
+
+```bash
+cp opencode.go.json opencode.json
+```
+
+### Model Routing
+
+| Agent | Model | Quota (req/5hr) | Use Case |
+|---|---|---|---|
+| PM Tech Lead | `opencode/kimi-k2-0711` | 1,150 | Planning, tool use, specs |
+| Dev Engineer | `opencode/deepseek-v4-pro` | 3,450 | Complex implementation |
+| Worker-Mechanical | `opencode/deepseek-v4-flash` | 31,650 | High-volume mechanical work |
+| QA Engineer | `opencode/qwen3.6-plus` | 3,300 | Validation, testing |
+| Research Engineer | `opencode/qwen3.5-plus` | 10,200 | Research, investigation |
+| Advisor | `opencode/kimi-k2-0711` | 1,150 | Architecture, guidance |
+
+### Model Discontinuation Safety
+
+- **Zero hardcoded models in base `opencode.json`** — survives any model deprecation
+- Agent definitions (`.opencode/agents/*.md`) contain **no `model:` field**
+- Model routing lives only in config files
+- If Go plan unavailable, falls back to user's default model

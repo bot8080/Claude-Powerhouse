@@ -1,15 +1,17 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "opencode/big-pickle",
   "instructions": [
     "AGENTS.md",
     "docs/CONVENTIONS.md",
     "docs/ARCHITECTURE.md"
   ],
   "agent": {
-    "advisor": {
-      "model": "opencode/minimax-m2.5-free"
-    }
+    "pm-tech-lead": {},
+    "dev-engineer": {},
+    "worker-mechanical": {},
+    "qa-engineer": {},
+    "research-engineer": {},
+    "advisor": {}
   },
   "providers": {
     "opencode": {}
