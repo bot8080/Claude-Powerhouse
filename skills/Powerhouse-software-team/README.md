@@ -55,7 +55,7 @@ User Request
 
 ## Where This Skill Lives
 
-When you install this skill, it creates these files in your project:
+When active, this skill instructs the AI to create and maintain these files in your project:
 
 | File | Purpose |
 |------|---------|

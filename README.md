@@ -2,35 +2,38 @@
 
 > **Source-only monorepo.** Nothing here is published to npm or PyPI. Clone this repo to use any component.
 
-A multi-model AI agent framework for spec-first software development. Built primarily for **OpenCode** with cross-tool compatibility (Claude Code, Kimi, Cursor, Windsurf, and others).
-
----
-
-## Core Philosophy: Multi-Model Agent Routing
-
-Different agent roles use different AI models based on their workload. This maximizes quality where it matters and minimizes cost where it doesn't.
-
-| Agent | Model | Quota (req/5hr) | Best For |
-|---|---|---|---|
-| PM Tech Lead | `kimi-k2-0711` | 1,150 | Planning, architecture, specs |
-| Dev Engineer | `deepseek-v4-pro` | 3,450 | Complex implementation |
-| Worker-Mechanical | `deepseek-v4-flash` | 31,650 | High-volume mechanical work |
-| QA Engineer | `qwen3.6-plus` | 3,300 | Validation, testing |
-| Research Engineer | `qwen3.5-plus` | 10,200 | API research, investigation |
-| Advisor | `kimi-k2-0711` | 1,150 | Architecture, strategy |
-
-**Activate:**
-```bash
-cp opencode.go.json opencode.json
-```
-
-> **Note:** This is configuration-based routing. OpenCode reads per-agent model assignments from `opencode.json`. The base config (`opencode.json`) contains zero hardcoded models — it survives any model deprecation by falling back to your default.
+A personal collection of AI tools in one monorepo: Claude skills, MCP servers, agent definitions, and a CLI scaffold. Works with Claude Code, Claude.ai, Claude Desktop, and OpenCode.
 
 ---
 
 ## What's in This Repo
 
-### 1. Agent Definitions (`.opencode/agents/`)
+### 1. AI Skills (`skills/`)
+
+5 installable skills that extend Claude's behavior:
+
+| Skill | Target | Purpose |
+|---|---|---|
+| [Software Team](./skills/Powerhouse-software-team/) | CLI | PM→Dev→QA pipeline with spec-first discipline |
+| [OpenCode Handoff](./skills/Powerhouse-opencode-handoff/) | CLI | Dispatch mechanical work to free models |
+| [Project Setup Kit](./skills/Powerhouse-Claud-Project-Setup-Kit/) | Both | Project knowledge base setup |
+| [Prompt Optimizer](./skills/Powerhouse-Prompt-Optimizer/) | Both | Prompt engineering with Anthropic heuristics |
+| [Resume Specialist](./skills/Powerhouse-Resume-Specialist/) | Both | ATS-optimized DOCX resume formatting |
+
+**Install:** Download `.skill` file → Claude.ai Settings → Skills → Upload
+
+### 2. MCP Servers (`mcps/`)
+
+2 financial data servers for Claude Desktop:
+
+| Server | Markets | Purpose |
+|---|---|---|
+| [market-intelligence](./mcps/market-intelligence/) | US, India, Canada | Real-time stock data, technicals, scoring |
+| [investment-brain](./mcps/investment-brain/) | US, India, Canada | Auto-scoring, paper trading, portfolio tracking |
+
+**Install:** Clone repo → `cd mcps/...` → `uv sync` → `uv run`
+
+### 3. Agent Definitions (`.opencode/agents/`)
 
 6 specialized agent roles for spec-first development:
 
@@ -45,34 +48,30 @@ cp opencode.go.json opencode.json
 
 These agent definitions are tool-agnostic — they work with any AI coding tool that reads project instruction files (OpenCode, Kimi Code, Cursor, Windsurf, GitHub Copilot, and others).
 
-### 2. AI Skills (`skills/`)
+#### Model Routing (OpenCode)
 
-5 installable skills that extend Claude's behavior:
+Each agent role is wired to a different model based on workload. Activate with:
 
-| Skill | Target | Purpose |
+```bash
+cp opencode.go.json opencode.json
+```
+
+| Agent | Model | Best For |
 |---|---|---|
-| [Software Team](./skills/Powerhouse-software-team/) | CLI | PM→Dev→QA pipeline with spec-first discipline |
-| [OpenCode Handoff](./skills/Powerhouse-opencode-handoff/) | CLI | Dispatch mechanical work to free models |
-| [Project Setup Kit](./skills/Powerhouse-Claud-Project-Setup-Kit/) | Both | Project knowledge base setup |
-| [Prompt Optimizer](./skills/Powerhouse-Prompt-Optimizer/) | Both | Prompt engineering with Anthropic heuristics |
-| [Resume Specialist](./skills/Powerhouse-Resume-Specialist/) | Both | ATS-optimized DOCX resume formatting |
+| PM Tech Lead | `kimi-k2-0711` | Planning, architecture, specs |
+| Dev Engineer | `deepseek-v4-pro` | Complex implementation |
+| Worker-Mechanical | `deepseek-v4-flash` | High-volume mechanical work |
+| QA Engineer | `qwen3.6-plus` | Validation, testing |
+| Research Engineer | `qwen3.5-plus` | API research, investigation |
+| Advisor | `kimi-k2-0711` | Architecture, strategy |
 
-**Install:** Download `.skill` file → Claude.ai Settings → Skills → Upload
-
-### 3. MCP Servers (`mcps/`)
-
-2 financial data servers for Claude Desktop:
-
-| Server | Markets | Purpose |
-|---|---|---|
-| [market-intelligence](./mcps/market-intelligence/) | US, India, Canada | Real-time stock data, technicals, scoring |
-| [investment-brain](./mcps/investment-brain/) | US, India, Canada | Auto-scoring, paper trading, portfolio tracking |
-
-**Install:** Clone repo → `cd mcps/...` → `uv sync` → `uv run`
+> The base `opencode.json` contains zero hardcoded models — it falls back to your default if you skip this step.
 
 ### 4. CLI Tool (`cli/`)
 
-Local scaffolding utility (not published to npm):
+> **Status:** Local-only utility, not published to npm.
+
+Local scaffolding utility for bootstrapping projects with the agent pipeline:
 
 ```bash
 powerhouse init my-app    # Scaffold new project with agent pipeline
@@ -105,14 +104,14 @@ The `.agents/` directory is a cross-tool alias — any tool that reads project f
 git clone https://github.com/bot8080/MultiAgents-Powerhouse.git
 cd MultiAgents-Powerhouse
 
-# 2. Activate multi-model routing (optional)
+# 2. Use any component independently:
+#    - Install a skill: download .skill file from skills/ and upload to Claude.ai
+#    - Run an MCP: cd mcps/market-intelligence && uv sync && uv run market-intelligence
+#    - Use agents: open with OpenCode or Claude Code — agent definitions load automatically
+
+# 3. Activate multi-model routing for OpenCode (optional)
 cp opencode.go.json opencode.json
-
-# 3. Start coding with OpenCode
 opencode
-
-# Or use Claude Code (reads AGENTS.md conventions)
-claude
 ```
 
 ---
@@ -149,7 +148,7 @@ MultiAgents-Powerhouse/
 ├── docs/                     # Guides
 ├── templates/                # Project templates
 ├── opencode.json             # Base config (no hardcoded models)
-├── opencode.go.json          # Go plan overlay (per-agent routing)
+├── opencode.go.json          # Per-agent model routing overlay
 └── AGENTS.md                 # Session brief + conventions
 ```
 
