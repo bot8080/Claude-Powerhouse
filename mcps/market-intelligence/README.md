@@ -1,11 +1,15 @@
-# 📈 market-intelligence
+# market-intelligence MCP
 
-MCP server for financial intelligence across US, Indian, and Canadian markets. 8 tools, built with FastMCP + yfinance.
+> **For:** Investors, analysts, Claude Desktop users who need real-time financial data
+
+MCP server for financial intelligence across **US, Indian, and Canadian markets.** 8 tools, built with FastMCP + yfinance.
+
+---
 
 ## Market Coverage
 
-| Tool | US | India | Canada |
-|------|----|-------|--------|
+| Tool | US (NASDAQ/NYSE) | India (NSE/BSE) | Canada (TSX) |
+|------|-----------------|-----------------|--------------|
 | `resolve_tickers` | ✅ | ✅ | ✅ |
 | `get_full_profile` | ✅ | ✅ | ✅ |
 | `get_batch_profiles` | ✅ | ✅ | ✅ |
@@ -15,20 +19,66 @@ MCP server for financial intelligence across US, Indian, and Canadian markets. 8
 | `get_nifty_valuation` | ❌ | ✅ | ❌ |
 | `get_scoring_data` | ✅ | ✅ | ✅ |
 
-⚠️ Insider/holder data not available for Indian stocks via Yahoo Finance — use `get_fii_dii_flows` instead.
+**Not for:** Crypto, forex, real-time trading (data delayed 15-20 min via Yahoo Finance).
+
+---
 
 ## Tools
 
-| Tool | Description |
-|------|-------------|
-| `resolve_tickers` | Resolve company names or partial tickers → clean Yahoo Finance symbols. Handles `.NS` (India NSE), `.BO` (India BSE), `.TO` (Canada), `.L` (London). Always call this first. |
-| `get_full_profile` | All metrics in 1 call: price, valuation (PE/PEG/P/B/EV), quality (ROE/margins/cashflow/debt), growth, analyst targets, risk (beta/short interest), dividends, business description |
-| `get_batch_profiles` | Full profiles for up to 20 stocks in 1 MCP call using parallel fetching. Solves the 14-ticker × 8-metric = 112 call problem |
-| `get_technicals` | RSI(14), MACD, ADX(14), ATR(14), Bollinger Bands, MFI(14), OBV, SMA 50/200, Golden/Death Cross, overall signal, suggested stop loss |
-| `get_institutional_activity` | Insider buy/sell transactions, top institutional holders + % change, mutual fund holders, analyst upgrades/downgrades, earnings calendar |
-| `get_fii_dii_flows` | NSE India FII/DII daily buy/sell/net flows + rolling totals + sentiment signal |
-| `get_nifty_valuation` | Nifty 50 P/E, P/B, dividend yield + valuation zone (Excellent/Good/Fair/Expensive/Bubble) |
-| `get_scoring_data` | 4-pillar score: Valuation + Quality + Momentum + Risk (25pts each, 100 total). Deal-breaker checks. Verdict: BUY/HOLD/SELL |
+| Tool | What It Returns | Example |
+|------|----------------|---------|
+| `resolve_tickers(["Apple", "TSM"])` | Clean Yahoo Finance symbols | `["AAPL", "TSM"]` |
+| `get_full_profile("NVDA")` | All metrics in 1 call: price, PE/PEG, ROE, margins, growth, analyst targets, risk, dividends, business description | One call = 8 sections |
+| `get_batch_profiles(["NVDA", "TSM"])` | Full profiles for up to 20 stocks in 1 MCP call | Solves the 112-call problem |
+| `get_technicals("NVDA")` | RSI, MACD, ADX, Bollinger Bands, MFI, SMA 50/200, stop loss suggestion | Signal + numbers |
+| `get_institutional_activity("NVDA")` | Insider trades, institutional holders, mutual fund holders, analyst upgrades/downgrades, earnings calendar | Full picture |
+| `get_fii_dii_flows()` | India FII/DII daily buy/sell/net flows + sentiment signal | India macro |
+| `get_nifty_valuation()` | Nifty 50 P/E, P/B, dividend yield + valuation zone | India macro |
+| `get_scoring_data("NVDA")` | 4-pillar score (V+Q+M+R, 100 total) + deal-breaker checks + BUY/HOLD/SELL verdict | Final answer |
+
+---
+
+## Example Session (Full Workflow)
+
+**Step 1 — Resolve tickers:**
+```
+resolve_tickers(["Bharat Electronics", "NVDA", "SHOP"])
+→ ["BEL.NS", "NVDA", "SHOP.TO"]
+```
+
+**Step 2 — Get profiles in 1 call:**
+```
+get_batch_profiles(["BEL.NS", "NVDA", "SHOP.TO"])
+→ All PE, ROE, margins, growth, analyst targets for 3 stocks
+```
+
+**Step 3 — Technical analysis:**
+```
+get_technicals("NVDA")
+→ RSI=58, MACD bullish, above 50/200 DMA, stop loss: $118
+```
+
+**Step 4 — Insider activity:**
+```
+get_institutional_activity("NVDA")
+→ 3 insider buys last quarter, top holder: Vanguard (8.2%)
+```
+
+**Step 5 — Final scoring:**
+```
+get_scoring_data("NVDA")
+→ Total: 82/100 (Valuation: 23, Quality: 22, Momentum: 22, Risk: 15)
+→ Verdict: BUY
+```
+
+**Step 6 — India macro overlay:**
+```
+get_nifty_valuation() + get_fii_dii_flows()
+→ Nifty P/E: 22.5 (Good zone)
+→ FII: +$450M (bullish signal)
+```
+
+---
 
 ## Installation
 
@@ -44,6 +94,10 @@ uv sync
 ```bash
 uv run market-intelligence
 ```
+
+Keep this terminal open. Use tools from Claude Desktop or another terminal.
+
+---
 
 ## Claude Desktop Config
 
@@ -65,24 +119,29 @@ Add to `%APPDATA%\Claude\claude_desktop_config.json`:
 }
 ```
 
-## Typical Workflow
+Restart Claude Desktop after adding.
 
-```
-1. resolve_tickers(["Bharat Electronics", "NVDA", "SHOP"])
-   → ["BEL.NS", "NVDA", "SHOP.TO"]
+---
 
-2. get_batch_profiles(["BEL.NS", "NVDA", "SHOP.TO"])
-   → all metrics in 1 MCP call
+## Troubleshooting
 
-3. get_technicals("NVDA")
-   → RSI, MACD, ADX, stop loss
+| Error | Likely Cause | Fix |
+|-------|-------------|-----|
+| `MCP tool call failed` | Server not running | Start `uv run market-intelligence` in separate terminal |
+| `resolve_tickers` empty | Yahoo Finance API down | Wait 2-3 min, retry. Check [status](https://status.yahoo.com/) |
+| Missing fields for Indian stocks | Yahoo Finance limitation | Use `get_fii_dii_flows` instead of insider data |
+| Rate limit errors | Too many rapid calls | Use `get_batch_profiles` instead of individual calls (built-in 0.3s delay) |
+| Incorrect ticker resolution | Missing exchange suffix | Add `.NS` for NSE, `.TO` for TSX, `.BO` for BSE |
 
-4. get_institutional_activity("NVDA")
-   → insider trades, institutional holders, upgrades
+---
 
-5. get_scoring_data("NVDA")
-   → V+Q+M+R score, verdict, deal-breaker check
+## Related
 
-# India macro overlay
-6. get_nifty_valuation()  +  get_fii_dii_flows()
-```
+| Project | Purpose |
+|---------|---------|
+| [investment-brain](../investment-brain/) | Uses this as data layer for auto-scoring |
+| [Root README](../../README.md) | Full repo documentation + CLI tools |
+
+---
+
+*Part of the [Claude-Powerhouse](../../README.md) suite. Data for informational purposes only — verify before investing.*

@@ -46,6 +46,8 @@ npx powerhouse apply
 | **MCP Servers** | market-intelligence, investment-brain | Financial data + analysis engines |
 | **Skills** | software-team, opencode-handoff, etc. | Reusable AI workflows |
 
+> **New here?** Start with [docs/QUICKSTART.md](./docs/QUICKSTART.md) (5 min setup), or keep scrolling for the full guide.
+
 ---
 
 ## CLI Commands (Scaffolding)
@@ -312,11 +314,11 @@ When both MCPs are registered, Claude Desktop can call `analyze_stock`, `screen_
 
 | Skill | Target | Purpose |
 |---|---|---|
-| [Software Team](./skills/pst-software-team/) | **CLI only** | Full AI dev team — PM plans, Dev builds, QA reviews. Spec-first, layer-gated, four-agent pipeline. |
-| [OpenCode Handoff](./skills/pst-opencode-handoff/) | **CLI only** | Hand off mechanical coding tasks to OpenCode + MiniMax M2 (free). CC plans + reviews; OC executes in an isolated git worktree. Auto-suggests when the task profile is mechanical. |
-| [Project Setup Kit](./skills/pst-Claud-Project-Setup-Kit/) | **CLI + Web** | AI Workspace Architect — project setup, structure auditing, CLAUDE.md generation. |
-| [Prompt Optimizer](./skills/pst-Prompt-Optimizer/) | **CLI + Web** | Expert-grade prompt engineering using the latest heuristics. |
-| [Resume Specialist](./skills/pst-Resume-Specialist/) | **CLI + Web** | Premium DOCX formatting and ATS optimization. |
+| [Software Team](./skills/Powerhouse-software-team/) | **CLI only** | Full AI dev team — PM plans, Dev builds, QA reviews. Spec-first, layer-gated, four-agent pipeline. |
+| [OpenCode Handoff](./skills/Powerhouse-opencode-handoff/) | **CLI only** | Hand off mechanical coding tasks to OpenCode + MiniMax M2 (free). CC plans + reviews; OC executes in an isolated git worktree. Auto-suggests when the task profile is mechanical. |
+| [Project Setup Kit](./skills/Powerhouse-Claud-Project-Setup-Kit/) | **CLI + Web** | AI Workspace Architect — project setup, structure auditing, CLAUDE.md generation. |
+| [Prompt Optimizer](./skills/Powerhouse-Prompt-Optimizer/) | **CLI + Web** | Expert-grade prompt engineering using the latest heuristics. |
+| [Resume Specialist](./skills/Powerhouse-Resume-Specialist/) | **CLI + Web** | Premium DOCX formatting and ATS optimization. |
 
 ### Installing Web Skills (Claude.ai)
 1. Download the `.skill` file from the skill's folder.
@@ -411,9 +413,79 @@ For any skill in this repo, use the raw URL directly:
 
 ### Example: Powerhouse-software-team skill
 
-1. Go to: `https://raw.githubusercontent.com/bot8080/Claude-Powerhouse/main/skills/pst-software-team/SKILL.md`
+1. Go to: `https://raw.githubusercontent.com/bot8080/Claude-Powerhouse/main/skills/Powerhouse-software-team/SKILL.md`
 2. Copy the content
 3. Claude.ai → Settings → Skills → Install Skill → Paste
+
+---
+
+## Quick Reference Card
+
+```
+┌───────────────────────────────────────────────────────────────────┐
+│  NEW PROJECT                        EXISTING PROJECT              │
+│  ────────────                       ────────────────              │
+│  npx powerhouse init my-app         npx powerhouse apply          │
+│  cd my-app                                                       │
+│  claude  (start Claude Code)         claude                       │
+│  /pst status                        /pst status                   │
+│  /pst plan "auth"                   /pst plan "add feature"       │
+│  /pst build                         /pst build                    │
+│  /pst review                        /pst review                   │
+│                                                                   │
+│  MCP SERVERS                       SKILLS (Claude.ai)             │
+│  ────────────                       ─────────────────             │
+│  uv run market-intelligence         Download .skill file          │
+│  python main.py analyze TSM         Settings → Skills → Install   │
+│                                                                   │
+│  NEED HELP?                                                       │
+│  ──────────                                                       │
+│  docs/QUICKSTART.md    → 5-min setup                              │
+│  docs/CHEATSHEET.md    → One-page commands                        │
+│  docs/TROUBLESHOOTING.md → Fix common errors                      │
+└───────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Multi-Model Architecture (OpenCode Go Plan)
+
+Claude-Powerhouse supports **quota-aware multi-model routing** via the OpenCode Go plan. Different agent roles use different models based on their workload:
+
+| Agent | Model | Quota (req/5hr) | Best For |
+|-------|-------|-----------------|----------|
+| PM Tech Lead, Advisor | `kimi-k2-0711` | 1,150 | Planning, specs, architecture |
+| Dev Engineer | `deepseek-v4-pro` | 3,450 | Complex implementations |
+| Worker-Mechanical | `deepseek-v4-flash` | 31,650 | High-volume mechanical work |
+| QA Engineer | `qwen3.6-plus` | 3,300 | Testing, validation |
+| Research Engineer | `qwen3.5-plus` | 10,200 | API research, investigation |
+
+**Activate Go plan:**
+```bash
+cp opencode.go.json opencode.json
+```
+
+**Without Go plan:** Falls back to your default model in `opencode.json` (no model field = your default).
+
+**Why this matters:**
+- Planning models (Kimi) are best at tool use and reasoning — use them for architecture
+- Flash models have huge quotas (31,650/5hr) — impossible to exhaust for mechanical work
+- Quality models (DeepSeek Pro, Qwen Plus) hit the sweet spot for dev and QA
+
+---
+
+## Troubleshooting
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| `npx powerhouse: command not found` | CLI not linked | `npm link` in repo root |
+| `/pst: command not found` | Not in Claude Code | Run `claude` first, then type `/pst` |
+| `MCP tool call failed` | Server not running | Start `uv run market-intelligence` in separate terminal |
+| `Skill not triggering` | Wrong trigger phrase | Use exact phrases from skill's README |
+| `OpenRouter auth failed` | API key missing | `opencode auth login` |
+| `opencode: command not found` | Not installed | `curl -fsSL https://opencode.ai/install \| bash` |
+
+**Full troubleshooting:** [docs/TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md)
 
 ---
 

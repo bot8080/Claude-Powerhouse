@@ -157,6 +157,20 @@ The skill activates on:
 
 ---
 
+## Troubleshooting
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| `opencode: command not found` | OpenCode not installed | `curl -fsSL https://opencode.ai/install \| bash` |
+| OpenRouter auth failed (401) | API key missing/expired | `opencode auth login` → paste key from [openrouter.ai/keys](https://openrouter.ai/keys) |
+| Worktree conflict | Stale dispatch not cleaned | `git worktree prune` + `rm -rf .powerhouse/wt/*` |
+| Dispatch score < 7 | Task not mechanical enough | Keep task in Claude Code — don't force dispatch |
+| Free tier limit (200/day) | Hit daily quota | Wait for UTC reset, or switch to paid `minimax-m2` model |
+| OpenCode ignores files_to_touch | Missing `follow-ticket.md` command | Ensure `.opencode/commands/follow-ticket.md` exists in repo |
+| OpenCode can't find AGENTS.md | Not in repo root | Create `AGENTS.md` (or run `npx powerhouse apply`) |
+
+---
+
 ## Contents
 
 - `SKILL.md` — full skill instructions (mode detection, classifier, dispatch flow)

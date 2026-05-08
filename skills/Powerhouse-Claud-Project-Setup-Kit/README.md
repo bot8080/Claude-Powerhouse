@@ -1,43 +1,120 @@
 # Powerhouse Claud Project Setup Kit v2
 
-A professional-grade **AI Workspace Architect** for creating new Claud projects from scratch or auditing and improving existing ones.
+> **[CLI + Web]** — Works in Claude Code and Claude.ai
+
+A professional-grade **AI Workspace Architect** — creates new Claud projects from scratch or audits and improves existing ones.
 
 > [!TIP]
-> Use this skill whenever your Claud instruction files feel bloated, your AI ignores its knowledge base, or you want to launch a new professional-grade assistant.
+> Use when:
+> - Your CLAUDE.md feels bloated (>2000 words)
+> - Claude ignores uploaded knowledge base files
+> - Agents give inconsistent answers
+> - You want a new professional-grade assistant
 
 ---
 
-## 🚀 Key Features
+## Before → After
 
-*   **Principles-Based Architecture**: Moves away from rigid rules to flexible heuristics that Claude generalizes better.
-*   **Audit & Refine**: Deeply analyzes existing instruction files to root out redundancy and contradictions.
-*   **RAG Optimization**: Automatically structures knowledge base files for maximum retrieval accuracy.
-*   **Token Efficiency**: Aggressively targets a sub-800 word "gold standard" for system prompts to save your context window.
+**Before (bloated instructions, 2500+ words):**
+
+```
+You are a helpful assistant for my financial analysis project.
+Here are all the rules:
+1. Always check the market data first
+2. Never give investment advice
+3. Use the files in /knowledge for reference
+4. If unsure, ask the user
+5. Be professional but friendly
+... [20+ more rules, many contradictory]
+```
+
+**After (principles-based, ~180 words):**
+
+```
+## Role
+You are a financial analysis assistant. Your job is to:
+1. Fetch and interpret market data
+2. Present analysis clearly with sources
+3. Never give licensed investment advice
+
+## Principles
+- Data-first: Always ground answers in fetched data, never speculate
+- Transparent: Show your work — users trust reasoning they can verify
+- Conservative: When data is missing, say "I don't have that data" rather than estimating
+
+## Knowledge Base
+Files in /knowledge/ are your source of truth.
+Cite them like: [knowledge:valuation-methods.md]
+
+## Output Format
+For analysis requests:
+1. Summary (2-3 sentences)
+2. Data table (if applicable)
+3. Methodology (which files/data you used)
+4. Confidence level (high/medium/low + why)
+```
 
 ---
 
-## 🛠️ Installation
+## Key Features
 
-1.  Download [Powerhouse-Claud-Project-Setup-Kit.skill](./Powerhouse-Claud-Project-Setup-Kit.skill)
-2.  Open [Claude.ai](https://claude.ai) -> **Settings** -> **Skills**.
-3.  Click **Install Skill** and upload the file.
-
----
-
-## 📖 How to Use
-
-Simply start a chat in Claud.ai and say:
-*   *"Help me set up a new project for financial analysis."*
-*   *"Audit my current project instructions—they are getting messy."*
-*   *"Build a professional knowledge base for my coding project."*
+| Feature | What It Does | Result |
+|---------|--------------|--------|
+| **Principles-Based** | Replaces rigid rules with flexible heuristics | Claude generalizes better |
+| **Audit & Refine** | Deep analysis of existing instruction files | Roots out redundancy, contradictions |
+| **RAG Optimization** | Structures knowledge base files for retrieval | Maximum accuracy on first try |
+| **Token Efficiency** | Targets sub-800 word "gold standard" | Saves context window for actual work |
 
 ---
 
-## 📂 Contents
+## How to Use
 
-*   `SKILL.md`: The core intelligence and instruction set for this skill.
-*   `references/anti-patterns.md`: A deep-dive into common project-building mistakes and how to avoid them.
-*   `Powerhouse-Claud-Project-Setup-Kit.skill`: The installable distributable.
+**Trigger phrases:**
+- *"Help me set up a new project for [domain]"*
+- *"Audit my current project instructions — they're getting messy"*
+- *"Build a professional knowledge base for my coding project"*
+- *"My Claude keeps ignoring the knowledge base — fix it"*
+
+**What happens:**
+
+1. **Context Detection** — Skill asks: new project or existing?
+2. **New Projects:**
+   - Asks about domain, use cases, tone
+   - Generates `CLAUDE.md` + knowledge base structure
+   - RAG-optimized file organization
+
+3. **Existing Projects:**
+   - Reads current `CLAUDE.md` / `AGENTS.md`
+   - Identifies: redundancy, contradictions, token bloat
+   - Produces: refined version + migration notes
+
+---
+
+## Installation
+
+**Claude.ai web:**
+1. Download [Powerhouse-Claud-Project-Setup-Kit.skill](./Powerhouse-Claud-Project-Setup-Kit.skill)
+2. Go to [Claude.ai](https://claude.ai) → **Settings** → **Skills**
+3. Click **Install Skill** and upload the file
+
+**Claude Code:** Skills in `.claude/skills/` activate automatically when working in this repo.
+
+---
+
+## Contents
+
+- `SKILL.md` — Core intelligence and instruction set
+- `references/anti-patterns.md` — Common project-building mistakes
+- `Powerhouse-Claud-Project-Setup-Kit.skill` — Installable distributable
+
+---
+
+## Related
+
+| Skill | Purpose |
+|-------|---------|
+| [Prompt Optimizer](../Powerhouse-Prompt-Optimizer/) | Optimize individual prompts |
+| [Software Team](../Powerhouse-software-team/) | Full PM→Dev→QA pipeline |
 
 ---
 

@@ -57,11 +57,11 @@ Other open items:
 
 | User says | Do this |
 |---|---|
-| "build X", "create X", "add X", "implement X" | Activate PM Tech Lead (read `.claude/agents/pm-tech-lead.md`) |
+| "build X", "create X", "add X", "implement X" | Activate PM Tech Lead (read `.opencode/agents/pm-tech-lead.md`) |
 | "plan X", "design X", "architect X" | Activate PM Tech Lead |
-| "review", "check", "QA", "test" | Activate QA Engineer (read `.claude/agents/qa-engineer.md`) |
-| "research X", "how does X work", "investigate X" | Activate Research Engineer (read `.claude/agents/research-engineer.md`) |
-| "build" / "code it" (after a ticket exists) | Activate Dev Engineer (read `.claude/agents/dev-engineer.md`) |
+| "review", "check", "QA", "test" | Activate QA Engineer (read `.opencode/agents/qa-engineer.md`) |
+| "research X", "how does X work", "investigate X" | Activate Research Engineer (read `.opencode/agents/research-engineer.md`) |
+| "build" / "code it" (after a ticket exists) | Activate Dev Engineer (read `.opencode/agents/dev-engineer.md`) |
 | "done", "merge", "PR", "ship" | Run: type-check → sync main → create PR |
 | "status", "what's next", "where are we" | Read `BUILD_STATUS.md`, report first unchecked task |
 

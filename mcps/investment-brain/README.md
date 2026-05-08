@@ -205,4 +205,26 @@ mcps/investment-brain/
 
 ---
 
+## Troubleshooting
+
+| Error | Likely Cause | Fix |
+|-------|-------------|-----|
+| `MARKET_INTELLIGENCE_CMD` not found | Env var not set | `$env:MARKET_INTELLIGENCE_CMD = "uv run --directory C:\path\to\mcps\market-intelligence market-intelligence"` |
+| `MCP connection failed` | market-intelligence not running | Start `uv run market-intelligence` in separate terminal |
+| `yfinance rate limit` | Too many requests | Wait 1 hour, or set `MARKET_INTELLIGENCE_CMD` to use MCP data layer |
+| `SQLite database is locked` | Another process using DB | Close other terminals. Export first: `python main.py export`, then delete `data/portfolio.db` |
+| Web UI not loading | Port 8000 in use | `python -m uvicorn web_app:app --port 8001` |
+| `No module named 'yfinance'` | Dependencies not installed | `pip install -r requirements.txt` |
+
+---
+
+## Related
+
+| Project | Relationship | What it provides |
+|---------|--------------|-----------------|
+| [market-intelligence](../market-intelligence/) | Data layer | MCP data feed — faster than raw yfinance |
+| [Root README](../../README.md) | Parent docs | Full repo + CLI tools |
+
+---
+
 *Not licensed financial advice.*

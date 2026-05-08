@@ -1,72 +1,140 @@
-# Software Team
+# Powerhouse Software Team
 
-A **complete AI software development team** skill — spec-first, layer-gated, and fully agent-driven. PM plans, Dev builds, QA reviews, all in one structured workflow.
+> **[CLI only]** — This skill runs in **Claude Code** (terminal). Not available on Claude.ai web.
 
-> [!NOTE]
-> AI-assisted projects often collapse into chaos: no specs, no build order, agents doing whatever they want. This skill enforces a **spec-first discipline** with hard gates between build layers and a four-agent pipeline that keeps every feature accountable.
+A **complete AI software development team** — PM plans, Dev builds, QA reviews, all in one structured workflow.
 
----
-
-## The Challenges This Solves
-
-| The Issue (Before) ❌ | The Powerhouse Solution ✅ | The Result 🚀 |
-| :--- | :--- | :--- |
-| • Claude starts coding before requirements are clear<br>• No enforced order — Layer 5 built before Layer 2<br>• Token budget blown on re-explaining context each session<br>• No QA step — bugs slip into every PR | • Three anchor documents (TECH_SPEC, SCREEN_SPEC, BUILD_STATUS) written before any code<br>• Strict 7-layer gate: Layer N cannot start until N-1 is merged<br>• Four specialized agents (PM, Research, Dev, QA) with clear scope<br>• Git state + BUILD_STATUS used for context recovery | • **No Scope Creep**: Tickets are bounded — no more, no less.<br>• **Stable Builds**: Each layer is solid before the next begins.<br>• **Resilient Sessions**: Clear context with four git commands, no re-explaining. |
+AI projects often collapse into chaos: no specs, no build order, agents doing whatever they want. This skill enforces a **spec-first discipline** with hard gates between build layers and a four-agent pipeline that keeps every feature accountable.
 
 ---
 
-## Installation
+## At a Glance
 
-1. Download [Powerhouse-software-team.skill](./pst-software-team.skill)
-2. Open [Claude.ai](https://claude.ai) → **Settings** → **Skills**
-3. Click **Install Skill** and upload the file
+```
+User Request
+     │
+     ▼
+┌─────────────────┐
+│  @advisor       │  Quick help, brainstorming (anytime)
+│  "ask advisor"  │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  /pst plan      │  PM Tech Lead writes ticket
+│                 │  → TECH_SPEC.md + structured ticket
+└────────┬────────┘
+         │
+    ┌────┴────┐
+    ▼         ▼
+┌────────┐ ┌──────────┐
+│Dev Eng │ │ Research │
+│(simple)│ │(complex) │
+└───┬────┘ └────┬─────┘
+    │           │
+    ▼           ▼
+┌─────────────────┐
+│  /pst build     │  Implements exactly the ticket scope
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  /pst review    │  QA Engineer validates
+│                 │  7-point checklist:
+│                 │  1. Spec match  5. Types/lint
+│                 │  2. Scope       6. Smoke test
+│                 │  3. Quality     7. Browser (UI)
+│                 │  4. Criteria
+└────────┬────────┘
+         │
+         ▼
+    Human Approve → Merge
+```
 
 ---
 
-## How to Use
+## Where This Skill Lives
 
-Say any of these to trigger the skill:
+When you install this skill, it creates these files in your project:
 
-- *"Help me set up an AI software team for my project."*
-- *"I want to structure my next app build with PM, Dev, and QA agents."*
-- *"Let's start a complex project — set up the spec documents and build layers."*
-- *"Create the anchor documents and agent pipeline for my new app."*
-
----
-
-## What You Get
-
-After the skill runs, your project has:
-
-| Artifact | Purpose |
-|----------|---------|
+| File | Purpose |
+|------|---------|
 | `TECH_SPEC.md` | Data contract — schemas, service signatures |
-| `SCREEN_SPEC.md` | UX contract — every screen before any UI |
+| `SCREEN_SPEC.md` | UX contract — every screen before any UI code |
 | `BUILD_STATUS.md` | Checked-off progress tracker per layer |
-| `.claude/agents/` | Four agent files: PM, Research, Dev, QA |
-| `.claude/skills/[project]/SKILL.md` | Unified `/myapp` command skill |
+| `.claude/agents/pm-tech-lead.md` | PM agent behavior |
+| `.claude/agents/research-engineer.md` | Research agent behavior |
+| `.claude/agents/dev-engineer.md` | Dev agent behavior |
+| `.claude/agents/qa-engineer.md` | QA agent behavior |
+| `.claude/skills/[project]/SKILL.md` | Unified `/projectname` command skill |
+
+---
+
+## Commands (Claude Code)
+
+Type these inside a **Claude Code** session:
+
+| Command | When | What happens |
+|---------|------|-------------|
+| `/pst status` | Start of session | Shows current layer + first unchecked task |
+| `/pst plan "feature"` | Before any code | PM writes TECH_SPEC + structured ticket |
+| `/pst build` | After ticket done | Dev Engineer implements (or dispatches to OpenCode) |
+| `/pst review` | After build complete | QA Engineer runs 7-point validation |
+| `/pst branch name` | Starting new feature | Creates `feature/{project}/L{N}-{name}` |
+| `/pst pr` | Ready to ship | Type-check → rebase → push → create PR |
+| `/pst next` | Lost or stuck | Finds first unchecked task across all sub-projects |
+
+---
+
+## 7-Layer Build Order
+
+Layer N cannot start until Layer N-1 is fully checked off and merged to `main`:
+
+| Layer | Name | What it contains |
+|-------|------|-----------------|
+| 1 | Types & Constants | Interfaces, enums, config, color tokens |
+| 2 | Services | CRUD, auth, API clients, storage |
+| 3 | Context & Hooks | State management, business logic |
+| 4 | Base Components | UI primitives — buttons, inputs, cards |
+| 5 | Screens / Pages | Full route implementations |
+| 6 | Backend Functions | Cloud functions, webhooks, scheduled jobs |
+| 7 | Integration & Polish | Wire everything together, perf, real data |
+
+**Example:** If you're at Layer 3, all interfaces (Layer 1) and services (Layer 2) must already exist on `main`.
+
+---
+
+## Agent Roles
+
+| Agent | Trigger | Job |
+|-------|---------|-----|
+| **@advisor** | `@advisor` or "ask advisor" | Ad-hoc help, brainstorming, quick questions |
+| **PM Tech Lead** | `/pst plan` or "build X" | Ticket creation, spec-gate + layer-gate checks |
+| **Research Engineer** | "research X" or "how does X work" | API/library investigation (skipped for standard CRUD) |
+| **Dev Engineer** | `/pst build` or "implement X" | Scoped implementation — no more, no less than ticket |
+| **QA Engineer** | `/pst review` or "QA" | 7-point validation: spec, scope, quality, criteria, syntax, smoke, browser |
+| **OpenCode Dispatcher** | "dispatch to opencode" | Routes mechanical work to free model |
 
 ---
 
 ## Monorepo Support
 
-This skill works in both single-project repos and monorepos. When your project has multiple sub-projects (e.g., `mcps/`, `skills/`), use the `--project` flag to scope commands.
+Works in both single-project repos and monorepos with multiple sub-projects (e.g., `mcps/`, `skills/`).
 
-### Sub-project Detection
+### Auto-Detection
 
 The skill detects the active sub-project in this order:
-
-1. **Explicit flag:** `--project <name>` → use that sub-project
-2. **CWD inference:** If you're inside `mcps/investment-brain/`, it auto-detects "investment-brain"
-3. **Root fallback:** Running from repo root shows the root-level BUILD_STATUS.md
+1. **Explicit flag:** `--project investment-brain` → use that sub-project
+2. **CWD inference:** Running inside `mcps/investment-brain/` → auto-detect "investment-brain"
+3. **Root fallback:** Running from repo root → show root-level BUILD_STATUS.md
 
 ### Examples
 
-| Command | Result |
-|---------|--------|
-| `software-team --project investment-brain status` | Shows investment-brain's BUILD_STATUS.md |
-| `software-team plan "add new feature"` | Uses CWD to detect which project to plan for |
-| `software-team` (from repo root) | Shows root BUILD_STATUS.md with meta-work |
+```
+/pst status                            → root BUILD_STATUS.md
+/pst plan "add auth"                   → plans for project detected from CWD
+/pst plan --project investment-brain   → plans for investment-brain specifically
+```
 
 ### Project Structure
 
@@ -76,7 +144,7 @@ repo/
 ├── TECH_SPEC.md            # Root-level spec (if needed)
 ├── mcps/
 │   ├── market-intelligence/
-│   │   ├── BUILD_STATUS.md # Per-sub-project layer tracking
+│   │   ├── BUILD_STATUS.md # Per-sub-project tracking
 │   │   └── TECH_SPEC.md
 │   └── investment-brain/
 │       ├── BUILD_STATUS.md
@@ -88,12 +156,48 @@ repo/
 
 ---
 
-## Contents
+## Session Recovery
 
-- `SKILL.md`: The full skill instructions — agent pipeline, build layers, session hygiene, context recovery.
-- `Powerhouse-software-team.skill`: The installable distributable.
+After session clear or context loss, restore full state with 4 commands:
+
+```bash
+git branch --show-current          # Where am I?
+git diff main...HEAD --stat        # What changed?
+git diff main...HEAD               # Full diff
+git status                         # Uncommitted work?
+```
+
+Then read `BUILD_STATUS.md` for the next task.
+
+---
+
+## Installation
+
+### In This Repo (Automatic)
+
+Skills under `.claude/skills/` activate automatically when working in this repo. No install needed.
+
+### In Your Own Project
+
+1. Run `npx powerhouse apply` to add workflow conventions
+2. Install the skill in Claude Code — skills under `.claude/skills/` activate automatically
+
+### For Claude.ai Web (Read Only)
+
+Download the `.skill` file and upload to Claude.ai → Settings → Skills. Note: this skill only shows the docs — the `/pst` commands only work in Claude Code.
+
+- [Powerhouse-software-team.skill](./Powerhouse-software-team.skill)
+
+---
+
+## Related
+
+| Resource | Purpose |
+|----------|---------|
+| [OpenCode Handoff](../Powerhouse-opencode-handoff/) | Saves tokens by dispatching mechanical work to free model |
+| [Project Setup Kit](../Powerhouse-Claud-Project-Setup-Kit/) | Set up project knowledge base |
+| [Root README](../../README.md) | Full repo documentation |
 
 ---
 
 *Part of the [Claude-Powerhouse](../../README.md) suite.*
-

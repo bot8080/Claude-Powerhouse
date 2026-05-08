@@ -1,45 +1,99 @@
 # Powerhouse Prompt Optimizer v2
 
-Transform any basic instruction into a professional-grade, precision-engineered prompt using **Anthropic's latest 2025 heuristics.**
+> **[CLI + Web]** — Works in Claude Code and Claude.ai
+
+Transform basic instructions into professional-grade prompts using **Anthropic's latest 2025 heuristics.**
 
 > [!IMPORTANT]
-> This is a high-performance utility skill. It returns **only** the improved prompt—no preamble, no commentary—ready for immediate use in any model.
+> Returns **only** the improved prompt — no preamble, no commentary. Copy-paste into any model.
 
 ---
 
-## 🛠️ Optimization Heuristics
+## Before → After
 
-This skill automatically applies the following "Gold Standard" techniques:
-*   **Role Framing**: Assigns an expert persona with relevant domain expertise.
-*   **XML Partitioning**: Uses semantic tags (`<context>`, `<task>`, `<constraints>`) for complex structural clarity.
-*   **Task Explicit-ness**: Converts vague goals into precise, measurable directives.
-*   **Chain-of-Thought (CoT)**: Injects step-by-step reasoning triggers for logic-heavy tasks.
-*   **Few-Shot Integration**: Adds correctly formatted examples to guide output style.
+**Your input:**
+> "Write a function to sort users by activity"
+
+**What you get back:**
+
+```markdown
+You are a senior TypeScript engineer specializing in performance-optimized data structures.
+
+<context>
+User activity dashboard with 10,000+ rows. Data arrives as array of user objects
+with lastActiveAt (ISO string | null) and activityScore (number | null) fields.
+</context>
+
+<task>
+Write a type-safe sort function that orders users by:
+1. activityScore descending (highest first)
+2. lastActiveAt descending (most recent first) as tiebreaker
+3. Null values sort to the end
+</task>
+
+<constraints>
+- O(n log n) time complexity maximum
+- Pure function (no mutations)
+- Handle edge cases: empty array, all nulls, mixed nulls
+- Include Jest tests for all edge cases
+</constraints>
+```
 
 ---
 
-## 🛠️ Installation
+## What It Fixes
 
-1.  Download [Powerhouse-Prompt-Optimizer.skill](./Powerhouse-Prompt-Optimizer.skill)
-2.  Open [Claude.ai](https://claude.ai) -> **Settings** -> **Skills**.
-3.  Click **Install Skill** and upload the file.
-
----
-
-## 📖 How to Use
-
-Trigger the optimizer by pasting a prompt or asking:
-*   *"Improve this prompt: [your text]"*
-*   *"Clean up these instructions for an API call."*
-*   *"Make this prompt follow Anthropic's methodology."*
+| Before ❌ | After ✅ |
+|-----------|---------|
+| "Write a login function" | Full spec with role + context + constraints + output format |
+| "Make it fast" | `O(n log n) max` |
+| "Handle errors" | Specific error types and response shapes |
+| No user count | "10,000+ rows" → Claude tailors solution |
+| No output format | "Return code + tests + explanation" |
 
 ---
 
-## 📂 Contents
+## How to Use
 
-*   `SKILL.md`: The core optimization logic and heuristics.
-*   `references/prompt-types.md`: Guidelines for optimizing different use cases (System, User, API).
-*   `Powerhouse-Prompt-Optimizer.skill`: The installable distributable.
+**Trigger phrases — say any of these:**
+- *"Improve this prompt: [your text]"*
+- *"Optimize these instructions for an API call"*
+- *"Make this prompt follow Anthropic's methodology"*
+- *"Clean up this system prompt"*
+
+**Best for:**
+- Vague one-liners → full specifications
+- Missing context → proper constraints
+- Hallucination-prone prompts → hard guardrails
+- Any instruction going to Claude, GPT, Gemini, or open-source models
+
+---
+
+## Installation
+
+**Claude.ai web:**
+1. Download [Powerhouse-Prompt-Optimizer.skill](./Powerhouse-Prompt-Optimizer.skill)
+2. Go to [Claude.ai](https://claude.ai) → **Settings** → **Skills**
+3. Click **Install Skill** and upload the file
+
+**Claude Code:** Skills in `.claude/skills/` activate automatically when working in this repo.
+
+---
+
+## Contents
+
+- `SKILL.md` — Core optimization logic and heuristics
+- `references/prompt-types.md` — System vs User vs API prompt guidelines
+- `Powerhouse-Prompt-Optimizer.skill` — Installable distributable
+
+---
+
+## Related
+
+| Skill | Purpose |
+|-------|---------|
+| [Project Setup Kit](../Powerhouse-Claud-Project-Setup-Kit/) | Set up project knowledge base |
+| [Software Team](../Powerhouse-software-team/) | Full PM→Dev→QA pipeline |
 
 ---
 
