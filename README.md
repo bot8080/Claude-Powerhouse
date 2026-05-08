@@ -2,7 +2,21 @@
 
 > **Source-only monorepo.** Nothing here is published to npm or PyPI. Clone this repo to use any component.
 
-A personal collection of AI tools in one monorepo: Claude skills, MCP servers, agent definitions, and a CLI scaffold. Works with Claude Code, Claude.ai, Claude Desktop, and OpenCode.
+AI development tooling built around a structured PM→Dev→QA workflow.
+The Software Team skill is the centrepiece — enforces spec-first discipline across all agents.
+Works in Claude Code; pairs with OpenCode's multi-model routing for free-tier parallel execution.
+Everything else (MCP financial servers, agent definitions, CLI scaffolding) is modular — take what fits.
+
+---
+
+## Pick What You Need
+
+| I want to… | Start here |
+|---|---|
+| Add structured PM→Dev→QA workflow to my project | [Software Team Skill](#1-ai-skills-skills) |
+| Use OpenCode with different models per agent role | [Multi-Model Routing](#multi-model-routing-opencode) |
+| Pull real-time financial data into Claude | [MCP Servers](#2-mcp-servers-mcps) |
+| Scaffold a new AI project from scratch | [CLI Tool](#4-cli-tool-cli) |
 
 ---
 
@@ -20,6 +34,32 @@ A personal collection of AI tools in one monorepo: Claude skills, MCP servers, a
 | [Resume Specialist](./skills/Powerhouse-Resume-Specialist/) | Both | ATS-optimized DOCX resume formatting |
 
 **Install:** Download `.skill` file → Claude.ai Settings → Skills → Upload
+
+> **OpenCode users:** pair the Software Team skill with [Multi-Model Routing](#multi-model-routing-opencode) below — each agent role runs on a different free model.
+
+---
+
+## Multi-Model Routing (OpenCode)
+
+If you use [OpenCode](https://opencode.ai) with the Go API plan (~$10/mo), activate per-agent model routing — each role runs on a model optimized for its workload:
+
+| Agent | Model | Best For |
+|---|---|---|
+| PM Tech Lead | `kimi-k2-0711` | Planning, specs |
+| Dev Engineer | `deepseek-v4-pro` | Complex implementation |
+| Worker-Mechanical | `deepseek-v4-flash` | High-volume mechanical work |
+| QA Engineer | `qwen3.6-plus` | Validation, testing |
+| Research Engineer | `qwen3.5-plus` | API research |
+| Advisor | `kimi-k2-0711` | Architecture, strategy |
+
+**Activate:**
+```bash
+cp opencode.go.json opencode.json
+```
+
+> The base `opencode.json` has no hardcoded models — falls back to your default if you skip this.
+
+---
 
 ### 2. MCP Servers (`mcps/`)
 
@@ -48,25 +88,6 @@ A personal collection of AI tools in one monorepo: Claude skills, MCP servers, a
 These agent definitions are tool-agnostic — they work with any AI coding tool that reads project instruction files (OpenCode, Kimi Code, Cursor, Windsurf, GitHub Copilot, and others).
 
 **Use in your own project:** Run `powerhouse apply` to copy agents to your project, or clone this repo and manually copy `.opencode/agents/` and `.claude/agents/`.
-
-#### Model Routing (OpenCode)
-
-Each agent role is wired to a different model based on workload. Activate with:
-
-```bash
-cp opencode.go.json opencode.json
-```
-
-| Agent | Model | Best For |
-|---|---|---|
-| PM Tech Lead | `kimi-k2-0711` | Planning, architecture, specs |
-| Dev Engineer | `deepseek-v4-pro` | Complex implementation |
-| Worker-Mechanical | `deepseek-v4-flash` | High-volume mechanical work |
-| QA Engineer | `qwen3.6-plus` | Validation, testing |
-| Research Engineer | `qwen3.5-plus` | API research, investigation |
-| Advisor | `kimi-k2-0711` | Architecture, strategy |
-
-> The base `opencode.json` contains zero hardcoded models — it falls back to your default if you skip this step.
 
 ### 4. CLI Tool (`cli/`)
 
