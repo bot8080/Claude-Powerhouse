@@ -78,6 +78,46 @@ Tracks the shipping status of Claude-Powerhouse itself: skills, MCPs, infrastruc
 
 ---
 
+## Layer 7 — Powerhouse Software Team (PST) Compliance
+
+- [x] PST compliance audit (6 gaps identified)
+- [x] `.powerhouse/lib/` scripts (detect-project.sh, pst-status.sh, pst-next.sh)
+- [x] `.claude/commands/` — 7 PST slash commands (pst-status through pst-next)
+- [x] `.claude/settings.json` — 4 hooks registered (spec-gate, gstack, branch-name, commit-msg)
+- [x] `.opencode/commands/follow-ticket.md` — dispatcher command
+- [x] `templates/workflow/` — opencode.json, settings.json, follow-ticket.md
+- [x] AGENTS.md monorepo status conflict fixed
+- [x] PR #6 merged: `feature/powerhouse/L7-pst-compliance`
+
+---
+
+## Layer 8 — Multi-Model Architecture (OpenCode Go Plan)
+
+- [x] 6 agent definitions (`.opencode/agents/`) — zero hardcoded models
+- [x] Base `opencode.json` — no model fields (survives model deprecation)
+- [x] `opencode.go.json` — Go plan overlay with per-agent model routing
+- [x] Templates for new installs (templates/workflow/)
+- [x] AGENTS.md — documents Go plan activation and quota table
+- [x] PR #7 merged: `feature/powerhouse/L8-model-routing`
+
+### Model Routing
+
+| Agent | Model | Quota (req/5hr) |
+|---|---|---|
+| PM Tech Lead, Advisor | kimi-k2-0711 | 1,150 |
+| Dev Engineer | deepseek-v4-pro | 3,450 |
+| Worker-Mechanical | deepseek-v4-flash | 31,650 |
+| QA Engineer | qwen3.6-plus | 3,300 |
+| Research Engineer | qwen3.5-plus | 10,200 |
+
+### Activate Go Plan
+
+```bash
+cp opencode.go.json opencode.json
+```
+
+---
+
 ## Notes
 
 - `market-intelligence` is exempt from spec-gate (shipped before spec discipline was established)
