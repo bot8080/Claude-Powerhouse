@@ -20,36 +20,29 @@ Report to the user: current branch, first unchecked task, and any uncommitted wo
 
 ---
 
-## Current State (as of 2026-04-27)
+## Current State
+
+All repo-level tasks from BUILD_STATUS.md are **complete**.
+Active development continues on sub-projects.
 
 ### investment-brain — `mcps/investment-brain/`
-**All 7 layers complete.** All items complete.
+**All 7 layers complete.** Every item checked off.
 
-### Repo-level open tasks (root `BUILD_STATUS.md`)
-Layer 1:
-- [ ] `.claude/hooks/warn-missing-specs.sh` — advisory spec-gate hook
+### market-intelligence — `mcps/market-intelligence/`
+**Shipped.** 8 tools, US/India/Canada markets.
 
-Layer 2:
-- [x] `Powerhouse-software-team` skill — monorepo improvements (--project flag, CWD detection)
+### Repo-level tasks
+All Layer 1-8 items in root BUILD_STATUS.md are **complete**:
+- Layer 1: Infrastructure & workflow setup ✅
+- Layer 2: Skills core shipping ✅
+- Layer 3: MCP servers core shipping ✅
+- Layer 4: Documentation ✅
+- Layer 5: Distribution & discovery ✅
+- Layer 6: Merger (development-protocols → MultiAgents-Powerhouse) ✅
+- Layer 7: PST compliance ✅
+- Layer 8: Multi-model architecture ✅
 
-Layer 4 — Docs:
-- [ ] `skills/Powerhouse-software-team/README.md` — add monorepo usage guide
-- [ ] `mcps/market-intelligence/TECH_SPEC.md` — write retrospectively
-- [ ] GitHub releases — tag v1.0 for market-intelligence
-
-Layer 5 — Distribution:
-- [ ] GitHub topics set (mcp, claude, ai-tools, finance, skills)
-- [ ] `skills/` — document install from GitHub raw URL
-- [ ] `mcps/` — document install via uvx / pip
-- [ ] Demo GIF or screenshot in root README
-
-### What to work on next
-Default: **Powerhouse-software-team monorepo improvements** (just completed). 
-
-Other open items:
-- `.claude/hooks/warn-missing-specs.sh` — advisory spec-gate hook
-- Layer 4 docs (skills/Powerhouse-software-team/README.md — added)
-- Layer 5 distribution (GitHub topics, install docs, demo)
+Next: ongoing feature development on sub-projects.
 
 ---
 
@@ -150,26 +143,26 @@ Skills live in `skills/` and `~/.claude/skills/`. Use the `skill` tool to load t
 | `opencode.json` | Base config — **no hardcoded models**, falls back to user default |
 | `opencode.go.json` | Go plan overlay — per-agent model routing (optional, manual activation) |
 
-### Activate Go Plan
+### Why Route by Role?
+
+Each role has different demands. Routing lets you match model capability to workload:
+- **Planning / Architecture** → Strong reasoning. Used by PM Tech Lead, Advisor.
+- **Complex implementation** → Balanced power. Used by Dev Engineer.
+- **Mechanical / high-volume** → Fast and cheap. Used by Worker-Mechanical.
+- **Validation / testing** → Thorough. Used by QA Engineer.
+- **Investigation** → Research-capable. Used by Research Engineer.
+
+### Activate
 
 ```bash
 cp opencode.go.json opencode.json
 ```
 
-### Model Routing
-
-| Agent | Model | Use Case |
-|---|---|---|
-| PM Tech Lead | `opencode/kimi-k2-0711` | Planning, tool use, specs |
-| Dev Engineer | `opencode/deepseek-v4-pro` | Complex implementation |
-| Worker-Mechanical | `opencode/deepseek-v4-flash` | High-volume mechanical work |
-| QA Engineer | `opencode/qwen3.6-plus` | Validation, testing |
-| Research Engineer | `opencode/qwen3.5-plus` | Research, investigation |
-| Advisor | `opencode/kimi-k2-0711` | Architecture, guidance |
-
 ### Model Discontinuation Safety
 
 - **Zero hardcoded models in base `opencode.json`** — survives any model deprecation
-- Agent definitions (`.opencode/agents/*.md`) contain **no `model:` field**
+- Agent definitions (`.opencode/agents/*.md`) contain **no `model:` field** — tool-agnostic
 - Model routing lives only in config files
-- If Go plan unavailable, falls back to user's default model
+- If Go plan unavailable, falls back to your default model
+
+> Specific model IDs are in `opencode.go.json` — check there for what the Go plan activates.

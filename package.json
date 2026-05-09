@@ -10,7 +10,6 @@
     "cli/",
     "templates/",
     ".claude/",
-    ".agents/",
     "skills/",
     "scripts/"
   ],
@@ -45,5 +44,5 @@
   "bugs": {
     "url": "https://github.com/bot8080/MultiAgents-Powerhouse/issues"
   },
-  "homepage": "https://github.com/bot800/MultiAgents-Powerhouse#readme"
+  "homepage": "https://github.com/bot8080/MultiAgents-Powerhouse#readme"
 }

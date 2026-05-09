@@ -1,154 +1,262 @@
 # MultiAgents-Powerhouse
 
-> **Source-only monorepo.** Nothing here is published to npm or PyPI. Clone this repo to use any component.
+> **Source-only monorepo.** Nothing is published to npm or PyPI. Clone this repo to use any component.
 
-AI development tooling built around a structured PM→Dev→QA workflow.
-The Software Team skill is the centrepiece — enforces spec-first discipline across all agents.
-Works in Claude Code; pairs with OpenCode's multi-model routing for free-tier parallel execution.
-Everything else (MCP financial servers, agent definitions, CLI scaffolding) is modular — take what fits.
+Two products built together: **financial MCP servers** and **AI development workflow skills**.
 
----
-
-## Pick What You Need
-
-| I want to… | Start here |
-|---|---|
-| Add structured PM→Dev→QA workflow to my project | [Software Team Skill](#1-ai-skills-skills) |
-| Use OpenCode with different models per agent role | [Multi-Model Routing](#multi-model-routing-opencode) |
-| Pull real-time financial data into Claude | [MCP Servers](#2-mcp-servers-mcps) |
-| Scaffold a new AI project from scratch | [CLI Tool](#4-cli-tool-cli) |
+- **MCP servers** (market-intelligence + investment-brain) — real Python code, real stock data
+- **Skills** (Software Team, Project Setup Kit, Prompt Optimizer, Resume Specialist) — installable in Claude
+- **Agent definitions** — 6 roles for spec-first development, usable with OpenCode or Claude Code
 
 ---
 
-## What's in This Repo
+## What This Is NOT
 
-### 1. AI Skills (`skills/`)
-
-4 installable skills that extend Claude's behavior:
-
-| Skill | Target | Purpose |
-|---|---|---|
-| [Software Team](./skills/Powerhouse-software-team/) | CLI | PM→Dev→QA pipeline with spec-first discipline |
-| [Project Setup Kit](./skills/Powerhouse-Claud-Project-Setup-Kit/) | Both | Project knowledge base setup |
-| [Prompt Optimizer](./skills/Powerhouse-Prompt-Optimizer/) | Both | Prompt engineering with Anthropic heuristics |
-| [Resume Specialist](./skills/Powerhouse-Resume-Specialist/) | Both | ATS-optimized DOCX resume formatting |
-
-**Install:** Download `.skill` file → Claude.ai Settings → Skills → Upload
-
-> **OpenCode users:** pair the Software Team skill with [Multi-Model Routing](#multi-model-routing-opencode) below — each agent role runs on a different free model.
-
----
-
-## Multi-Model Routing (OpenCode)
-
-If you use [OpenCode](https://opencode.ai) with the Go API plan (~$10/mo), activate per-agent model routing — each role runs on a model optimized for its workload:
-
-| Agent | Model | Best For |
-|---|---|---|
-| PM Tech Lead | `kimi-k2-0711` | Planning, specs |
-| Dev Engineer | `deepseek-v4-pro` | Complex implementation |
-| Worker-Mechanical | `deepseek-v4-flash` | High-volume mechanical work |
-| QA Engineer | `qwen3.6-plus` | Validation, testing |
-| Research Engineer | `qwen3.5-plus` | API research |
-| Advisor | `kimi-k2-0711` | Architecture, strategy |
-
-**Activate:**
-```bash
-cp opencode.go.json opencode.json
-```
-
-> The base `opencode.json` has no hardcoded models — falls back to your default if you skip this.
-
----
-
-### 2. MCP Servers (`mcps/`)
-
-2 financial data servers for Claude Desktop:
-
-| Server | Markets | Purpose |
-|---|---|---|
-| [market-intelligence](./mcps/market-intelligence/) | US, India, Canada | Real-time stock data, technicals, scoring |
-| [investment-brain](./mcps/investment-brain/) | US, India, Canada | Auto-scoring, paper trading, portfolio tracking |
-
-**Install:** Clone repo → `cd mcps/...` → `uv sync` → `uv run`
-
-### 3. Agent Definitions (`.opencode/agents/`)
-
-6 specialized agent roles for spec-first development:
-
-| Agent | File | Purpose |
-|---|---|---|
-| PM Tech Lead | `pm-tech-lead.md` | Plans features, writes specs, reviews architecture |
-| Dev Engineer | `dev-engineer.md` | Implements from approved specs |
-| Worker-Mechanical | `worker-mechanical.md` | High-volume mechanical tasks |
-| QA Engineer | `qa-engineer.md` | Tests, validates, finds bugs |
-| Research Engineer | `research-engineer.md` | Investigates unfamiliar APIs |
-| Advisor | `advisor.md` | Architecture, strategy, guidance |
-
-These agent definitions are tool-agnostic — they work with any AI coding tool that reads project instruction files (OpenCode, Kimi Code, Cursor, Windsurf, GitHub Copilot, and others).
-
-**Use in your own project:** Run `powerhouse apply` to copy agents to your project, or clone this repo and manually copy `.opencode/agents/` and `.claude/agents/`.
-
-### 4. CLI Tool (`cli/`)
-
-> **Status:** Local-only utility, not published to npm.
-
-Local scaffolding utility for bootstrapping projects with the agent pipeline:
-
-```bash
-powerhouse init my-app    # Scaffold new project with agent pipeline
-powerhouse apply          # Add workflow to existing project
-```
-
-**Install:** `git clone` → `npm link`
-
-> **`powerhouse` vs `/pst`:** `powerhouse init/apply` is a one-time project bootstrapper — run it once to scaffold or wire up a project. `/pst` commands (`/pst plan`, `/pst build`, `/pst review`) are Claude Code slash commands for the ongoing development workflow inside any project — no installation required.
-
----
-
-## Cross-Tool Compatibility
-
-| Tool | How to Use These Agents |
-|---|---|
-| **OpenCode** | Native — reads `opencode.json` + `.opencode/agents/` |
-| **Claude Code** | Reference — reads `AGENTS.md` conventions + `.claude/agents/` |
-| **Kimi Code** | Reads `${KIMI_AGENTS_MD}` or `.agents/` alias |
-| **Cursor** | Alongside `.cursor/rules/` |
-| **Windsurf** | Alongside `.windsurfrules` |
-| **GitHub Copilot** | Alongside `.github/copilot-instructions.md` |
-
-The `.agents/` directory is a cross-tool alias — any tool that reads project files can access agent definitions from there.
+| Not this | Because |
+|----------|---------|
+| An npm package | Nothing published. Source-only. |
+| A marketplace | Skills are `.skill` files — manual download + upload. |
+| Universal agent system | Setup varies per tool. Not "works everywhere out of the box." |
+| A framework | It's a monorepo. Use what fits, ignore the rest. |
 
 ---
 
 ## Quick Start
 
+### Option 1: Financial Analysis via MCP
+
+Use real stock data in Claude Desktop. Clone → install → done.
+
 ```bash
-# 1. Clone the repo
 git clone https://github.com/bot8080/MultiAgents-Powerhouse.git
 cd MultiAgents-Powerhouse
 
-# 2. Use any component independently:
-#    - Install a skill: download .skill file from skills/ and upload to Claude.ai
-#    - Run an MCP: cd mcps/market-intelligence && uv sync && uv run market-intelligence
-#    - Use agents: open with OpenCode or Claude Code — agent definitions load automatically
+# Terminal 1 — start data server
+cd mcps/market-intelligence
+uv sync
+uv run market-intelligence
 
-# 3. Activate multi-model routing for OpenCode (optional)
-cp opencode.go.json opencode.json
-opencode
+# Terminal 2 — analyze
+cd mcps/investment-brain
+pip install -r requirements.txt
+python main.py analyze NVDA
 ```
+
+See [Product 1: MCP Servers](#product-1-mcp-servers) below for all 8 tools.
+
+### Option 2: AI Development Workflow
+
+Add structured PM→Dev→QA pipeline to your project. Works in Claude Code or Claude.ai web.
+
+**Claude Code users** (terminal):
+```
+/pst plan "feature"   → PM writes ticket
+/pst build            → Dev implements
+/pst review           → QA validates
+```
+
+**Claude.ai web users** (download skill file):
+1. Download the `.skill` file from `skills/Powerhouse-software-team/`
+2. Claude.ai → Settings → Skills → Install Skill
+3. Say "set up an AI dev team" in any chat
+
+See [Product 2: AI Skills](#product-2-ai-workflow-skills) below for all 4 skills.
+
+### Option 3: Use as Reference
+
+Browse the agent definitions and skill files. Copy what fits your workflow.
+
+- **Agent definitions**: `.opencode/agents/` or `.claude/agents/`
+- **Skills**: `skills/` — each has a `README.md` + `.skill` file
 
 ---
 
-## Documentation
+## Stats
 
-| Guide | Purpose |
-|---|---|
-| [docs/QUICKSTART.md](./docs/QUICKSTART.md) | 5-minute setup for each component |
-| [docs/CHEATSHEET.md](./docs/CHEATSHEET.md) | All commands on one page |
-| [docs/TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md) | Common errors and fixes |
-| [AGENTS.md](./AGENTS.md) | Session brief + auto-routing rules |
-| [BUILD_STATUS.md](./BUILD_STATUS.md) | Current development progress |
+| Component | Count | Notes |
+|-----------|-------|-------|
+| MCP servers | 2 | market-intelligence + investment-brain |
+| AI skills | 4 | Software Team, Project Setup Kit, Prompt Optimizer, Resume Specialist |
+| Agent definitions | 6 | PM Lead, Dev, QA, Research, Mechanical, Advisor |
+| Python files (MCPs) | 25+ | Across both servers |
+| Markets covered | 3 | US, India (NSE/BSE), Canada (TSX) |
+| MCP tools | 8 | Per market-intelligence server |
+
+---
+
+## Product 1: MCP Financial Servers
+
+Financial intelligence servers for Claude Desktop. Real data, real code. Clone and run.
+
+| Server | Markets | What it does | Status |
+|--------|---------|--------------|--------|
+| [market-intelligence](./mcps/market-intelligence/) | US, India, Canada | 8 tools: stock data, technicals, scoring, FII/DII flows | Shipped |
+| [investment-brain](./mcps/investment-brain/) | US, India, Canada | Auto-scoring, screener, portfolio tracker, paper trading | Shipped |
+
+### market-intelligence Tools
+
+| Tool | Returns | Example |
+|------|---------|---------|
+| `resolve_tickers` | Clean Yahoo Finance symbols | `"Apple"` → `"AAPL"` |
+| `get_full_profile` | Price, PE, ROE, margins, growth, analyst targets, risk | One call = 8 sections |
+| `get_batch_profiles` | Full profiles for up to 20 stocks in 1 call | Avoids the 112-call problem |
+| `get_technicals` | RSI, MACD, ADX, Bollinger, stop loss | Signal + numbers |
+| `get_scoring_data` | 4-pillar score (V+Q+M+R, 100pts) + verdict | BUY / HOLD / SELL |
+
+### investment-brain Commands
+
+```bash
+python main.py analyze NVDA                    # Full analysis + Claude prompt
+python main.py screen --pe-max 25 --roe-min 15 # Filter + rank by criteria
+python main.py paper-buy TSM 10 175 --stop-loss 158    # Virtual buy
+python main.py portfolio                                 # Holdings + P&L
+```
+
+**Install:**
+
+```bash
+git clone https://github.com/bot8080/MultiAgents-Powerhouse.git
+cd MultiAgents-Powerhouse/mcps/market-intelligence
+uv sync && uv run market-intelligence   # keep terminal open
+```
+
+Configure Claude Desktop to use the server — see [mcps/README.md](./mcps/README.md) for full setup.
+
+---
+
+## Product 2: AI Workflow Skills
+
+Installable skills that extend Claude's behavior. Manual download required.
+
+| Skill | Target | What it does | When to Use |
+|-------|--------|--------------|-------------|
+| [Software Team](./skills/Powerhouse-software-team/) | CLI | PM→Dev→QA pipeline with spec-first discipline | Building complex apps with structured development |
+| [Project Setup Kit](./skills/Powerhouse-Claud-Project-Setup-Kit/) | Both | Project knowledge base setup and audit | Starting a new project or auditing existing code |
+| [Prompt Optimizer](./skills/Powerhouse-Prompt-Optimizer/) | Both | Prompt engineering using Anthropic 2025 heuristics | Fixing vague or ineffective prompts |
+| [Resume Specialist](./skills/Powerhouse-Resume-Specialist/) | Both | ATS-optimized DOCX resume formatting | Formatting professional resumes |
+
+> **CLI** = Claude Code terminal. **Both** = Claude Code + Claude.ai web.
+
+**Install:**
+
+1. Download the `.skill` file from the skill's folder
+2. Claude.ai → Settings → Skills → Install Skill — upload the file
+3. The skill triggers automatically based on what you ask
+
+See [skills/README.md](./skills/README.md) for troubleshooting.
+
+---
+
+## Agent Definitions
+
+6 specialized roles for spec-first development. Works with OpenCode or Claude Code.
+
+| Agent | File | What it does |
+|-------|------|--------------|
+| PM Tech Lead | `.opencode/agents/pm-tech-lead.md` | Writes specs, enforces layer gates, reviews architecture |
+| Dev Engineer | `.opencode/agents/dev-engineer.md` | Implements from approved specs |
+| QA Engineer | `.opencode/agents/qa-engineer.md` | 7-point validation before merge |
+| Research Engineer | `.opencode/agents/research-engineer.md` | Investigates unfamiliar APIs and libraries |
+| Worker-Mechanical | `.opencode/agents/worker-mechanical.md` | High-volume refactors, renames, boilerplate |
+| Advisor | `.opencode/agents/advisor.md` | Architecture, strategy, quick help |
+
+### Multi-Model Routing (OpenCode)
+
+If you use [OpenCode](https://opencode.ai), activate per-agent model routing — each role runs on a model suited for its workload:
+
+| Agent | Model Type | Best For |
+|---|---|---|
+| PM Tech Lead, Advisor | Strong reasoning model | Planning, architecture, specs |
+| Dev Engineer | Balanced model | Complex implementation |
+| Worker-Mechanical | Fast/cheap model | High-volume mechanical work |
+| QA Engineer | Validation model | Testing, bug finding |
+| Research Engineer | Research model | API investigation, unfamiliar code |
+
+**Activate:**
+
+```bash
+cp opencode.go.json opencode.json
+```
+
+> The base `opencode.json` has no hardcoded models — falls back to your default if you skip this. Specific model IDs are in `opencode.go.json`.
+
+### Tool Setup
+
+| Tool | How agents load |
+|------|----------------|
+| **OpenCode** | Reads `.opencode/agents/` automatically |
+| **Claude Code** | Reads `AGENTS.md` + `.claude/agents/` |
+| **Claude.ai web** | Skills only (upload `.skill` files) |
+
+---
+
+## Real-World Scenarios
+
+### Scenario 1: Analyze a Stock in Claude
+
+**Your team:**
+
+1. **market-intelligence MCP** — fetch live stock data
+2. **investment-brain** — score, screen, build portfolio prompt
+3. **Claude** — format output into Summary Card
+
+**Result:** Full investment analysis using live data. ~90% fewer Claude tokens vs. manual research.
+
+---
+
+### Scenario 2: Build a Feature with Structured Team
+
+**Your team:**
+
+1. **PM Tech Lead** — writes TECH_SPEC.md, enforces layer gates
+2. **Research Engineer** — investigates unfamiliar APIs (auto-triggered)
+3. **Dev Engineer** — implements the ticket scope
+4. **QA Engineer** — 7-point validation before human approve
+
+**Result:** Spec-first delivery with quality gates at every layer.
+
+---
+
+### Scenario 3: Portfolio Review with Paper Trading
+
+**Your team:**
+
+1. **investment-brain** — pull portfolio holdings + scores
+2. **investment-brain** — compare vs. benchmarks
+3. **Claude** — format into readable report
+
+**Result:** Full portfolio review in seconds. Paper trade new positions before committing real capital.
+
+---
+
+## Design Principles
+
+1. **Source-only** — nothing published to npm or PyPI. Clone and use directly.
+2. **Deliverable-focused** — real code, real data, measurable outcomes. Not generic prompts.
+3. **Spec-first discipline** — no code without a spec. No Layer N without Layer N-1 complete.
+4. **Honest about scope** — MCP servers work. Skills need manual install. CLI is local-only.
+5. **Tool-agnostic agents** — agent definitions are markdown files. They work wherever your AI tool reads instruction files.
+
+---
+
+## Contributing
+
+PRs welcome. The fastest path to a merged PR is **one change at a time**.
+
+**Always welcome as a PR:**
+
+- New MCP tool or market coverage
+- New skill or improved existing skill
+- Bug fixes in MCP server or skill code
+- Documentation improvements
+
+**Start a discussion first:**
+
+- New directories or structural changes
+- Multi-file changes across the repo
+- New integration formats or platforms
+
+See [BUILD_STATUS.md](./BUILD_STATUS.md) for current progress.
 
 ---
 
@@ -156,46 +264,39 @@ opencode
 
 ```
 MultiAgents-Powerhouse/
-├── .opencode/
-│   ├── agents/              # 6 agent definitions (tool-agnostic)
-│   └── commands/            # OpenCode slash commands
-├── skills/                   # 4 AI skills for Claude
-│   ├── Powerhouse-software-team/
-│   ├── Powerhouse-Claud-Project-Setup-Kit/
-│   ├── Powerhouse-Prompt-Optimizer/
-│   └── Powerhouse-Resume-Specialist/
-├── mcps/                     # 2 MCP servers
-│   ├── market-intelligence/
-│   └── investment-brain/
-├── cli/                      # Local scaffolding tool
-├── docs/                     # Guides
-├── templates/                # Project templates
-├── opencode.json             # Base config (no hardcoded models)
-├── opencode.go.json          # Per-agent model routing overlay
-└── AGENTS.md                 # Session brief + conventions
+├── mcps/                          # MCP financial servers
+│   ├── market-intelligence/       # US/India/Canada stock data (8 tools)
+│   └── investment-brain/          # Scoring, screening, portfolio (7 layers)
+├── skills/                        # AI workflow skills
+│   ├── Powerhouse-software-team/  # PM→Dev→QA pipeline [CLI]
+│   ├── Powerhouse-Claud-Project-Setup-Kit/  # Project setup
+│   ├── Powerhouse-Prompt-Optimizer/        # Prompt engineering
+│   └── Powerhouse-Resume-Specialist/       # DOCX resume
+├── .opencode/agents/              # 6 agent definitions (OpenCode)
+├── .claude/agents/                # 6 agent definitions (Claude Code)
+├── .claude/commands/              # PST slash commands
+├── cli/                           # Local scaffolding (not on npm)
+├── docs/                          # QUICKSTART, CHEATSHEET, TROUBLESHOOTING
+├── templates/                     # Project templates
+├── opencode.json                  # Base config (no hardcoded models)
+├── opencode.go.json               # Go plan overlay (per-agent routing)
+├── AGENTS.md                      # Session brief + auto-routing rules
+└── BUILD_STATUS.md                # Development progress tracker
 ```
 
 ---
 
-## Development Workflow
+## Documentation
 
-This repo uses its own software-team pipeline:
-
-```
-/pst plan → [Research?] → /pst build → /pst review → Human Approve → Merge
-```
-
-| Command | What it does |
-|---|---|
-| `/pst status` | Current layer + next task |
-| `/pst plan [feature]` | PM writes ticket |
-| `/pst build` | Dev implements |
-| `/pst review` | QA validates |
-| `/pst branch [name]` | Create feature branch |
-| `/pst pr` | Push + create PR |
-| `/pst next` | First unchecked task |
-
-See [BUILD_STATUS.md](./BUILD_STATUS.md) for current progress.
+| Guide | What it covers |
+|-------|---------------|
+| [docs/QUICKSTART.md](./docs/QUICKSTART.md) | 5-minute setup for MCPs + skills |
+| [docs/CHEATSHEET.md](./docs/CHEATSHEET.md) | All commands on one page |
+| [docs/TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md) | Common errors and fixes |
+| [AGENTS.md](./AGENTS.md) | Session protocol, agent pipeline, layer gates |
+| [BUILD_STATUS.md](./BUILD_STATUS.md) | Current development progress |
+| [mcps/README.md](./mcps/README.md) | MCP servers overview + install |
+| [skills/README.md](./skills/README.md) | AI skills overview + install |
 
 ---
 

@@ -4,20 +4,6 @@ One-page reference for the most common commands and concepts.
 
 ---
 
-## CLI — Scaffolding
-
-| Command | What It Does |
-|---------|--------------|
-| `npx powerhouse init [name]` | Create new project (interactive) |
-| `npx powerhouse apply` | Add workflow to existing project |
-| `npx powerhouse --help` | Show all CLI options |
-
-During `init`, you pick: **Stack** (Expo) → **Backend** (None/Firebase/Supabase) → **Payments** (No/Stripe) → **AI Workflow** (None/OpenCode)
-
-> Not on npm — requires `npm link` from the cloned repo.
-
----
-
 ## /pst Commands — Agent Pipeline
 
 Type these inside a **Claude Code** session:
@@ -100,16 +86,17 @@ python main.py portfolio
 
 ---
 
-## Multi-Model Routing (OpenCode Go Plan)
+## Multi-Model Routing (OpenCode)
 
-| Agent | Model |
-|-------|-------|
-| PM Tech Lead | kimi-k2-0711 |
-| Dev Engineer | deepseek-v4-pro |
-| Worker-Mechanical | deepseek-v4-flash |
-| QA Engineer | qwen3.6-plus |
-| Research Engineer | qwen3.5-plus |
-| Advisor | kimi-k2-0711 |
+Per-agent model routing matches each role to a model suited for its workload:
+
+| Agent | Model Type | Why |
+|-------|-----------|-----|
+| PM Tech Lead, Advisor | Strong reasoning model | Planning, architecture, specs |
+| Dev Engineer | Balanced model | Complex implementation |
+| Worker-Mechanical | Fast/cheap model | Mechanical refactors, renames |
+| QA Engineer | Validation model | Testing, bug finding |
+| Research Engineer | Research model | API investigation |
 
 **Activate:** `cp opencode.go.json opencode.json`
 
@@ -134,7 +121,6 @@ Then read `BUILD_STATUS.md`.
 
 | Error | Fix |
 |-------|-----|
-| `npx powerhouse` not found | `npm link` in repo root |
 | `/pst` not found | Start Claude Code first |
 | MCP connection failed | Run server in separate terminal |
 | Skill not triggering | Use exact phrases from README |
