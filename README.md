@@ -62,12 +62,9 @@ Add structured PM→Dev→QA pipeline to your project. Works in Claude Code or C
 
 See [Product 2: AI Skills](#product-2-ai-workflow-skills) below for all 4 skills.
 
-### Option 3: Use as Reference
+### Option 3: Reference (maintainers)
 
-Browse the agent definitions and skill files. Copy what fits your workflow.
-
-- **Agent definitions**: `.opencode/agents/` or `.claude/agents/`
-- **Skills**: `skills/` — each has a `README.md` + `.skill` file
+For developers extending this repository, see the hidden `.internal/` folder which contains agent definitions, CLI scaffolding, templates, and internal configuration. These files are not required for using the MCP servers or the public skills.
 
 ---
 
@@ -147,46 +144,7 @@ See [skills/README.md](./skills/README.md) for troubleshooting.
 
 ---
 
-## Agent Definitions
 
-6 specialized roles for spec-first development. Works with OpenCode or Claude Code.
-
-| Agent | File | What it does |
-|-------|------|--------------|
-| PM Tech Lead | `.opencode/agents/pm-tech-lead.md` | Writes specs, enforces layer gates, reviews architecture |
-| Dev Engineer | `.opencode/agents/dev-engineer.md` | Implements from approved specs |
-| QA Engineer | `.opencode/agents/qa-engineer.md` | 7-point validation before merge |
-| Research Engineer | `.opencode/agents/research-engineer.md` | Investigates unfamiliar APIs and libraries |
-| Worker-Mechanical | `.opencode/agents/worker-mechanical.md` | High-volume refactors, renames, boilerplate |
-| Advisor | `.opencode/agents/advisor.md` | Architecture, strategy, quick help |
-
-### Multi-Model Routing (OpenCode)
-
-If you use [OpenCode](https://opencode.ai), activate per-agent model routing — each role runs on a model suited for its workload:
-
-| Agent | Model Type | Best For |
-|---|---|---|
-| PM Tech Lead, Advisor | Strong reasoning model | Planning, architecture, specs |
-| Dev Engineer | Balanced model | Complex implementation |
-| Worker-Mechanical | Fast/cheap model | High-volume mechanical work |
-| QA Engineer | Validation model | Testing, bug finding |
-| Research Engineer | Research model | API investigation, unfamiliar code |
-
-**Activate:**
-
-```bash
-cp opencode.go.json opencode.json
-```
-
-> The base `opencode.json` has no hardcoded models — falls back to your default if you skip this. Specific model IDs are in `opencode.go.json`.
-
-### Tool Setup
-
-| Tool | How agents load |
-|------|----------------|
-| **OpenCode** | Reads `.opencode/agents/` automatically |
-| **Claude Code** | Reads `AGENTS.md` + `.claude/agents/` |
-| **Claude.ai web** | Skills only (upload `.skill` files) |
 
 ---
 
@@ -266,22 +224,22 @@ See [BUILD_STATUS.md](./BUILD_STATUS.md) for current progress.
 MultiAgents-Powerhouse/
 ├── mcps/                          # MCP financial servers
 │   ├── market-intelligence/       # US/India/Canada stock data (8 tools)
-│   └── investment-brain/          # Scoring, screening, portfolio (7 layers)
+│   └── investment‑brain/          # Scoring, screening, portfolio (7 layers)
 ├── skills/                        # AI workflow skills
 │   ├── Powerhouse-software-team/  # PM→Dev→QA pipeline [CLI]
 │   ├── Powerhouse-Claud-Project-Setup-Kit/  # Project setup
 │   ├── Powerhouse-Prompt-Optimizer/        # Prompt engineering
 │   └── Powerhouse-Resume-Specialist/       # DOCX resume
-├── .opencode/agents/              # 6 agent definitions (OpenCode)
-├── .claude/agents/                # 6 agent definitions (Claude Code)
-├── .claude/commands/              # PST slash commands
-├── cli/                           # Local scaffolding (not on npm)
-├── docs/                          # QUICKSTART, CHEATSHEET, TROUBLESHOOTING
-├── templates/                     # Project templates
-├── opencode.json                  # Base config (no hardcoded models)
-├── opencode.go.json               # Go plan overlay (per-agent routing)
-├── AGENTS.md                      # Session brief + auto-routing rules
-└── BUILD_STATUS.md                # Development progress tracker
+├── .internal/                     # Maintainer‑only files
+│   ├── .opencode/agents/          # 6 agent definitions (OpenCode)
+│   ├── .claude/agents/            # 6 agent definitions (Claude Code)
+│   ├── .claude/commands/          # PST slash commands
+│   ├── cli/                       # Local scaffolding (not on npm)
+│   ├── templates/                 # Project templates
+│   ├── opencode.json              # Base config (no hardcoded models)
+│   ├── opencode.go.json           # Go plan overlay (per-agent routing)
+│   ├── AGENTS.md                  # Session brief + auto‑routing rules
+│   └── BUILD_STATUS.md            # Development progress tracker
 ```
 
 ---
@@ -293,8 +251,8 @@ MultiAgents-Powerhouse/
 | [docs/QUICKSTART.md](./docs/QUICKSTART.md) | 5-minute setup for MCPs + skills |
 | [docs/CHEATSHEET.md](./docs/CHEATSHEET.md) | All commands on one page |
 | [docs/TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md) | Common errors and fixes |
-| [AGENTS.md](./AGENTS.md) | Session protocol, agent pipeline, layer gates |
-| [BUILD_STATUS.md](./BUILD_STATUS.md) | Current development progress |
+| [.internal/AGENTS.md](./.internal/AGENTS.md) | Session protocol, agent pipeline, layer gates (maintainer) |
+| [.internal/BUILD_STATUS.md](./.internal/BUILD_STATUS.md) | Development progress tracker (maintainer) |
 | [mcps/README.md](./mcps/README.md) | MCP servers overview + install |
 | [skills/README.md](./skills/README.md) | AI skills overview + install |
 
