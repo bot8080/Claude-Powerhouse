@@ -179,8 +179,12 @@ Skills under `.claude/skills/` activate automatically when working in this repo.
 
 ### In Your Own Project
 
-1. Run `npx powerhouse apply` to add workflow conventions
-2. Install the skill in Claude Code — skills under `.claude/skills/` activate automatically
+To use this skill and agent workflow in a separate project:
+
+1. Clone this repo for reference
+2. Copy the agent definitions from `.claude/agents/` or `.opencode/agents/` to your project
+3. Copy `AGENTS.md`, `opencode.json`, and the `.claude/` directory structure
+4. Install the skill in Claude Code: copy `Powerhouse-software-team.skill` to your project's `.claude/skills/`
 
 ### For Claude.ai Web (Read Only)
 

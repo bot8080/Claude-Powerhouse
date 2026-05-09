@@ -102,15 +102,9 @@ Tracks the shipping status of MultiAgents-Powerhouse itself: skills, MCPs, infra
 
 ### Model Routing
 
-| Agent | Model | Quota (req/5hr) |
-|---|---|---|
-| PM Tech Lead, Advisor | kimi-k2-0711 | 1,150 |
-| Dev Engineer | deepseek-v4-pro | 3,450 |
-| Worker-Mechanical | deepseek-v4-flash | 31,650 |
-| QA Engineer | qwen3.6-plus | 3,300 |
-| Research Engineer | qwen3.5-plus | 10,200 |
+See `opencode.go.json` for specific model assignments and `AGENTS.md` for the routing rationale.
 
-### Activate Go Plan
+### Activate
 
 ```bash
 cp opencode.go.json opencode.json

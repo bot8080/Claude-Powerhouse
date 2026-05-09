@@ -6,35 +6,11 @@ Central troubleshooting guide for all components. Choose your error below.
 
 | Component | Most Common Error | Fix |
 |-----------|------------------|-----|
-| CLI (`npx powerhouse`) | `command not found` | Run `npm link` in repo root |
 | `/pst` commands | `command not found` | Install Claude Code first |
 | MCP: market-intelligence | Connection failed | Server not running |
 | MCP: investment-brain | Analysis fails | Set `MARKET_INTELLIGENCE_CMD` |
 | OpenCode Handoff | Auth failed | Run `opencode auth login` |
 | Skills (Claude.ai) | Not triggering | Wrong trigger phrase |
-
----
-
-## CLI (`npx powerhouse`)
-
-```
-npx powerhouse: command not found
-```
-
-**Cause:** The CLI is not linked globally.
-
-**Fix:**
-```bash
-cd MultiAgents-Powerhouse
-npm link
-powerhouse --help    # Should work now
-```
-
-```
-Error: Node.js 20+ required
-```
-
-**Fix:** Upgrade Node.js from [nodejs.org](https://nodejs.org).
 
 ---
 
@@ -52,9 +28,9 @@ Error: Node.js 20+ required
 /pst status: No BUILD_STATUS.md found
 ```
 
-**Cause:** You ran `npx powerhouse init` or `npx powerhouse apply` successfully? The BUILD_STATUS.md should exist in the project root.
+**Cause:** Your project may not have the workflow files set up.
 
-**Fix:** Run `npx powerhouse apply` from project root to create workflow files.
+**Fix:** See [AGENTS.md](../AGENTS.md) for the setup protocol. Ensure `BUILD_STATUS.md` exists in the project root.
 
 ---
 
@@ -171,7 +147,7 @@ Free tier exhausted (200 req/day limit)
 
 **Options:**
 - Wait for daily reset (next day UTC)
-- Switch to paid `minimax-m2` model ($0.255/M input)
+- Switch to a paid tier model
 - Keep the task in Claude Code
 
 ---
@@ -183,6 +159,7 @@ Skill not triggering
 ```
 
 **Causes & fixes:**
+
 | Cause | Fix |
 |-------|-----|
 | Wrong trigger phrase | Use exact phrases from the skill's README |
