@@ -73,17 +73,17 @@ Set the `MARKET_INTELLIGENCE_CMD` environment variable to point at your running 
 
 **Mac / Linux:**
 ```bash
-export MARKET_INTELLIGENCE_CMD="uv run --directory /path/to/MultiAgents-Powerhouse/mcps/market-intelligence market-intelligence"
+export MARKET_INTELLIGENCE_CMD="uv run --directory /path/to/Claude-Powerhouse/mcps/market-intelligence market-intelligence"
 ```
 
 **Windows (PowerShell):**
 ```powershell
-$env:MARKET_INTELLIGENCE_CMD = "uv run --directory C:\path\to\MultiAgents-Powerhouse\mcps\market-intelligence market-intelligence"
+$env:MARKET_INTELLIGENCE_CMD = "uv run --directory C:\path\to\Claude-Powerhouse\mcps\market-intelligence market-intelligence"
 ```
 
 **Windows (Command Prompt):**
 ```cmd
-set MARKET_INTELLIGENCE_CMD=uv run --directory C:\path\to\MultiAgents-Powerhouse\mcps\market-intelligence market-intelligence
+set MARKET_INTELLIGENCE_CMD=uv run --directory C:\path\to\Claude-Powerhouse\mcps\market-intelligence market-intelligence
 ```
 
 Add the export to your shell profile (`.bashrc`, `.zshrc`, PowerShell `$PROFILE`) to make it permanent.
@@ -227,7 +227,7 @@ mcps/investment-brain/
 | [All MCP Servers](../README.md) | Browse both servers + install guide |
 | [market-intelligence](../market-intelligence/) | Data layer — investment-brain calls this |
 | [Root README](../../README.md) | Full repo documentation |
-| [Quick Start](../../docs/QUICKSTART.md) | 5-minute setup guide |
+| [Troubleshooting](../../docs/TROUBLESHOOTING.md) | Common errors and fixes |
 
 ---
 

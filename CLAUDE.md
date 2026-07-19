@@ -6,14 +6,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working in this
 
 ## What This Repo Is
 
-**MultiAgents-Powerhouse** is a monorepo shipping two categories of AI tooling:
+**Claude-Powerhouse** is a monorepo shipping two categories of AI tooling:
 
 | Category | Target | Location |
 |---|---|---|
 | **MCP Servers** | Claude Desktop + Claude Code (CLI) | `mcps/` |
 | **Skills** | Claude.ai web + Claude Code (CLI) | `skills/` |
 
-Supporting directories: `docs/` (quickstart, cheatsheet, troubleshooting) and `.internal/` (maintainer tooling — agent definitions, `/pst` commands, dispatch scripts, templates; not needed to use the products).
+Supporting directories: `docs/` (troubleshooting guide) and `.internal/` (maintainer tooling — agent definitions, `/pst` commands, dispatch scripts, templates; not needed to use the products).
 
 > The `skills/` folder contains skills for **both** targets — each skill's README states which target it supports. Never assume all skills run in the same environment.
 
@@ -167,7 +167,7 @@ src/market_intelligence/
   "mcpServers": {
     "market-intelligence": {
       "command": "uv",
-      "args": ["run", "--directory", "C:\\path\\to\\MultiAgents-Powerhouse\\mcps\\market-intelligence", "market-intelligence"]
+      "args": ["run", "--directory", "C:\\path\\to\\Claude-Powerhouse\\mcps\\market-intelligence", "market-intelligence"]
     }
   }
 }

@@ -63,7 +63,7 @@ src/market_intelligence/
   "mcpServers": {
     "market-intelligence": {
       "command": "uv",
-      "args": ["run", "--directory", "C:\\path\\to\\MultiAgents-Powerhouse\\mcps\\market-intelligence", "market-intelligence"]
+      "args": ["run", "--directory", "C:\\path\\to\\Claude-Powerhouse\\mcps\\market-intelligence", "market-intelligence"]
     }
   }
 }

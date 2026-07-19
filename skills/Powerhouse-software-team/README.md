@@ -173,24 +173,19 @@ Then read `BUILD_STATUS.md` for the next task.
 
 ## Installation
 
-### In This Repo (Automatic)
+### In Your Own Project (Claude Code)
 
-Skills under `.claude/skills/` activate automatically when working in this repo. No install needed.
+1. Copy this skill's folder (or unzip `Powerhouse-software-team.skill`) into your project's `.claude/skills/`
+2. Copy the agent definitions from this repo's `.internal/.claude/agents/` (Claude Code) or `.internal/.opencode/agents/` (OpenCode) into your project's `.claude/agents/` / `.opencode/agents/`
+3. Optionally copy `.internal/AGENTS.md` and `.internal/opencode.json` as starting points for your session protocol and OpenCode config
 
-### In Your Own Project
+### In This Repo
 
-To use this skill and agent workflow in a separate project:
+The `/pst` commands here are wired through the maintainer copy at `.internal/.claude/skills/powerhouse-software-team/`.
 
-1. Clone this repo for reference
-2. Copy the agent definitions from `.claude/agents/` or `.opencode/agents/` to your project
-3. Copy `AGENTS.md`, `opencode.json`, and the `.claude/` directory structure
-4. Install the skill in Claude Code: copy `Powerhouse-software-team.skill` to your project's `.claude/skills/`
+### Claude.ai Web (Reference Only)
 
-### For Claude.ai Web (Read Only)
-
-Download the `.skill` file and upload to Claude.ai → Settings → Skills. Note: this skill only shows the docs — the `/pst` commands only work in Claude Code.
-
-- [Powerhouse-software-team.skill](./Powerhouse-software-team.skill)
+Download [Powerhouse-software-team.skill](./Powerhouse-software-team.skill) and upload via Claude.ai → Settings → Skills. The web version can explain the workflow, but the `/pst` commands only run in Claude Code.
 
 ---
 
@@ -201,8 +196,8 @@ Download the `.skill` file and upload to Claude.ai → Settings → Skills. Note
 | [All Skills](../README.md) | Browse all 4 skills + install guide |
 | [Project Setup Kit](../Powerhouse-Claude-Project-Setup-Kit/) | Set up project knowledge base |
 | [Root README](../../README.md) | Full repo documentation |
-| [Quick Start](../../docs/QUICKSTART.md) | 5-minute setup guide |
+| [Troubleshooting](../../docs/TROUBLESHOOTING.md) | Common errors and fixes |
 
 ---
 
-*Part of the [MultiAgents-Powerhouse](../../README.md) suite.*
+*Part of the [Claude-Powerhouse](../../README.md) suite.*

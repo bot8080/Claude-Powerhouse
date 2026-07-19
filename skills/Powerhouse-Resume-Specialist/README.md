@@ -66,7 +66,7 @@ Generates and formats pixel-perfect, **ATS-optimized resumes** in `.docx` format
 2. Go to [Claude.ai](https://claude.ai) → **Settings** → **Skills**
 3. Click **Install Skill** and upload the file
 
-**Claude Code:** Skills in `.claude/skills/` activate automatically when working in this repo.
+**Claude Code:** copy this folder into your project's `.claude/skills/` directory.
 
 ---
 
@@ -81,11 +81,11 @@ Generates and formats pixel-perfect, **ATS-optimized resumes** in `.docx` format
 
 | Resource | Purpose |
 |----------|---------|
-| [All Skills](../README.md) | Browse all 5 skills + install guide |
+| [All Skills](../README.md) | Browse all 4 skills + install guide |
 | [Prompt Optimizer](../Powerhouse-Prompt-Optimizer/) | Optimize job application prompts |
 | [Project Setup Kit](../Powerhouse-Claude-Project-Setup-Kit/) | Set up job search tracker |
 | [Root README](../../README.md) | Full repo documentation |
 
 ---
 
-*Part of the [MultiAgents-Powerhouse](../../README.md) suite.*
+*Part of the [Claude-Powerhouse](../../README.md) suite.*

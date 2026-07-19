@@ -1,4 +1,4 @@
-# MultiAgents-Powerhouse — OpenCode Session Brief
+# Claude-Powerhouse — OpenCode Session Brief
 
 Monorepo with two outputs: MCP servers (`mcps/`) and Skills (`skills/`).
 Active sub-projects: `market-intelligence` (shipped), `investment-brain` (in development).
@@ -38,7 +38,7 @@ All Layer 1-8 items in root BUILD_STATUS.md are **complete**:
 - Layer 3: MCP servers core shipping ✅
 - Layer 4: Documentation ✅
 - Layer 5: Distribution & discovery ✅
-- Layer 6: Merger (development-protocols → MultiAgents-Powerhouse) ✅
+- Layer 6: Merger (development-protocols → Claude-Powerhouse) ✅
 - Layer 7: PST compliance ✅
 - Layer 8: Multi-model architecture ✅
 
