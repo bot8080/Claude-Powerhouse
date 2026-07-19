@@ -93,4 +93,4 @@ python main.py analyze NVDA
 
 ---
 
-← [Root README](../README.md) | [Skills](../skills/README.md) | [Quick Start](../docs/QUICKSTART.md) | [Troubleshooting](../docs/TROUBLESHOOTING.md)
+← [Root README](../README.md) | [Skills](../skills/README.md) | [Troubleshooting](../docs/TROUBLESHOOTING.md)

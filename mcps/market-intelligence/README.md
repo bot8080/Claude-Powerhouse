@@ -86,8 +86,8 @@ get_nifty_valuation() + get_fii_dii_flows()
 
 ```bash
 pip install uv   # if not already installed
-git clone https://github.com/bot8080/MultiAgents-Powerhouse.git
-cd MultiAgents-Powerhouse/mcps/market-intelligence
+git clone https://github.com/bot8080/Claude-Powerhouse.git
+cd Claude-Powerhouse/mcps/market-intelligence
 uv sync
 ```
 
@@ -113,7 +113,7 @@ Add to `%APPDATA%\Claude\claude_desktop_config.json`:
       "args": [
         "run",
         "--directory",
-        "C:\\path\\to\\MultiAgents-Powerhouse\\mcps\\market-intelligence",
+        "C:\\path\\to\\Claude-Powerhouse\\mcps\\market-intelligence",
         "market-intelligence"
       ]
     }
@@ -144,8 +144,8 @@ Restart Claude Desktop after adding.
 | [All MCP Servers](../README.md) | Browse both servers + install guide |
 | [investment-brain](../investment-brain/) | Uses this as data layer for auto-scoring |
 | [Root README](../../README.md) | Full repo documentation |
-| [Quick Start](../../docs/QUICKSTART.md) | 5-minute setup guide |
+| [Troubleshooting](../../docs/TROUBLESHOOTING.md) | Common errors and fixes |
 
 ---
 
-*Part of the [MultiAgents-Powerhouse](../../README.md) suite. Data for informational purposes only — verify before investing.*
+*Part of the [Claude-Powerhouse](../../README.md) suite. Data for informational purposes only — verify before investing.*

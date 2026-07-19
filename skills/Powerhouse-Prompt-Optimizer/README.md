@@ -1,4 +1,4 @@
-# Powerhouse Prompt Optimizer v2
+# Powerhouse Prompt Optimizer
 
 > **You are here:** Home → Skills → Prompt Optimizer
 >
@@ -78,7 +78,7 @@ Write a type-safe sort function that orders users by:
 2. Go to [Claude.ai](https://claude.ai) → **Settings** → **Skills**
 3. Click **Install Skill** and upload the file
 
-**Claude Code:** Skills in `.claude/skills/` activate automatically when working in this repo.
+**Claude Code:** copy this folder into your project's `.claude/skills/` directory.
 
 ---
 
@@ -94,11 +94,11 @@ Write a type-safe sort function that orders users by:
 
 | Resource | Purpose |
 |----------|---------|
-| [All Skills](../README.md) | Browse all 5 skills + install guide |
+| [All Skills](../README.md) | Browse all 4 skills + install guide |
 | [Project Setup Kit](../Powerhouse-Claude-Project-Setup-Kit/) | Set up project knowledge base |
 | [Software Team](../Powerhouse-software-team/) | Full PM→Dev→QA pipeline |
 | [Root README](../../README.md) | Full repo documentation |
 
 ---
 
-*Part of the [MultiAgents-Powerhouse](../../README.md) suite.*
+*Part of the [Claude-Powerhouse](../../README.md) suite.*

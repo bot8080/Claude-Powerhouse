@@ -1,99 +1,58 @@
-# MultiAgents-Powerhouse Skills
+# Claude-Powerhouse Skills
 
-A personal collection of AI skills — reusable, installable, and open source.
+Four installable skills that extend Claude's behavior. Install once — they trigger automatically from what you ask.
 
-> Not affiliated with or endorsed by Anthropic.
+> Personal open-source project. Not affiliated with or endorsed by Anthropic.
 
----
+## Pick your skill
 
-## What Are Skills?
+| I want to... | Skill | Works in |
+|--------------|-------|----------|
+| Build software with a structured PM→Dev→QA pipeline | [Software Team](./Powerhouse-software-team/) | Claude Code |
+| Set up or audit a Claude project's instructions and knowledge base | [Project Setup Kit](./Powerhouse-Claude-Project-Setup-Kit/) | Claude Code + Claude.ai |
+| Turn a vague prompt into a professional specification | [Prompt Optimizer](./Powerhouse-Prompt-Optimizer/) | Claude Code + Claude.ai |
+| Format an ATS-safe DOCX resume | [Resume Specialist](./Powerhouse-Resume-Specialist/) | Claude Code + Claude.ai |
 
-Skills are instruction files that extend Claude's behavior for specific tasks. Once installed, they trigger automatically based on what you ask — no manual setup per conversation.
+Each skill's folder has a README with examples and trigger phrases, plus the installable `.skill` file.
 
-Think of them as plugins for Claude.
+## Install
 
----
+**Claude.ai web:**
 
-## Which Skill Should I Use?
+1. Download the `.skill` file from the skill's folder ([direct links below](#direct-download-links))
+2. [Claude.ai](https://claude.ai) → **Settings** → **Skills** → **Install Skill** → upload the file
+3. Ask normally — the skill activates when your request matches its trigger
 
-| I want to... | Use this skill | Target |
-|--------------|----------------|--------|
-| Build a complex app with PM/Dev/QA pipeline | [Software Team](./Powerhouse-software-team/) | [CLI] |
-| Set up a project knowledge base | [Project Setup Kit](./Powerhouse-Claude-Project-Setup-Kit/) | [Both] |
-| Improve a vague prompt | [Prompt Optimizer](./Powerhouse-Prompt-Optimizer/) | [Both] |
-| Format a professional resume | [Resume Specialist](./Powerhouse-Resume-Specialist/) | [Both] |
+**Claude Code (your own project):**
 
-> **[CLI]** = Claude Code terminal only. **[Both]** = Claude Code + Claude.ai web.
+Copy the skill's folder into your project's `.claude/skills/` directory. The Software Team skill also pairs with agent definitions — see [its README](./Powerhouse-software-team/#installation).
 
----
+### Direct download links
 
-## Skills in Detail
-
-| Skill | Target | Description |
-|-------|--------|-------------|
-| [Powerhouse-software-team](./Powerhouse-software-team/) | [CLI] | Complete AI dev team — spec-first, 7-layer build order, PM → Dev → QA pipeline. |
-| [Powerhouse-Claude-Project-Setup-Kit](./Powerhouse-Claude-Project-Setup-Kit/) | [Both] | AI Workspace Architect — project setup, structure auditing. |
-| [Powerhouse-Prompt-Optimizer](./Powerhouse-Prompt-Optimizer/) | [Both] | Expert prompt engineering using Anthropic 2025 heuristics. |
-| [Powerhouse-Resume-Specialist](./Powerhouse-Resume-Specialist/) | [Both] | Premium DOCX formatting and ATS optimization. |
-
----
-
-## Quick Start
-
-### Claude Code Users
-
-Only the Software Team skill ships with a repo-local copy (at `.internal/.claude/skills/powerhouse-software-team/`, backing the `/pst` commands in this repo). To use any skill in your own project, copy its folder into your project's `.claude/skills/` directory.
-
-### Claude.ai Web Users
-
-1. Download the `.skill` file from the skill's folder
-2. Go to [Claude.ai](https://claude.ai) → **Settings** → **Skills**
-3. Click **Install Skill** and upload the file
-4. The skill is now active in all your Claude chats
-
----
-
-## How Skills Work
-
-Each skill has:
-- A **trigger description** — Claude reads this to decide when to use the skill
-- **Instructions** — what Claude should do when the skill activates
-- Optionally: **knowledge files, scripts, or reference docs** bundled inside
-
-Skills activate automatically when your request matches the trigger — no need to mention the skill by name.
-
----
-
-## Requirements
-
-- Claude.ai account (Free, Pro, or Team)
-- Skills feature enabled in your account
-
----
+| Skill | Download |
+|-------|----------|
+| Software Team | [Powerhouse-software-team.skill](./Powerhouse-software-team/Powerhouse-software-team.skill) |
+| Project Setup Kit | [Powerhouse-Claude-Project-Setup-Kit.skill](./Powerhouse-Claude-Project-Setup-Kit/Powerhouse-Claude-Project-Setup-Kit.skill) |
+| Prompt Optimizer | [Powerhouse-Prompt-Optimizer.skill](./Powerhouse-Prompt-Optimizer/Powerhouse-Prompt-Optimizer.skill) |
+| Resume Specialist | [Powerhouse-Resume-Specialist.skill](./Powerhouse-Resume-Specialist/Powerhouse-Resume-Specialist.skill) |
 
 ## Troubleshooting
 
 | Problem | Fix |
 |---------|-----|
-| Skill not triggering | Use exact trigger phrases from skill's README |
-| "Invalid skill file" | Make sure you downloaded `.skill` file, not `SKILL.md` |
-| CLI skill in Claude.ai | Check the `[CLI]` vs `[Both]` badge — CLI-only skills need Claude Code |
-| Wrong output | Skill might conflict with another installed skill — disable others temporarily |
-| Download link broken | Use raw URL: `https://raw.githubusercontent.com/bot8080/MultiAgents-Powerhouse/main/skills/{name}/{name}.skill` |
+| Skill not triggering | Use a trigger phrase from the skill's README |
+| "Invalid skill file" | Upload the `.skill` file, not `SKILL.md` |
+| `/pst` commands don't work in Claude.ai | Software Team is Claude Code-only; the web upload is reference-only |
+| Download link broken | Use the raw URL: `https://raw.githubusercontent.com/bot8080/Claude-Powerhouse/main/skills/{name}/{name}.skill` |
 
----
+More in [docs/TROUBLESHOOTING.md](../docs/TROUBLESHOOTING.md).
 
-## Contributing
+## Contributing a skill
 
-PRs and issues welcome. To add a new skill:
-
-1. Create `skill-name/SKILL.md` with YAML frontmatter + instructions
-2. Create `skill-name/skill-name.skill` (the installable file)
-3. Create `skill-name/README.md` explaining what it does
-4. Add a row to the skills table above
-5. Open a PR
-
----
+1. Create `skills/<Name>/SKILL.md` — YAML frontmatter (`name:` lowercase-kebab, `description:` = the activation trigger, make it exhaustive) + markdown instructions
+2. Zip it as `skills/<Name>/<Name>.skill` with the folder name inside matching the frontmatter `name`
+3. Add a `README.md` with examples, and a row to the tables here and in the root README
+4. Open a PR
 
 ## License
 
