@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-`market-analyst-mcp` — MCP server for investment analysis across US, Indian, and Canadian markets. Built with FastMCP + yfinance. 8 tools total.
+`market-intelligence` — MCP server for investment analysis across US, Indian, and Canadian markets. Built with FastMCP + yfinance. 8 tools total.
 
 ## Commands
 
@@ -13,7 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 uv sync
 
 # Run the server (for testing)
-uv run market-analyst-mcp
+uv run market-intelligence
 
 # Syntax check all source files
 python -m py_compile src/market_intelligence/*.py
@@ -61,9 +61,9 @@ src/market_intelligence/
 ```json
 {
   "mcpServers": {
-    "market-analyst": {
+    "market-intelligence": {
       "command": "uv",
-      "args": ["run", "--directory", "C:\\Users\\abhik\\OneDrive\\Documents\\Projects\\market-analyst-mcp", "market-analyst-mcp"]
+      "args": ["run", "--directory", "C:\\path\\to\\MultiAgents-Powerhouse\\mcps\\market-intelligence", "market-intelligence"]
     }
   }
 }

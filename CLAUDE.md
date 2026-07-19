@@ -13,6 +13,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working in this
 | **MCP Servers** | Claude Desktop + Claude Code (CLI) | `mcps/` |
 | **Skills** | Claude.ai web + Claude Code (CLI) | `skills/` |
 
+Supporting directories: `docs/` (quickstart, cheatsheet, troubleshooting) and `.internal/` (maintainer tooling — agent definitions, `/pst` commands, dispatch scripts, templates; not needed to use the products).
+
 > The `skills/` folder contains skills for **both** targets — each skill's README states which target it supports. Never assume all skills run in the same environment.
 
 ---
@@ -26,7 +28,7 @@ Claude must route automatically — never ask "which agent should I use?":
 | "build X", "create X", "add X", "implement X" | PM Tech Lead ticket first — no code without a ticket |
 | "review", "check", "QA", "test" | QA Engineer |
 | "done", "merge", "PR", "ship" | Finish-feature flow |
-| "status", "what's next", "where are we" | Read `BUILD_STATUS.md`, suggest next unchecked task |
+| "status", "what's next", "where are we" | Read `BUILD_STATUS.md` (repo meta-status: `.internal/BUILD_STATUS.md`), suggest next unchecked task |
 | "research X", "how does X work", "investigate X" | Research Engineer |
 | "plan X", "design X", "architect X" | PM Tech Lead |
 
@@ -44,7 +46,7 @@ Claude must route automatically — never ask "which agent should I use?":
 PM Tech Lead → [Research Engineer?] → Dev Engineer → QA Engineer → Human Approve → Merge
 ```
 
-Agent definitions live in `.claude/agents/`. Load the relevant agent file at the start of each role.
+Agent definitions live in `.internal/.claude/agents/`. Load the relevant agent file at the start of each role.
 
 **Skip Research Engineer** for standard CRUD/config work. Use it for new APIs, third-party integrations, or unfamiliar libraries.
 
@@ -76,7 +78,7 @@ Before editing any source file in a sub-project, check that its anchor docs exis
 
 If either is missing, warn the user and suggest writing the spec first. Do not block — but do not silently skip the warning.
 
-`market-intelligence` is exempt (already shipped without specs). All new sub-projects must have specs before Layer 1 begins.
+Both shipped MCPs now have specs (`market-intelligence`'s was written retrospectively). All new sub-projects must have specs before Layer 1 begins.
 
 ---
 
@@ -110,7 +112,7 @@ Use `/pst` for all project operations:
 | `plan [feature]` | Invoke PM Tech Lead → produce structured ticket |
 | `build` | Invoke Dev Engineer → implement current ticket |
 | `review` | Invoke QA Engineer → validate against specs |
-| `branch [name]` | Create `feature/L{N}-{name}` from `main` |
+| `branch [name]` | Create `feature/{subproject}/L{N}-{name}` from `main` |
 | `pr` | Type-check → sync main → create PR with standard template |
 | `next` | Find first unchecked item in `BUILD_STATUS.md` |
 
@@ -175,9 +177,9 @@ src/market_intelligence/
 
 ---
 
-### investment-brain (in development)
+### investment-brain
 
-> Status: Layer 1 not yet started. Requires `TECH_SPEC.md` before any code changes.
+> Status: Shipped — all 7 layers complete. See `mcps/investment-brain/TECH_SPEC.md` and `mcps/investment-brain/BUILD_STATUS.md`.
 
 Local Python engine that pre-computes analysis and generates minimal Claude prompts (~20–50 tokens vs ~3,500). Claude only formats output.
 
@@ -235,56 +237,4 @@ Each skill lives in `skills/<skill-name>/` with a `.skill` file and `README.md`.
 **Authoring pattern:** detect context first, then branch into modes (see `Powerhouse-Claud-Project-Setup-Kit` as the reference implementation). Skills that produce file output should save to `/mnt/user-data/outputs/`.
 
 ---
-
-## gstack
-
-gstack provides a headless browser and a suite of workflow skills. Install it globally before doing any work in this repo:
-
-```bash
-git clone --depth 1 https://github.com/garrytan/gstack.git ~/.claude/skills/gstack
-cd ~/.claude/skills/gstack && ./setup --team
-```
-
-Verify: `test -d ~/.claude/skills/gstack/bin && echo "GSTACK_OK" || echo "GSTACK_MISSING"`
-
-**Web browsing rule:** Always use `/browse` from gstack for all web browsing tasks. Never use `mcp__claude-in-chrome__*` tools.
-
-**Available skills:**
-
-| Skill | Purpose |
-|---|---|
-| `/browse` | Headless browser — use for ALL web browsing |
-| `/office-hours` | Office hours facilitation |
-| `/plan-ceo-review` | CEO review of plans |
-| `/plan-eng-review` | Engineering review of plans |
-| `/plan-design-review` | Design review of plans |
-| `/design-consultation` | Design consultation |
-| `/design-shotgun` | Rapid design exploration |
-| `/design-html` | HTML design generation |
-| `/review` | Code review |
-| `/ship` | Ship a feature end-to-end |
-| `/land-and-deploy` | Land and deploy changes |
-| `/canary` | Canary deployment |
-| `/benchmark` | Performance benchmarking |
-| `/connect-chrome` | Connect to Chrome browser |
-| `/qa` | Full QA pass |
-| `/qa-only` | QA without other steps |
-| `/design-review` | Design review |
-| `/setup-browser-cookies` | Set up browser cookies |
-| `/setup-deploy` | Configure deployment |
-| `/setup-gbrain` | Set up gbrain |
-| `/retro` | Retrospective |
-| `/investigate` | Investigate an issue |
-| `/document-release` | Document a release |
-| `/codex` | Codex skill |
-| `/cso` | CSO workflow |
-| `/autoplan` | Automatic planning |
-| `/plan-devex-review` | DevEx review of plans |
-| `/devex-review` | Developer experience review |
-| `/careful` | Careful/conservative mode |
-| `/freeze` | Freeze changes |
-| `/guard` | Guard mode |
-| `/unfreeze` | Unfreeze changes |
-| `/gstack-upgrade` | Upgrade gstack |
-| `/learn` | Learning workflow |
 

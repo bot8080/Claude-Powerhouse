@@ -42,7 +42,7 @@ Think of them as plugins for Claude.
 
 ### Claude Code Users
 
-Skills under `.claude/skills/` activate automatically when working in this repo. No install needed — just type trigger phrases.
+Only the Software Team skill ships with a repo-local copy (at `.internal/.claude/skills/powerhouse-software-team/`, backing the `/pst` commands in this repo). To use any skill in your own project, copy its folder into your project's `.claude/skills/` directory.
 
 ### Claude.ai Web Users
 
@@ -97,4 +97,4 @@ PRs and issues welcome. To add a new skill:
 
 ## License
 
-MIT — see [LICENSE](./LICENSE)
+MIT — see [LICENSE](../LICENSE)

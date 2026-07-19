@@ -83,13 +83,13 @@ python main.py analyze NVDA
 
 **Goal:** Add structured agent roles to any AI coding tool.
 
-### OpenCode (auto-load)
+### OpenCode
 
-Agents in `.opencode/agents/` load automatically when opening this repo in OpenCode. Copy them to your project if you want them elsewhere.
+Agent definitions live in `.internal/.opencode/agents/`. Copy them into your project's `.opencode/agents/` folder to have OpenCode load them automatically.
 
 ### Claude Code
 
-Agents in `.claude/agents/` auto-activate when working in this repo. For your own project, copy the agent files to `~/.claude/agents/`.
+Agent definitions live in `.internal/.claude/agents/`. For your own project, copy the agent files to your project's `.claude/agents/` or to `~/.claude/agents/`.
 
 | Agent | File |
 |-------|------|
@@ -100,7 +100,7 @@ Agents in `.claude/agents/` auto-activate when working in this repo. For your ow
 | Worker-Mechanical | `worker-mechanical.md` |
 | Advisor | `advisor.md` |
 
-**Next step:** Read [AGENTS.md](../AGENTS.md) for the full auto-routing rules.
+**Next step:** Read [.internal/AGENTS.md](../.internal/AGENTS.md) for the full auto-routing rules.
 
 ---
 
@@ -110,7 +110,7 @@ Agents in `.claude/agents/` auto-activate when working in this repo. For your ow
 |----------------|-----------|
 | Set up MCP servers | [market-intelligence README](../mcps/market-intelligence/README.md) |
 | Installed skills | [skills/README.md](../skills/README.md) |
-| Copied agents | [AGENTS.md](../AGENTS.md) — session protocol |
+| Copied agents | [.internal/AGENTS.md](../.internal/AGENTS.md) — session protocol |
 
 ## Need Help?
 
