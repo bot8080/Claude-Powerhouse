@@ -317,4 +317,4 @@ uv run market-intelligence
 
 - `market-intelligence` was shipped before spec discipline was established — this is a retrospective write-up.
 - All tools work without API keys — yfinance provides all data for free.
-- 8 tools cover the full investment analysis workflow: resolve → profile → technicals → score → verdict.
+- 9 tools cover the full investment analysis workflow: resolve → profile → technicals → score → verdict (+ macro overlays US/India).

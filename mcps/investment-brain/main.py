@@ -35,31 +35,51 @@ from prompt_builder import PromptBuilder
 def cmd_analyze(args):
     """Analyze a single stock."""
     ticker = args.ticker.upper()
-    print(f"\n🔍 Analyzing {ticker}...")
+    if not args.json:
+        print(f"\n🔍 Analyzing {ticker}...")
 
     with DataFetcher() as fetcher:
         data = fetcher.get_stock_data(ticker, args.market or "US")
         if not data:
-            print(f"❌ Failed to fetch data for {ticker}")
+            output = {"error": f"Failed to fetch data for {ticker}"}
+            if args.json:
+                print(json.dumps(output, default=str))
+            else:
+                print(f"❌ {output['error']}")
             return
 
         # Deal-breaker check
         db = check_deal_breakers(data)
         if db["blocked"]:
-            print(f"\n⛔ BLOCKED: {ticker}")
-            for r, e in zip(db["reasons"], db["evidence"]):
-                print(f"   Reason: {r}")
-                print(f"   Evidence: {e}")
+            output = {"blocked": True, "ticker": ticker, "reasons": db["reasons"], "evidence": db["evidence"]}
+            if args.json:
+                print(json.dumps(output, default=str))
+            else:
+                print(f"\n⛔ BLOCKED: {ticker}")
+                for r, e in zip(db["reasons"], db["evidence"]):
+                    print(f"   Reason: {r}")
+                    print(f"   Evidence: {e}")
             return
 
         # Score
         sector = data.get("profile", {}).get("identity", {}).get("sector", "")
         scores = score_stock(data, sector=sector)
-
-        # Build prompt
         prompt = PromptBuilder.build_single_stock(data, scores)
 
-        # Print results
+        if args.json:
+            dashboard = json.loads(PromptBuilder.build_dashboard_json(data, scores))
+            dashboard.update({
+                "scores_breakdown": {
+                    "fundamentals": scores["fundamentals"]["score"],
+                    "technicals": scores["technicals"]["score"],
+                    "smart_money": scores["smart_money"]["score"],
+                    "total": scores["total"],
+                },
+                "prompt": prompt,
+            })
+            print(json.dumps(dashboard, default=str))
+            return
+
         print(f"\n📊 Scores: Fund {scores['fundamentals']['score']}/35 | Tech {scores['technicals']['score']}/35 | SM {scores['smart_money']['score']}/30")
         print(f"   Total: {scores['total']}/100 | Verdict: {scores['verdict']}")
         print(f"   Account: {scores['account']} | Stop Loss: ${scores['stop_loss']}")
@@ -73,13 +93,15 @@ def cmd_analyze(args):
 
 def cmd_screen(args):
     """Run a stock screener."""
-    print(f"\n🔍 Screening: PE < {args.pe_max}, ROE > {args.roe_min}%")
-    if args.sector:
-        print(f"   Sector: {args.sector}")
+    if not args.json:
+        print(f"\n🔍 Screening: PE < {args.pe_max}, ROE > {args.roe_min}%")
+        if args.sector:
+            print(f"   Sector: {args.sector}")
 
     # For screener, we need a universe. User provides tickers or we use SCREENER_UNIVERSE from config.
     tickers = args.tickers or SCREENER_UNIVERSE
-    print(f"   Universe: {len(tickers)} stocks")
+    if not args.json:
+        print(f"   Universe: {len(tickers)} stocks")
 
     with DataFetcher() as fetcher:
         results = []
@@ -109,7 +131,8 @@ def cmd_screen(args):
         # Sort by total score
         results.sort(key=lambda x: x["scores"]["total"], reverse=True)
 
-        print(f"\n✅ {len(results)} stocks passed screening")
+        if not args.json:
+            print(f"\n✅ {len(results)} stocks passed screening")
 
         if results:
             criteria = f"PE < {args.pe_max}, ROE > {args.roe_min}%"
@@ -118,29 +141,53 @@ def cmd_screen(args):
 
             prompt = PromptBuilder.build_screener(results, criteria, len(tickers))
 
-            print(f"\n📋 Copy this entire block into Claude:\n")
-            print("=" * 60)
-            print(prompt)
-            print("=" * 60)
+            # Save to DB — only when run interactively (not via --json MCP path)
+            if not args.json:
+                db_obj = PortfolioDB()
+                db_obj.add_screener_results([
+                    {
+                        "t": r["ticker"],
+                        "name": r["data"].get("profile", {}).get("identity", {}).get("name", ""),
+                        "sector": r["data"].get("profile", {}).get("identity", {}).get("sector", ""),
+                        "market": r["data"].get("market", "US"),
+                        "price": r["data"].get("profile", {}).get("price", {}).get("current", 0),
+                        "fund": r["scores"]["fundamentals"]["score"],
+                        "tech": r["scores"]["technicals"]["score"],
+                        "sm": r["scores"]["smart_money"]["score"],
+                        "verdict": r["scores"]["verdict"],
+                        "screen_meta": {"criteria": criteria, "rank": i + 1, "universe_size": len(tickers)},
+                    }
+                    for i, r in enumerate(results)
+                ], criteria)
+                print(f"\n📋 Copy this entire block into Claude:\n")
+                print("=" * 60)
+                print(prompt)
+                print("=" * 60)
+                print(f"\n💾 Saved {len(results)} results to database")
 
-            # Save to DB
-            db = PortfolioDB()
-            db.add_screener_results([
-                {
-                    "t": r["ticker"],
-                    "name": r["data"].get("profile", {}).get("identity", {}).get("name", ""),
-                    "sector": r["data"].get("profile", {}).get("identity", {}).get("sector", ""),
-                    "market": r["data"].get("market", "US"),
-                    "price": r["data"].get("profile", {}).get("price", {}).get("current", 0),
-                    "fund": r["scores"]["fundamentals"]["score"],
-                    "tech": r["scores"]["technicals"]["score"],
-                    "sm": r["scores"]["smart_money"]["score"],
-                    "verdict": r["scores"]["verdict"],
-                    "screen_meta": {"criteria": criteria, "rank": i + 1, "universe_size": len(tickers)},
+            if args.json:
+                payload = {
+                    "count": len(results),
+                    "criteria": criteria,
+                    "universe_size": len(tickers),
+                    "results": [
+                        {
+                            "ticker": r["ticker"],
+                            "name": r["data"].get("profile", {}).get("identity", {}).get("name", ""),
+                            "sector": r["data"].get("profile", {}).get("identity", {}).get("sector", ""),
+                            "market": r["data"].get("market", "US"),
+                            "price": r["data"].get("profile", {}).get("price", {}).get("current", 0),
+                            "fund": r["scores"]["fundamentals"]["score"],
+                            "tech": r["scores"]["technicals"]["score"],
+                            "sm": r["scores"]["smart_money"]["score"],
+                            "total": r["scores"]["total"],
+                            "verdict": r["scores"]["verdict"],
+                        }
+                        for r in results
+                    ],
+                    "prompt": prompt,
                 }
-                for i, r in enumerate(results)
-            ], criteria)
-            print(f"\n💾 Saved {len(results)} results to database")
+                print(json.dumps(payload, default=str))
 
 
 def cmd_portfolio(args):
@@ -149,16 +196,17 @@ def cmd_portfolio(args):
     holdings = db.get_portfolio()
 
     if not holdings:
-        print("\n📭 Portfolio is empty. Add stocks first.")
+        output = {"empty": True, "holdings": []}
+        if args.json:
+            print(json.dumps(output, default=str))
+        else:
+            print("\n📭 Portfolio is empty. Add stocks first.")
         return
 
-    print(f"\n📊 Portfolio Review ({len(holdings)} holdings)")
     total_value = sum(h.get("price", 0) * h.get("shares", 0) for h in holdings)
     total_cost = sum(h.get("cost", h.get("price", 0)) * h.get("shares", 0) for h in holdings)
     pnl = total_value - total_cost
     pnl_pct = (pnl / total_cost * 100) if total_cost else 0
-
-    print(f"   Value: ${total_value:,.2f} | Cost: ${total_cost:,.2f} | P&L: {pnl:+.2f} ({pnl_pct:+.1f}%)")
 
     # Sector allocation
     sectors = {}
@@ -166,23 +214,6 @@ def cmd_portfolio(args):
         val = h.get("price", 0) * h.get("shares", 0)
         sectors[h.get("sector", "Unknown")] = sectors.get(h.get("sector", "Unknown"), 0) + val
 
-    print(f"\n📊 Sector Allocation:")
-    for s, v in sorted(sectors.items(), key=lambda x: -x[1]):
-        pct = (v / total_value * 100) if total_value else 0
-        flag = "🔴" if pct > 30 else "🟡" if pct > 20 else "🟢"
-        print(f"   {flag} {s}: {pct:.1f}% (${v:,.2f})")
-
-    # Flags
-    print(f"\n🚨 Flags:")
-    for h in holdings:
-        flags = h.get("flags", [])
-        if isinstance(flags, str):
-            flags = json.loads(flags) if flags else []
-        if flags:
-            print(f"   {h['ticker']}: {', '.join(flags)}")
-
-    # Build prompt
-    sector_alloc = [{"sector": k, "pct": (v / total_value * 100) if total_value else 0} for k, v in sectors.items()]
     flags = []
     actions = []
     for h in holdings:
@@ -190,10 +221,42 @@ def cmd_portfolio(args):
         pct = (val / total_value * 100) if total_value else 0
         if pct > 10:
             actions.append({"priority": 1, "t": h["ticker"], "action": "TRIM", "reason": f"Concentration: {pct:.1f}%"})
-        if isinstance(h.get("flags"), list) and "deal_breaker" in h["flags"]:
+        h_flags = h.get("flags", [])
+        if isinstance(h_flags, str):
+            h_flags = json.loads(h_flags) if h_flags else []
+        if isinstance(h_flags, list) and "deal_breaker" in h_flags:
             actions.append({"priority": 1, "t": h["ticker"], "action": "SELL", "reason": "Deal-breaker"})
+        if h_flags:
+            flags.append({"ticker": h["ticker"], "flags": h_flags})
 
+    sector_alloc = [{"sector": k, "pct": (v / total_value * 100) if total_value else 0} for k, v in sectors.items()]
     prompt = PromptBuilder.build_portfolio_review(holdings, sector_alloc, flags, actions)
+
+    if args.json:
+        payload = {
+            "holdings": holdings,
+            "total_value": total_value,
+            "total_cost": total_cost,
+            "pnl": pnl,
+            "pnl_pct": pnl_pct,
+            "sectors": sector_alloc,
+            "flags": flags,
+            "actions": actions,
+            "prompt": prompt,
+        }
+        print(json.dumps(payload, default=str))
+        return
+
+    print(f"\n📊 Portfolio Review ({len(holdings)} holdings)")
+    print(f"   Value: ${total_value:,.2f} | Cost: ${total_cost:,.2f} | P&L: {pnl:+.2f} ({pnl_pct:+.1f}%)")
+    print(f"\n📊 Sector Allocation:")
+    for s, v in sorted(sectors.items(), key=lambda x: -x[1]):
+        pct = (v / total_value * 100) if total_value else 0
+        flag = "🔴" if pct > 30 else "🟡" if pct > 20 else "🟢"
+        print(f"   {flag} {s}: {pct:.1f}% (${v:,.2f})")
+    print(f"\n🚨 Flags:")
+    for f in flags:
+        print(f"   {f['ticker']}: {', '.join(f['flags'])}")
     print(f"\n📋 Copy this into Claude for formatted output:\n")
     print("=" * 60)
     print(prompt)
@@ -214,25 +277,29 @@ def cmd_paper_buy(args):
     )
 
     if result["success"]:
-        print(f"\n✅ Paper BUY executed: {result['ticker']}")
-        print(f"   Shares: {result['shares']} @ ${result['entry']}")
-        print(f"   Cost: ${result['cost']:,.2f}")
-        print(f"   Stop Loss: ${result['stop_loss']}")
-        if result["warnings"]:
-            print(f"   ⚠️ Warnings: {', '.join(result['warnings'])}")
-
-        # Build prompt
         impact = {
             "cash_before": engine.get_cash() + result["cost"],
             "cash_after": engine.get_cash(),
             "position_pct": (result["shares"] * result["entry"] / engine.get_total_value() * 100) if engine.get_total_value() else 0,
         }
         prompt = PromptBuilder.build_paper_trade_ticket(result, impact)
+        if args.json:
+            print(json.dumps({"success": True, "trade": result, "impact": impact, "prompt": prompt}, default=str))
+            return
+        print(f"\n✅ Paper BUY executed: {result['ticker']}")
+        print(f"   Shares: {result['shares']} @ ${result['entry']}")
+        print(f"   Cost: ${result['cost']:,.2f}")
+        print(f"   Stop Loss: ${result['stop_loss']}")
+        if result["warnings"]:
+            print(f"   ⚠️ Warnings: {', '.join(result['warnings'])}")
         print(f"\n📋 Copy this into Claude for formatted ticket:\n")
         print("=" * 60)
         print(prompt)
         print("=" * 60)
     else:
+        if args.json:
+            print(json.dumps({"success": False, "errors": result["errors"]}, default=str))
+            return
         print(f"\n❌ Buy failed:")
         for e in result["errors"]:
             print(f"   • {e}")
@@ -244,10 +311,16 @@ def cmd_paper_sell(args):
     result = engine.sell(args.ticker, args.shares, args.price, args.reason or "Manual close")
 
     if result["success"]:
+        if args.json:
+            print(json.dumps({"success": True, "trade": result}, default=str))
+            return
         print(f"\n✅ Paper SELL executed: {result['ticker']}")
         print(f"   Shares: {result['shares']} @ ${result['exit']}")
         print(f"   P&L: {result['pnl_pct']:+.2f}% (${result['pnl_dollar']:+.2f})")
     else:
+        if args.json:
+            print(json.dumps({"success": False, "errors": result["errors"]}, default=str))
+            return
         print(f"\n❌ Sell failed:")
         for e in result["errors"]:
             print(f"   • {e}")
@@ -299,6 +372,7 @@ def cmd_import(args):
 
 def main():
     parser = argparse.ArgumentParser(description="Investment Brain CLI")
+    parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON (for MCP server / scripting)")
     subparsers = parser.add_subparsers(dest="command")
 
     # analyze
@@ -310,7 +384,7 @@ def main():
     # screen
     p = subparsers.add_parser("screen", help="Run stock screener")
     p.add_argument("--pe-max", type=float, default=25, help="Max PE ratio")
-    p.add_argument("--roe-min", type=float, default=15, help="Min ROE %")
+    p.add_argument("--roe-min", type=float, default=15, help="Min ROE %%")
     p.add_argument("--sector", help="Filter by sector")
     p.add_argument("tickers", nargs="*", help="Ticker universe (default: top 10 tech)")
     p.set_defaults(func=cmd_screen)

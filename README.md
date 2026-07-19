@@ -1,6 +1,8 @@
 # Claude-Powerhouse
 
-**Stock analysis inside Claude, and an AI dev-team workflow for your projects.** Real Python MCP servers, installable Claude skills, and a spec-first agent pipeline — all source-only: clone and use, nothing to buy or publish.
+**Two things, free to clone and use:** Python MCP servers that put live stock analysis inside Claude, and installable Claude skills that add an AI dev team, project setup, prompt optimization, and resume formatting to your Claude.
+
+No accounts, no API keys, no paid services. Clone, install, run.
 
 | What | For | Go to |
 |------|-----|-------|
@@ -21,7 +23,7 @@ uv sync && uv run market-intelligence
 
 Then register the server in Claude Desktop and ask Claude things like *"Score NVDA and TSM and tell me which is the better buy."* Claude answers with live data: prices, fundamentals, RSI/MACD, insider activity, and a 100-point BUY/HOLD/SELL score.
 
-Want auto-scoring, a screener, and paper trading on top? Add **investment-brain** — a local Python engine that does the heavy lifting and cuts Claude token usage by ~90%.
+Want auto-scoring, a screener, and paper trading on top? Add **investment-brain** — a local Python engine that pre-computes analysis and cuts Claude token usage by ~90%.
 
 **→ [mcps/README.md](./mcps/README.md)** — which server you need, full install, Claude Desktop config.
 
@@ -44,9 +46,9 @@ Want auto-scoring, a screener, and paper trading on top? Add **investment-brain*
 
 The three things worth your time, in order:
 
-1. **[market-intelligence](./mcps/market-intelligence/)** — a shipped FastMCP server: 8 tools, dynamic ticker resolution across 3 exchanges (no static symbol maps), batched profile fetching that collapses ~112 API calls into 1 MCP call, defensive error handling throughout. Start at [`src/market_intelligence/server.py`](./mcps/market-intelligence/src/market_intelligence/server.py).
+1. **[market-intelligence](./mcps/market-intelligence/)** — a shipped FastMCP server: 9 tools, dynamic ticker resolution across 3 exchanges (no static symbol maps), batched profile fetching that collapses many individual API calls into 1 MCP call, defensive error handling throughout, and a full test suite. Start at [`src/market_intelligence/server.py`](./mcps/market-intelligence/src/market_intelligence/server.py).
 2. **[investment-brain](./mcps/investment-brain/)** — a token-economics play: a local engine that pre-computes scoring/screening/portfolio state and hands Claude a 20–50-token prompt instead of ~3,500 tokens of raw data (~90% cheaper per analysis). SQLite persistence, rule-enforced paper trading, CLI + FastAPI UI.
-3. **The process itself** — this repo was built with its own spec-first agent pipeline: every sub-project has a `TECH_SPEC.md` and layer-gated `BUILD_STATUS.md`; agent role definitions and the `/pst` command tooling live in [`.internal/`](./.internal/). The [Software Team skill](./skills/Powerhouse-software-team/) is that workflow, packaged for any project.
+3. **The discipline** — every sub-project ships with a `TECH_SPEC.md` (schemas, service signatures) and a layer-gated `BUILD_STATUS.md`. The [Software Team skill](./skills/Powerhouse-software-team/) is the workflow that produced this repo, packaged for any project.
 
 ---
 
@@ -55,11 +57,10 @@ The three things worth your time, in order:
 ```
 Claude-Powerhouse/
 ├── mcps/                  # MCP financial servers (Python)
-│   ├── market-intelligence/   # Live data: 8 tools, 3 markets — shipped
+│   ├── market-intelligence/   # Live data: 9 tools, 3 markets — shipped
 │   └── investment-brain/      # Local scoring/screening/paper-trading engine — shipped
 ├── skills/                # 4 installable Claude skills (.skill + docs each)
-├── docs/                  # Troubleshooting guide
-└── .internal/             # Maintainer tooling: agent definitions, /pst commands, templates
+└── docs/                  # Troubleshooting guide
 ```
 
 ## Documentation
@@ -69,8 +70,6 @@ Claude-Powerhouse/
 | [mcps/README.md](./mcps/README.md) | Which MCP server you need + full setup |
 | [skills/README.md](./skills/README.md) | Skill install + usage per platform |
 | [docs/TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md) | Common errors across all components |
-| [.internal/AGENTS.md](./.internal/AGENTS.md) | Agent pipeline + session protocol (maintainers) |
-| [.internal/BUILD_STATUS.md](./.internal/BUILD_STATUS.md) | Development progress tracker (maintainers) |
 
 ## Contributing
 

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-`market-intelligence` — MCP server for investment analysis across US, Indian, and Canadian markets. Built with FastMCP + yfinance. 8 tools total.
+`market-intelligence` — MCP server for investment analysis across US, Indian, and Canadian markets. Built with FastMCP + yfinance. 9 tools total.
 
 ## Commands
 
@@ -26,7 +26,7 @@ uv run python -c "from market_intelligence.resolver import resolve_tickers_impl;
 
 ```
 src/market_intelligence/
-  server.py      — FastMCP entry point, all 8 @mcp.tool registrations
+  server.py      — FastMCP entry point, all 9 @mcp.tool registrations
   resolver.py    — Dynamic ticker resolution (no static maps), handles .NS/.TO/.BO/.L suffixes
   profile.py     — get_full_profile (1 yf.Ticker.info call → 8 sections) + get_batch_profiles (ThreadPoolExecutor)
   technicals.py  — RSI, MACD, ADX, ATR, Bollinger, MFI, OBV, SMA 50/200 via ta library
@@ -46,6 +46,7 @@ src/market_intelligence/
 | `get_institutional_activity` | US, Canada | Insider trades, institutional holders, upgrades/downgrades |
 | `get_fii_dii_flows` | India only | FII/DII daily flows + sentiment signal |
 | `get_nifty_valuation` | India only | Nifty 50 P/E zone (Excellent → Bubble) |
+| `get_us_macro` | All (US context) | VIX, yield curve, DXY, S&P 500 trend + macro sentiment summary |
 | `get_scoring_data` | All | 4-pillar score + deal-breaker checks + verdict (BUY/HOLD/SELL) |
 
 ## Key Conventions

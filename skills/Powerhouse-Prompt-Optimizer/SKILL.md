@@ -41,7 +41,7 @@ For user prompts, add role framing only if it helps focus the task.
 
 ### 2. State the Task Clearly and Explicitly
 
-Claude 4.x follows explicit instructions precisely. Vague prompts produce vague results.
+Claude follows explicit instructions precisely. Vague prompts produce vague results.
 
 - Replace implied goals with stated ones
 - Add "above and beyond" phrasing only if the user wants expansive output

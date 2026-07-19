@@ -275,20 +275,24 @@ def check_deal_breakers(data: Dict) -> Dict:
     # Rule 3: Accounting red flags
     # (Requires auditor reports - flag as unverified)
 
-    # Rule 4: Negative FCF sustained 2+ years
+    # Rule 4: Negative FCF (single-period flag; sustained-2-year check requires
+    # historical cash-flow statements which aren't available in the data dict).
     fcf = _get_num(quality, "free_cashflow")
     if fcf is not None and fcf < 0:
-        if data.get("blocked") and "negative cash flow" in str(data.get("deal_breakers", [])).lower():
-            reasons.append("Negative FCF sustained")
-            evidence.append(f"FCF: ${fcf:,.0f}")
+        reasons.append("Negative FCF (most recent period)")
+        evidence.append(f"FCF: ${fcf:,.0f}")
 
-    # Rule 5: Broken insider alignment
+    # Rule 5: Broken insider alignment — net insider selling >$50M in last 90d.
+    # `insider_transactions` is a list of yfinance records (one per transaction)
+    # with fields like `Transaction Shares` (signed) and `Transaction Value`,
+    # OR a list of dicts with slightly different key names depending on yfinance
+    # version. Sum sell_value − buy_value across all records.
     insider_pct = _get_num(risk, "insider_pct")
-    insider_tx = institutional.get("insider_transactions", {}) if isinstance(institutional, dict) else {}
-    if insider_tx and isinstance(insider_tx, dict):
-        net_sell = insider_tx.get("net_sell", 0)
-        if net_sell and net_sell > 50_000_000:
-            reasons.append("Insider selling >$50M in 90d")
+    insider_tx = institutional.get("insider_transactions") if isinstance(institutional, dict) else None
+    if isinstance(insider_tx, list) and insider_tx:
+        net_sell = _net_insider_value(insider_tx)
+        if net_sell is not None and net_sell > 50_000_000:
+            reasons.append("Insider selling >$50M in recent transactions")
             evidence.append(f"Net insider sell: ${net_sell:,.0f}")
 
     # Rule 6: Regulatory action (NOW AUTOMATED via news check)
@@ -350,3 +354,57 @@ def _get_num(data: Dict, key: str) -> Optional[float]:
         return float(val)
     except (ValueError, TypeError):
         return None
+
+
+def _net_insider_value(transactions: List[Dict]) -> Optional[float]:
+    """Sum net insider selling across a list of yfinance insider-transaction records.
+
+    Returns sell_value - buy_value in dollars (positive = net selling).
+    yfinance's `insider_transactions` schema varies by version; we look for
+    common key names for value/shares. Returns None if no records contain
+    usable numeric data.
+    """
+    if not transactions:
+        return None
+    net = 0.0
+    found_any = False
+    value_keys = ("Transaction Value", "Value", "transactionValue", "value")
+    shares_keys = ("Transaction Shares", "Shares", "transactionShares", "shares")
+    for row in transactions:
+        if not isinstance(row, dict):
+            continue
+        # Try direct value field first
+        value = None
+        for k in value_keys:
+            v = row.get(k)
+            if v is not None:
+                try:
+                    value = float(v)
+                    break
+                except (ValueError, TypeError):
+                    pass
+        if value is None:
+            continue
+        # Determine sign from shares (negative = sell).
+        sign = None
+        for k in shares_keys:
+            s = row.get(k)
+            if s is not None:
+                try:
+                    sign = -1.0 if float(s) < 0 else 1.0
+                    break
+                except (ValueError, TypeError):
+                    pass
+        if sign is None:
+            # Fall back to a "type"/"code" string heuristic
+            t = str(row.get("Transaction Type", row.get("type", ""))).lower()
+            if "sell" in t or "sale" in t:
+                sign = -1.0
+            elif "buy" in t or "purchase" in t:
+                sign = 1.0
+        if sign is None:
+            # No direction signal — skip this record (don't pollute the sum)
+            continue
+        net += sign * abs(value)
+        found_any = True
+    return net if found_any else None

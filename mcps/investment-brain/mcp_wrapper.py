@@ -27,19 +27,27 @@ MAIN_PY = BRAIN_DIR / "main.py"
 
 
 def run_brain(*args) -> dict:
-    """Run main.py and extract JSON from output."""
-    cmd = [sys.executable, str(MAIN_PY)] + list(args)
+    """Run main.py with --json and parse stdout as JSON.
+
+    --json suppresses the human-readable preamble and emits one JSON blob
+    per command. Falls back to {"raw": out} if JSON parse fails (e.g. an
+    unexpected error message on stderr-only paths).
+    """
+    cmd = [sys.executable, str(MAIN_PY), "--json"] + list(args)
     result = subprocess.run(cmd, capture_output=True, text=True, cwd=BRAIN_DIR, timeout=30)
-    
+
     if result.returncode != 0:
-        return {"error": result.stderr}
-    
-    # Extract JSON from the prompt block
-    out = result.stdout
-    if "```json" in out:
-        json_text = out.split("```json")[1].split("```")[0].strip()
-        return json.loads(json_text)
-    return {"raw": out}
+        return {"error": result.stderr.strip() or result.stdout.strip()}
+
+    out = result.stdout.strip()
+    if not out:
+        return {"error": "No output from main.py"}
+
+    try:
+        return json.loads(out)
+    except json.JSONDecodeError:
+        # main.py may have crashed mid-stream — return whatever we got.
+        return {"error": "Non-JSON output", "raw": out}
 
 
 server = Server("investment-brain")

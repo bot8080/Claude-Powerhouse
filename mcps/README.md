@@ -27,7 +27,7 @@ Model Context Protocol (MCP) servers connect Claude to external data sources. On
 What do you want to do?
 │
 ├── "Get stock data in Claude"
-│   → market-intelligence (standalone, 8 tools)
+│   → market-intelligence (standalone, 9 tools)
 │
 ├── "Analyze stocks with auto-scoring"
 │   → investment-brain (uses market-intelligence as data layer)
@@ -67,20 +67,30 @@ python main.py analyze NVDA
 
 ### Both in Claude Desktop
 
+Config file location:
+- **Mac:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+- **Linux:** `~/.config/Claude/claude_desktop_config.json`
+
 ```json
 {
   "mcpServers": {
     "market-intelligence": {
       "command": "uv",
-      "args": ["run", "--directory", "C:\\path\\to\\mcps\\market-intelligence", "market-intelligence"]
+      "args": ["run", "--directory", "/path/to/mcps/market-intelligence", "market-intelligence"]
     },
     "investment-brain": {
       "command": "python",
-      "args": ["C:\\path\\to\\mcps\\investment-brain\\mcp_wrapper.py"]
+      "args": ["/path/to/mcps/investment-brain/mcp_wrapper.py"],
+      "env": {
+        "MARKET_INTELLIGENCE_CMD": "uv run --directory /path/to/mcps/market-intelligence market-intelligence"
+      }
     }
   }
 }
 ```
+
+On Windows, use backslash paths (`C:\\path\\to\\...`) and `set MARKET_INTELLIGENCE_CMD=...` in Command Prompt, or `$env:MARKET_INTELLIGENCE_CMD=...` in PowerShell.
 
 ---
 

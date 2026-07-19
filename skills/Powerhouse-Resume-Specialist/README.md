@@ -18,7 +18,7 @@ Generates and formats pixel-perfect, **ATS-optimized resumes** in `.docx` format
 | Dates misaligned (spaces instead of tabs) | Perfect right-aligned tab stops |
 | Left margin: 1.2" (too wide) | 0.5" - 0.6" US Letter standard |
 | Font: "Arial Narrow" (ATS misreads) | Calibri only (100% ATS safe) |
-| Bright blue + gray (unprofessional) | Navy (#001f3f) / Steel Blue (#4682B4) |
+| Bright blue + gray (unprofessional) | Navy (#1B3A6B) / Steel Blue (#2E6DAD) |
 | Tables for layout (ATS rejects) | Pure semantic DOCX (no tables) |
 
 ---
