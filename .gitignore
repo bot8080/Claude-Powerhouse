@@ -8,3 +8,15 @@ build/
 .pytest_cache/
 .gstack/
 **/.claude/settings.local.json
+
+# Maintainer-only tooling — not part of the public product
+.internal/
+
+# Local Claude Desktop config snippets (paths are machine-specific)
+claude_desktop_config_snippet.json
+
+# Local SQLite databases (paper-trading portfolio, etc.)
+**/data/*.db
+**/data/*.db-journal
+**/data/*.sqlite
+**/data/*.sqlite3

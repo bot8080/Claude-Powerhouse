@@ -4,6 +4,8 @@ No external dependencies. Pure Python subprocess + JSON.
 """
 
 import json
+import os
+import shlex
 import subprocess
 import threading
 import time
@@ -25,13 +27,18 @@ class MCPClient:
     def connect(self) -> bool:
         """Start the MCP server subprocess."""
         try:
+            # shell=False for security (no shell injection); split command string
+            # into argv. stderr=DEVNULL prevents deadlock when server emits many
+            # warnings (e.g. yfinance deprecation notices) that would fill the
+            # stderr pipe buffer with no reader on our side.
+            argv = shlex.split(self.command, posix=(os.name != "nt"))
             self.process = subprocess.Popen(
-                self.command,
+                argv,
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
+                stderr=subprocess.DEVNULL,
                 text=True,
-                shell=True,
+                shell=False,
             )
             self._running = True
             self._reader_thread = threading.Thread(target=self._read_loop, daemon=True)
@@ -113,6 +120,36 @@ class MCPClient:
         # Fallback to direct method call
         return self.call(tool_name, arguments)
 
+    @staticmethod
+    def _unwrap(result: Any) -> Any:
+        """Extract the JSON payload from an MCP tool-call result envelope.
+
+        MCP servers return results as:
+            {"content": [{"type": "text", "text": "<json string>"}]}
+
+        Callers need the parsed JSON payload inside `text`, not the envelope.
+        Returns None if the result shape is unexpected or JSON parsing fails.
+        """
+        if not isinstance(result, dict):
+            return None
+        content = result.get("content")
+        if not isinstance(content, list) or not content:
+            # Tool may have returned a bare dict (no envelope) — pass through.
+            return result if "content" not in result else None
+        text_parts = []
+        for block in content:
+            if isinstance(block, dict) and block.get("type") == "text":
+                t = block.get("text")
+                if t:
+                    text_parts.append(t)
+        if not text_parts:
+            return None
+        joined = "".join(text_parts)
+        try:
+            return json.loads(joined)
+        except (json.JSONDecodeError, ValueError):
+            return joined
+
     def disconnect(self):
         """Clean shutdown."""
         self._running = False
@@ -151,47 +188,61 @@ class MCPDataFetcher:
         if not self.connected:
             return []
         result = self.client.call_tool("resolve_tickers", {"queries": queries})
-        return result.get("results", []) if result else []
+        unwrapped = MCPClient._unwrap(result)
+        return unwrapped if isinstance(unwrapped, list) else []
 
     def get_scoring_data(self, symbol: str) -> Optional[Dict]:
         """Fetch full scoring data for a ticker."""
         if not self.connected:
             return None
-        return self.client.call_tool("get_scoring_data", {"symbol": symbol})
+        result = self.client.call_tool("get_scoring_data", {"symbol": symbol})
+        unwrapped = MCPClient._unwrap(result)
+        return unwrapped if isinstance(unwrapped, dict) else None
 
     def get_batch_profiles(self, symbols: List[str]) -> List[Dict]:
         """Fetch batch profiles for multiple tickers."""
         if not self.connected:
             return []
         result = self.client.call_tool("get_batch_profiles", {"symbols": symbols})
-        return result.get("profiles", []) if result else []
+        unwrapped = MCPClient._unwrap(result)
+        return unwrapped if isinstance(unwrapped, list) else []
 
     def get_institutional_activity(self, symbol: str) -> Optional[Dict]:
         """Fetch institutional/insider data."""
         if not self.connected:
             return None
-        return self.client.call_tool("get_institutional_activity", {"symbol": symbol})
+        result = self.client.call_tool("get_institutional_activity", {"symbol": symbol})
+        unwrapped = MCPClient._unwrap(result)
+        return unwrapped if isinstance(unwrapped, dict) else None
 
     def get_technicals(self, symbol: str, period: str = "1y") -> Optional[Dict]:
         """Fetch technical indicators."""
         if not self.connected:
             return None
-        return self.client.call_tool("get_technicals", {"symbol": symbol, "period": period})
+        result = self.client.call_tool("get_technicals", {"symbol": symbol, "period": period})
+        unwrapped = MCPClient._unwrap(result)
+        return unwrapped if isinstance(unwrapped, dict) else None
 
     def get_us_macro(self) -> Optional[Dict]:
         """Fetch US macro data."""
         if not self.connected:
             return None
-        return self.client.call_tool("get_us_macro", {})
+        result = self.client.call_tool("get_us_macro", {})
+        unwrapped = MCPClient._unwrap(result)
+        return unwrapped if isinstance(unwrapped, dict) else None
 
     def get_nifty_valuation(self) -> Optional[Dict]:
         """Fetch India Nifty valuation."""
         if not self.connected:
             return None
-        return self.client.call_tool("get_nifty_valuation", {})
+        result = self.client.call_tool("get_nifty_valuation", {})
+        unwrapped = MCPClient._unwrap(result)
+        return unwrapped if isinstance(unwrapped, dict) else None
 
     def get_fii_dii_flows(self, days: int = 20) -> Optional[Dict]:
         """Fetch FII/DII flows."""
         if not self.connected:
             return None
-        return self.client.call_tool("get_fii_dii_flows", {"days": days})
+        result = self.client.call_tool("get_fii_dii_flows", {"days": days})
+        unwrapped = MCPClient._unwrap(result)
+        return unwrapped if isinstance(unwrapped, dict) else None

@@ -106,9 +106,10 @@ class TestGetFiiDiiFlows:
 
     @patch.dict("sys.modules", {"nsepython": None})
     def test_import_error(self):
-        # Module reload needed to trigger ImportError
-        # This is a known limitation; we test the fallback path separately
-        pass
+        # Module reload needed to trigger ImportError — module-level import is
+        # already cached from earlier in the test session, so patching sys.modules
+        # does not retroactively raise. Documented as a skipped test.
+        pytest.skip("ImportError fallback path requires module reload (known limitation)")
 
 
 # ── get_nifty_valuation_impl ───────────────────────────────────
@@ -147,9 +148,7 @@ class TestGetNiftyValuation:
         }
         mock_ticker_cls.return_value = mock_ticker
 
-        # Force nsetools import to fail
-        with patch.dict("sys.modules", {"nsetools": None}):
-            from importlib import reload
-            import market_intelligence.india as india_mod
-            # The function handles the ImportError internally
-            pass
+        # Force nsetools import to fail so the yfinance fallback branch runs.
+        # Module-level imports are cached; testing the reload path reliably
+        # requires a fresh interpreter. Documented as a skipped test.
+        pytest.skip("yfinance fallback for nsetools failure requires fresh interpreter (known limitation)")

@@ -15,6 +15,17 @@ Four installable skills that extend Claude's behavior. Install once — they tri
 
 Each skill's folder has a README with examples and trigger phrases, plus the installable `.skill` file.
 
+### Trigger phrases
+
+Each skill fires automatically when your request matches its trigger. Try these:
+
+| Skill | Try saying |
+|-------|------------|
+| Software Team | "Build me a feature using the PM→Dev→QA pipeline" or `/pst plan` |
+| Project Setup Kit | "Help me set up a Claude project" or "audit my knowledge base" |
+| Prompt Optimizer | "Improve this prompt" (then paste your prompt) |
+| Resume Specialist | "Format my resume as a DOCX" (then paste your content) |
+
 ## Install
 
 **Claude.ai web:**

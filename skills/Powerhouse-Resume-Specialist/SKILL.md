@@ -1,12 +1,12 @@
 ---
 name: powerhouse-resume-specialist
-description: Generate professional, ATS-optimized resumes in DOCX format with consistent typography, color scheme, and layout. Use this skill whenever creating or formatting a resume as a .docx file, regardless of whose resume it is or what job it's for. Handles page dimensions, margins, fonts, colors, tab stops, bullets, headers, section layouts, and validation.
+description: Generate professional, ATS-optimized resumes in DOCX format with consistent typography, color scheme, and layout. Use this skill whenever creating, formatting, or improving a resume as a .docx file — regardless of whose resume it is or what job it's for. Triggers include: "format my resume", "create a resume", "ATS-friendly resume", "make my resume DOCX", "improve my resume formatting", "job application resume", "write a resume in Word", "resume template", "CV formatting", or any mention of resume/CV formatting in DOCX. Also trigger when the user pastes resume content and wants it laid out professionally. Handles page dimensions, margins, fonts, colors, tab stops, bullets, headers, section layouts, and validation.
 compatibility: Requires docx npm package v2.10.0+
 ---
 
 # Powerhouse Resume Specialist
 
-A complete, reusable system for generating professional resumes in DOCX format. Extracted from proven Abhinav project implementation. Zero person-specific content — pure methodology and code templates.
+A complete, reusable system for generating professional resumes in DOCX format. Pure methodology and code templates — zero person-specific content. Adapt the content (names, companies, dates) for each person.
 
 ---
 
@@ -23,7 +23,7 @@ All values are generalized. Adapt the content (names, companies, dates) for each
 
 ---
 
-## DOCX Constants (Canonical — Synchronized with Abhinav Project)
+## DOCX Constants (Canonical)
 
 These are the foundational settings for every resume. All measurements use the docx-js standard unit (twentieths of a point, commonly called DXA or twips in OOXML). 1 inch = 1440 units.
 
@@ -34,7 +34,7 @@ These are the foundational settings for every resume. All measurements use the d
 const PAGE_WIDTH = 12240;        // 8.5 inches
 const PAGE_HEIGHT = 15840;       // 11 inches
 
-// Margins — EXACT from Abhinav project
+// Margins — canonical reference values
 const MARGIN_TOP = 720;          // 0.5 inches
 const MARGIN_BOTTOM = 720;       // 0.5 inches
 const MARGIN_LEFT = 864;         // 0.6 inches
@@ -467,4 +467,4 @@ All hex strings: **no # prefix**, as strings (`"1B3A6B"` not `#1B3A6B`).
 
 ## Support
 
-This skill is methodology-only — pure templates and rules. Adapt the content (names, companies, dates, achievements) for each person. The formatting and structure never change. All values are synchronized with the Abhinav project's `knowledge_tailor_coverletter.md`.
+This skill is methodology-only — pure templates and rules. Adapt the content (names, companies, dates, achievements) for each person. The formatting and structure never change.

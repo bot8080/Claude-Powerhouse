@@ -11,6 +11,70 @@ from config import MCP_SERVER_CMD, DEFAULT_MARKET
 from mcp_bridge import MCPDataFetcher
 
 
+def _calc_adx(hist, atr) -> float:
+    """Calculate ADX(14) via Wilder's smoothing.
+
+    Returns 0.0–100.0 (trend strength). Falls back to 20.0 (neutral) when
+    there isn't enough history or the calculation produces non-finite values.
+    """
+    try:
+        if len(hist) < 28:
+            return 20.0
+        import pandas as pd
+        import numpy as np
+
+        high, low, close = hist["High"], hist["Low"], hist["Close"]
+        up_move = high.diff()
+        down_move = -low.diff()
+        plus_dm = up_move.where((up_move > down_move) & (up_move > 0), 0.0)
+        minus_dm = down_move.where((down_move > up_move) & (down_move > 0), 0.0)
+
+        # Wilder's smoothing of +DM, -DM, ATR over 14 periods
+        period = 14
+        wilder_plus = plus_dm.ewm(alpha=1 / period, adjust=False).mean()
+        wilder_minus = minus_dm.ewm(alpha=1 / period, adjust=False).mean()
+        atr_series = (high - low).rolling(period).mean()  # close-enough smoothing
+        atr_series = atr_series.replace(0, np.nan)
+
+        plus_di = 100 * wilder_plus / atr_series
+        minus_di = 100 * wilder_minus / atr_series
+        dx = 100 * (plus_di - minus_di).abs() / (plus_di + minus_di).replace(0, np.nan)
+        adx = dx.ewm(alpha=1 / period, adjust=False).mean().iloc[-1]
+
+        val = float(adx) if not pd.isna(adx) else 20.0
+        return max(0.0, min(100.0, val))
+    except Exception:
+        return 20.0
+
+
+def _calc_mfi(hist, period: int = 14) -> float:
+    """Calculate Money Flow Index (14). Returns 0–100, 50 = neutral.
+
+    MFI = 100 - 100 / (1 + money_flow_ratio)
+    where money_flow_ratio = sum(positive_mf, N) / sum(negative_mf, N).
+    Typical-price * volume is the raw money flow; sign comes from day-over-day
+    typical-price change.
+    """
+    try:
+        if len(hist) < period + 1:
+            return 50.0
+        import pandas as pd
+
+        tp = (hist["High"] + hist["Low"] + hist["Close"]) / 3.0
+        rmf = tp * hist["Volume"]
+        diff = tp.diff()
+        pos_mf = rmf.where(diff > 0, 0.0).rolling(period).sum()
+        neg_mf = rmf.where(diff < 0, 0.0).rolling(period).sum()
+        mfr = pos_mf / neg_mf.replace(0, pd.NA)
+        mfi_series = 100 - (100 / (1 + mfr))
+        val = mfi_series.iloc[-1]
+        if pd.isna(val):
+            return 50.0
+        return float(max(0.0, min(100.0, val)))
+    except Exception:
+        return 50.0
+
+
 class DataFetcher:
     """Unified data fetcher with MCP primary and yfinance fallback."""
 
@@ -199,7 +263,7 @@ class DataFetcher:
         lower = sma20 - 2 * std20
         bb_pct_b = (current - lower.iloc[-1]) / (upper.iloc[-1] - lower.iloc[-1]) if upper.iloc[-1] != lower.iloc[-1] else 0.5
 
-        # ATR
+        # ATR (Wilder's smoothing via 14-period rolling mean — close enough)
         high_low = hist["High"] - hist["Low"]
         high_close = (hist["High"] - close.shift()).abs()
         low_close = (hist["Low"] - close.shift()).abs()
@@ -207,8 +271,8 @@ class DataFetcher:
         atr = tr.rolling(14).mean().iloc[-1]
         atr_pct = (atr / current) * 100 if current else 0
 
-        # ADX (simplified)
-        adx = 20  # placeholder
+        # ADX (14-period Wilder's). Requires ≥ 28 rows to be meaningful.
+        adx = _calc_adx(hist, atr)
 
         # Volume
         vol_avg = volume.rolling(20).mean().iloc[-1]
@@ -218,8 +282,8 @@ class DataFetcher:
         obv = (volume * (close.diff().apply(lambda x: 1 if x > 0 else (-1 if x < 0 else 0)))).cumsum().iloc[-1]
         obv_trend = "rising" if obv > 0 else "falling"
 
-        # MFI (simplified)
-        mfi = 50  # placeholder
+        # MFI (14-period volume-weighted RSI variant)
+        mfi = _calc_mfi(hist)
 
         return {
             "trend": {
@@ -245,8 +309,8 @@ class DataFetcher:
             },
             "volume": {
                 "obv_trend": obv_trend,
-                "mfi_14": mfi,
-                "mfi_zone": "neutral",
+                "mfi_14": round(mfi, 1),
+                "mfi_zone": "overbought" if mfi > 80 else "oversold" if mfi < 20 else "neutral",
                 "volume_vs_avg_20d": round(vol_ratio, 2),
             },
             "signals": {

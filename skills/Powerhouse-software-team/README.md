@@ -176,12 +176,8 @@ Then read `BUILD_STATUS.md` for the next task.
 ### In Your Own Project (Claude Code)
 
 1. Copy this skill's folder (or unzip `Powerhouse-software-team.skill`) into your project's `.claude/skills/`
-2. Copy the agent definitions from this repo's `.internal/.claude/agents/` (Claude Code) or `.internal/.opencode/agents/` (OpenCode) into your project's `.claude/agents/` / `.opencode/agents/`
-3. Optionally copy `.internal/AGENTS.md` and `.internal/opencode.json` as starting points for your session protocol and OpenCode config
-
-### In This Repo
-
-The `/pst` commands here are wired through the maintainer copy at `.internal/.claude/skills/powerhouse-software-team/`.
+2. Create agent files in `.claude/agents/` using the role definitions in `SKILL.md` (PM Tech Lead, Research Engineer, Dev Engineer, QA Engineer — one markdown file each with role, trigger, and output format)
+3. Optionally add an `AGENTS.md` session-protocol file and an `opencode.json` config — see the skill body for the structure
 
 ### Claude.ai Web (Reference Only)
 

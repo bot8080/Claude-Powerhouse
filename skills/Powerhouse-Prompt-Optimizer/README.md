@@ -4,7 +4,7 @@
 >
 > **[CLI + Web]** — Works in Claude Code and Claude.ai
 
-Transform basic instructions into professional-grade prompts using **Anthropic's latest 2025 heuristics.**
+Transform basic instructions into professional-grade prompts using **Anthropic's official prompt engineering heuristics.**
 
 > [!IMPORTANT]
 > Returns **only** the improved prompt — no preamble, no commentary. Copy-paste into any model.

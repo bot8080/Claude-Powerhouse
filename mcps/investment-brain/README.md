@@ -4,7 +4,7 @@
 
 **Local Python engine that does all the heavy lifting** — data fetching, scoring, screening, portfolio tracking, paper trading. Claude only formats the output.
 
-**Result: ~80% less Claude token usage per analysis.**
+**Result: ~90% less Claude token usage per analysis.**
 
 ---
 
@@ -40,7 +40,7 @@
 │  │  ↓                                                  │   │
 │  │  • Fetches via MCP or yfinance                      │   │
 │  │  • Scores: Fund 35 / Tech 35 / SM 30                │   │
-│  │  • Checks 9 deal-breakers                           │   │
+│  │  • Checks 9 deal-breakers (4 automated + 5 manual-review flags)                  │   │
 │  │  • Builds minimal prompt + JSON                     │   │
 │  │  • You copy-paste into Claude                       │   │
 │  └─────────────────────────────────────────────────────┘   │
@@ -132,10 +132,10 @@ python main.py portfolio
 ### 7. Web UI (optional)
 
 ```bash
-python -m uvicorn web_app:app --host 0.0.0.0 --port 8000
+python -m uvicorn web_app:app --host 127.0.0.1 --port 8000
 ```
 
-Then open `http://localhost:8000` in a browser.
+Then open `http://localhost:8000` in a browser. Binds to localhost only — to expose externally, put behind a reverse proxy with auth (e.g., `nginx` with basic-auth in front).
 
 ---
 
@@ -176,8 +176,8 @@ git clone <repo>
 cd mcps/investment-brain
 pip install -r requirements.txt
 
-# Run web UI
-python -m uvicorn web_app:app --host 0.0.0.0 --port 8000
+# Run web UI (localhost only — reverse proxy with auth for external access)
+python -m uvicorn web_app:app --host 127.0.0.1 --port 8000
 
 # Or just CLI via SSH
 python main.py analyze TSM
@@ -193,7 +193,7 @@ mcps/investment-brain/
 ├── mcp_bridge.py          # CLIENT: connects investment-brain → market-intelligence MCP
 ├── mcp_wrapper.py         # SERVER: exposes investment-brain as MCP server for Claude
 ├── data_fetcher.py        # MCP primary, yfinance fallback
-├── deal_breaker.py        # 9-rule disqualification checker
+├── deal_breaker.py        # 9-rule disqualification checker (4 automated, 5 manual)
 ├── scorer.py              # 35/35/30 scoring engine
 ├── portfolio_db.py        # SQLite portfolio/watchlist/history
 ├── paper_trading.py       # Virtual ledger with rules

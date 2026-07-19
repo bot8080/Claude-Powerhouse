@@ -126,8 +126,11 @@ def _score_fundamentals(profile: Dict, sector: str) -> Dict:
     curr_ratio = _f(qual.get("current_ratio"))
     fcf = _f(qual.get("free_cashflow"))
 
-    roe_score = _score_metric(roe * 100 if roe and roe < 1 else roe, ROE_SCALE, invert=False)
-    margin_score = _score_metric(op_margin * 100 if op_margin and op_margin < 1 else op_margin, OP_MARGIN_SCALE, invert=False)
+    # Normalize decimal → percent (sources disagree on units — see `to_percent`).
+    roe_pct = to_percent(roe, decimal_threshold=5.0)
+    margin_pct = to_percent(op_margin, decimal_threshold=1.0)
+    roe_score = _score_metric(roe_pct, ROE_SCALE, invert=False)
+    margin_score = _score_metric(margin_pct, OP_MARGIN_SCALE, invert=False)
     de_score = _score_metric(de, DE_SCALE, invert=True)
     curr_score = _score_metric(curr_ratio, CURR_RATIO_SCALE, invert=False)
     fcf_score = 4 if fcf and fcf > 0 else 2 if fcf and fcf == 0 else 0
@@ -182,7 +185,7 @@ def _score_fundamentals(profile: Dict, sector: str) -> Dict:
         },
         "raw": {
             "pe": pe, "peg": peg, "ev_ebitda": ev_ebitda,
-            "roe": roe, "op_margin": op_margin, "de": de,
+            "roe": roe_pct, "op_margin": margin_pct, "de": de,
             "curr_ratio": curr_ratio, "fcf": fcf,
             "rev_growth": rev_g, "earn_growth": earn_g,
             "div_yield": yield_pct, "payout": payout,
@@ -483,6 +486,25 @@ def _f(val) -> Optional[float]:
         return float(val)
     except (ValueError, TypeError):
         return None
+
+
+def to_percent(val, decimal_threshold: float = 5.0) -> Optional[float]:
+    """Normalize a ratio/margin value to percent units.
+
+    Sources disagree: yfinance's `returnOnEquity` is a decimal (0.15 = 15%),
+    some MCP tools return percent already. This helper picks the most likely
+    interpretation: if `0 < val < decimal_threshold`, treat as decimal and
+    multiply by 100; otherwise pass through.
+
+    `decimal_threshold` defaults to 5.0 (covers real-world ROE range to ~500%;
+    margins rarely exceed 100% so callers can pass `1.0` for those fields).
+    """
+    f = _f(val)
+    if f is None:
+        return None
+    if 0 < f < decimal_threshold:
+        return f * 100
+    return f
 
 
 def _score_metric(value: Optional[float], scale: Dict, invert: bool = False) -> int:
