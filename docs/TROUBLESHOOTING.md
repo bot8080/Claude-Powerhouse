@@ -30,7 +30,7 @@ Central troubleshooting guide for all components. Choose your error below.
 
 **Cause:** Your project may not have the workflow files set up.
 
-**Fix:** See [AGENTS.md](../AGENTS.md) for the setup protocol. Ensure `BUILD_STATUS.md` exists in the project root.
+**Fix:** See [.internal/AGENTS.md](../.internal/AGENTS.md) for the setup protocol. Ensure `BUILD_STATUS.md` exists in the project root.
 
 ---
 
@@ -138,7 +138,7 @@ Worktree conflict: already exists
 **Fix:**
 ```bash
 git worktree prune
-rm -rf .powerhouse/wt/*
+rm -rf .internal/.powerhouse/wt/*
 ```
 
 ```

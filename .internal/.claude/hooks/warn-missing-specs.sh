@@ -3,8 +3,8 @@
 # that is missing TECH_SPEC.md or BUILD_STATUS.md.
 # Never blocks — always exits 0.
 #
-# Register in .claude/settings.json PreToolUse for matcher "Edit|Write":
-#   {"matcher": "Edit|Write", "hooks": [{"type": "command", "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/warn-missing-specs.sh\""}]}
+# Register in .internal/.claude/settings.json PreToolUse for matcher "Edit|Write":
+#   {"matcher": "Edit|Write", "hooks": [{"type": "command", "command": "\"$CLAUDE_PROJECT_DIR/.internal/.claude/hooks/warn-missing-specs.sh\""}]}
 
 TOOL_NAME="${CLAUDE_TOOL_NAME:-}"
 
@@ -31,7 +31,7 @@ if [[ "$FILE_PATH" =~ /mcps/([^/]+)/ ]]; then
 elif [[ "$FILE_PATH" =~ ^mcps/([^/]+)/ ]]; then
   SUBPROJECT="${BASH_REMATCH[1]}"
 else
-  # Not under mcps/ — skip (.claude/, .powerhouse/, skills/, repo root, etc.)
+  # Not under mcps/ — skip (.claude/, .internal/.powerhouse/, skills/, repo root, etc.)
   echo '{}'
   exit 0
 fi

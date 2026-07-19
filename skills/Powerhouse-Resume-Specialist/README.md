@@ -83,7 +83,7 @@ Generates and formats pixel-perfect, **ATS-optimized resumes** in `.docx` format
 |----------|---------|
 | [All Skills](../README.md) | Browse all 5 skills + install guide |
 | [Prompt Optimizer](../Powerhouse-Prompt-Optimizer/) | Optimize job application prompts |
-| [Project Setup Kit](../Powerhouse-Claud-Project-Setup-Kit/) | Set up job search tracker |
+| [Project Setup Kit](../Powerhouse-Claude-Project-Setup-Kit/) | Set up job search tracker |
 | [Root README](../../README.md) | Full repo documentation |
 
 ---

@@ -295,7 +295,7 @@ Criteria:
 uv sync
 
 # Run server
-uv run market-analyst-mcp
+uv run market-intelligence
 ```
 
 ### Claude Desktop Config
@@ -303,9 +303,9 @@ uv run market-analyst-mcp
 ```json
 {
   "mcpServers": {
-    "market-analyst": {
+    "market-intelligence": {
       "command": "uv",
-      "args": ["run", "--directory", "path/to/market-intelligence", "market-analyst-mcp"]
+      "args": ["run", "--directory", "path/to/market-intelligence", "market-intelligence"]
     }
   }
 }

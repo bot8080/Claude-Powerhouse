@@ -6,7 +6,7 @@ Two products built together: **financial MCP servers** and **AI development work
 
 - **MCP servers** (market-intelligence + investment-brain) — real Python code, real stock data
 - **Skills** (Software Team, Project Setup Kit, Prompt Optimizer, Resume Specialist) — installable in Claude
-- **Agent definitions** — 6 roles for spec-first development, usable with OpenCode or Claude Code
+- **Agent definitions** — spec-first development roles for OpenCode and Claude Code (maintainer tooling in `.internal/`)
 
 ---
 
@@ -74,7 +74,7 @@ For developers extending this repository, see the hidden `.internal/` folder whi
 |-----------|-------|-------|
 | MCP servers | 2 | market-intelligence + investment-brain |
 | AI skills | 4 | Software Team, Project Setup Kit, Prompt Optimizer, Resume Specialist |
-| Agent definitions | 6 | PM Lead, Dev, QA, Research, Mechanical, Advisor |
+| Agent definitions | 7 | PM Lead, Dev, QA, Research (shared) + Advisor, Mechanical (OpenCode), Dispatcher (Claude Code) |
 | Python files (MCPs) | 25+ | Across both servers |
 | Markets covered | 3 | US, India (NSE/BSE), Canada (TSX) |
 | MCP tools | 8 | Per market-intelligence server |
@@ -128,7 +128,7 @@ Installable skills that extend Claude's behavior. Manual download required.
 | Skill | Target | What it does | When to Use |
 |-------|--------|--------------|-------------|
 | [Software Team](./skills/Powerhouse-software-team/) | CLI | PM→Dev→QA pipeline with spec-first discipline | Building complex apps with structured development |
-| [Project Setup Kit](./skills/Powerhouse-Claud-Project-Setup-Kit/) | Both | Project knowledge base setup and audit | Starting a new project or auditing existing code |
+| [Project Setup Kit](./skills/Powerhouse-Claude-Project-Setup-Kit/) | Both | Project knowledge base setup and audit | Starting a new project or auditing existing code |
 | [Prompt Optimizer](./skills/Powerhouse-Prompt-Optimizer/) | Both | Prompt engineering using Anthropic 2025 heuristics | Fixing vague or ineffective prompts |
 | [Resume Specialist](./skills/Powerhouse-Resume-Specialist/) | Both | ATS-optimized DOCX resume formatting | Formatting professional resumes |
 
@@ -141,10 +141,6 @@ Installable skills that extend Claude's behavior. Manual download required.
 3. The skill triggers automatically based on what you ask
 
 See [skills/README.md](./skills/README.md) for troubleshooting.
-
----
-
-
 
 ---
 
@@ -214,7 +210,7 @@ PRs welcome. The fastest path to a merged PR is **one change at a time**.
 - Multi-file changes across the repo
 - New integration formats or platforms
 
-See [BUILD_STATUS.md](./BUILD_STATUS.md) for current progress.
+See [.internal/BUILD_STATUS.md](./.internal/BUILD_STATUS.md) for current progress.
 
 ---
 
@@ -224,21 +220,23 @@ See [BUILD_STATUS.md](./BUILD_STATUS.md) for current progress.
 MultiAgents-Powerhouse/
 ├── mcps/                          # MCP financial servers
 │   ├── market-intelligence/       # US/India/Canada stock data (8 tools)
-│   └── investment‑brain/          # Scoring, screening, portfolio (7 layers)
+│   └── investment-brain/          # Scoring, screening, portfolio (7 layers)
 ├── skills/                        # AI workflow skills
 │   ├── Powerhouse-software-team/  # PM→Dev→QA pipeline [CLI]
-│   ├── Powerhouse-Claud-Project-Setup-Kit/  # Project setup
+│   ├── Powerhouse-Claude-Project-Setup-Kit/  # Project setup
 │   ├── Powerhouse-Prompt-Optimizer/        # Prompt engineering
 │   └── Powerhouse-Resume-Specialist/       # DOCX resume
-├── .internal/                     # Maintainer‑only files
+├── docs/                          # Quickstart, cheatsheet, troubleshooting
+├── .internal/                     # Maintainer-only files
 │   ├── .opencode/agents/          # 6 agent definitions (OpenCode)
-│   ├── .claude/agents/            # 6 agent definitions (Claude Code)
+│   ├── .claude/agents/            # 5 agent definitions (Claude Code)
 │   ├── .claude/commands/          # PST slash commands
+│   ├── .powerhouse/               # /pst ticket + dispatch runtime
 │   ├── cli/                       # Local scaffolding (not on npm)
 │   ├── templates/                 # Project templates
 │   ├── opencode.json              # Base config (no hardcoded models)
 │   ├── opencode.go.json           # Go plan overlay (per-agent routing)
-│   ├── AGENTS.md                  # Session brief + auto‑routing rules
+│   ├── AGENTS.md                  # Session brief + auto-routing rules
 │   └── BUILD_STATUS.md            # Development progress tracker
 ```
 

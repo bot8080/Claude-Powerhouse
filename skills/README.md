@@ -19,7 +19,7 @@ Think of them as plugins for Claude.
 | I want to... | Use this skill | Target |
 |--------------|----------------|--------|
 | Build a complex app with PM/Dev/QA pipeline | [Software Team](./Powerhouse-software-team/) | [CLI] |
-| Set up a project knowledge base | [Project Setup Kit](./Powerhouse-Claud-Project-Setup-Kit/) | [Both] |
+| Set up a project knowledge base | [Project Setup Kit](./Powerhouse-Claude-Project-Setup-Kit/) | [Both] |
 | Improve a vague prompt | [Prompt Optimizer](./Powerhouse-Prompt-Optimizer/) | [Both] |
 | Format a professional resume | [Resume Specialist](./Powerhouse-Resume-Specialist/) | [Both] |
 
@@ -32,7 +32,7 @@ Think of them as plugins for Claude.
 | Skill | Target | Description |
 |-------|--------|-------------|
 | [Powerhouse-software-team](./Powerhouse-software-team/) | [CLI] | Complete AI dev team — spec-first, 7-layer build order, PM → Dev → QA pipeline. |
-| [Powerhouse-Claud-Project-Setup-Kit](./Powerhouse-Claud-Project-Setup-Kit/) | [Both] | AI Workspace Architect — project setup, structure auditing. |
+| [Powerhouse-Claude-Project-Setup-Kit](./Powerhouse-Claude-Project-Setup-Kit/) | [Both] | AI Workspace Architect — project setup, structure auditing. |
 | [Powerhouse-Prompt-Optimizer](./Powerhouse-Prompt-Optimizer/) | [Both] | Expert prompt engineering using Anthropic 2025 heuristics. |
 | [Powerhouse-Resume-Specialist](./Powerhouse-Resume-Specialist/) | [Both] | Premium DOCX formatting and ATS optimization. |
 
@@ -42,7 +42,7 @@ Think of them as plugins for Claude.
 
 ### Claude Code Users
 
-Skills under `.claude/skills/` activate automatically when working in this repo. No install needed — just type trigger phrases.
+Only the Software Team skill ships with a repo-local copy (at `.internal/.claude/skills/powerhouse-software-team/`, backing the `/pst` commands in this repo). To use any skill in your own project, copy its folder into your project's `.claude/skills/` directory.
 
 ### Claude.ai Web Users
 
@@ -97,4 +97,4 @@ PRs and issues welcome. To add a new skill:
 
 ## License
 
-MIT — see [LICENSE](./LICENSE)
+MIT — see [LICENSE](../LICENSE)

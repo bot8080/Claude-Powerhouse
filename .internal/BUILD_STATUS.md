@@ -10,17 +10,16 @@ Tracks the shipping status of MultiAgents-Powerhouse itself: skills, MCPs, infra
 
 - [x] Define repo structure (mcps/ + skills/)
 - [x] Write root CLAUDE.md with auto-routing and hard rules
-- [x] Create `.claude/agents/` — PM Tech Lead, Research Engineer, Dev Engineer, QA Engineer
-- [x] Create `.claude/skills/powerhouse/SKILL.md` — unified /powerhouse command
-- [x] Create `.claude/hooks/check-gstack.sh` — gstack install gate
-- [x] Create `.claude/hooks/warn-missing-specs.sh` — advisory spec-gate hook
+- [x] Create `.internal/.claude/agents/` — PM Tech Lead, Research Engineer, Dev Engineer, QA Engineer
+- [x] Create `.internal/.claude/skills/powerhouse-software-team/SKILL.md` — unified /pst command
+- [x] Create `.internal/.claude/hooks/warn-missing-specs.sh` — advisory spec-gate hook (check-gstack.sh removed in repo cleanup — external-install gate dropped)
 - [x] Write TECH_SPEC.md for investment-brain (required before Layer 1 of that sub-project)
 
 ---
 
 ## Layer 2 — Skills: Core Shipping
 
-- [x] `Powerhouse-Claud-Project-Setup-Kit` — shipped
+- [x] `Powerhouse-Claude-Project-Setup-Kit` — shipped
 - [x] `Powerhouse-Prompt-Optimizer` — shipped
 - [x] `Powerhouse-Resume-Specialist` — shipped
 - [x] `Powerhouse-software-team` — shipped (CLI target)
@@ -81,10 +80,10 @@ Tracks the shipping status of MultiAgents-Powerhouse itself: skills, MCPs, infra
 ## Layer 7 — Powerhouse Software Team (PST) Compliance
 
 - [x] PST compliance audit (6 gaps identified)
-- [x] `.powerhouse/lib/` scripts (detect-project.sh, pst-status.sh, pst-next.sh)
-- [x] `.claude/commands/` — 7 PST slash commands (pst-status through pst-next)
-- [x] `.claude/settings.json` — 4 hooks registered (spec-gate, gstack, branch-name, commit-msg)
-- [x] `.opencode/commands/follow-ticket.md` — dispatcher command
+- [x] `.internal/.powerhouse/lib/` scripts (detect-project.sh, pst-status.sh, pst-next.sh)
+- [x] `.internal/.claude/commands/` — 7 PST slash commands (pst-status through pst-next)
+- [x] `.internal/.claude/settings.json` — 3 hooks registered (spec-gate, branch-name, commit-msg); gstack hook removed in repo cleanup
+- [x] `.internal/.opencode/commands/follow-ticket.md` — dispatcher command
 - [x] `templates/workflow/` — opencode.json, settings.json, follow-ticket.md
 - [x] AGENTS.md monorepo status conflict fixed
 - [x] PR #6 merged: `feature/powerhouse/L7-pst-compliance`

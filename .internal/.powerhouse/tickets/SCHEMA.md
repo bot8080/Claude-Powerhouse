@@ -1,6 +1,6 @@
 # Ticket Schema
 
-Every ticket under `.powerhouse/tickets/{id}.md` must conform to this schema.
+Every ticket under `.internal/.powerhouse/tickets/{id}.md` must conform to this schema.
 
 Both Claude Code (planner + reviewer) and OpenCode (executor) read this. Keep it stable.
 
@@ -67,4 +67,4 @@ After the closing `---`, write the ticket body:
 - Any required frontmatter field is missing or empty
 - `files_to_touch` is empty
 - The branch does not exist in git
-- A worktree for this id already exists under `.powerhouse/wt/`
+- A worktree for this id already exists under `.internal/.powerhouse/wt/`

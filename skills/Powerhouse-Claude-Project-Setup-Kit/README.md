@@ -95,7 +95,7 @@ For analysis requests:
 ## Installation
 
 **Claude.ai web:**
-1. Download [Powerhouse-Claud-Project-Setup-Kit.skill](./Powerhouse-Claud-Project-Setup-Kit.skill)
+1. Download [Powerhouse-Claude-Project-Setup-Kit.skill](./Powerhouse-Claude-Project-Setup-Kit.skill)
 2. Go to [Claude.ai](https://claude.ai) → **Settings** → **Skills**
 3. Click **Install Skill** and upload the file
 
@@ -107,7 +107,7 @@ For analysis requests:
 
 - `SKILL.md` — Core intelligence and instruction set
 - `references/anti-patterns.md` — Common project-building mistakes
-- `Powerhouse-Claud-Project-Setup-Kit.skill` — Installable distributable
+- `Powerhouse-Claude-Project-Setup-Kit.skill` — Installable distributable
 
 ---
 

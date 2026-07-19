@@ -17,12 +17,12 @@ Activate when the user says: "dispatch", "/dispatch", "send to opencode", "minim
 Run setup check if this is the first dispatch in the session:
 
 ```bash
-bash .powerhouse/setup.sh
+bash .internal/.powerhouse/setup.sh
 ```
 
 If any check fails, halt and tell the user what's missing. Do not proceed.
 
-Confirm the ticket at `.powerhouse/tickets/<id>.md` has all four required fields: `id`, `branch`, `files_to_touch`, `acceptance_criteria`. If any are missing, halt.
+Confirm the ticket at `.internal/.powerhouse/tickets/<id>.md` has all four required fields: `id`, `branch`, `files_to_touch`, `acceptance_criteria`. If any are missing, halt.
 
 ---
 
@@ -31,11 +31,11 @@ Confirm the ticket at `.powerhouse/tickets/<id>.md` has all four required fields
 Print the banner, then run the script:
 
 ```
-→ OpenCode + minimax-m2.5-free  ticket=<id>  worktree=.powerhouse/wt/<id>
+→ OpenCode + minimax-m2.5-free  ticket=<id>  worktree=.internal/.powerhouse/wt/<id>
 ```
 
 ```bash
-bash .powerhouse/dispatch.sh .powerhouse/tickets/<id>.md
+bash .internal/.powerhouse/dispatch.sh .internal/.powerhouse/tickets/<id>.md
 ```
 
 Run with `run_in_background: true` for long tasks so the user can keep working.
@@ -62,13 +62,13 @@ Then wait for the user to confirm before invoking Dev Engineer.
 
 ## REVIEW mode
 
-Load `.claude/agents/qa-engineer.md` and run a full QA pass against the worktree at `.powerhouse/wt/<id>/`.
+Load `.internal/.claude/agents/qa-engineer.md` and run a full QA pass against the worktree at `.internal/.powerhouse/wt/<id>/`.
 
 Check each `acceptance_criteria` from the ticket frontmatter. Run any project-specific test or syntax commands listed in `CLAUDE.md`.
 
 **On PASS:**
 ```bash
-git worktree remove .powerhouse/wt/<id>
+git worktree remove .internal/.powerhouse/wt/<id>
 ```
 Then instruct the user to merge the feature branch via normal PR flow.
 
@@ -84,7 +84,7 @@ Then instruct the user to merge the feature branch via normal PR flow.
 - Dev Engineer always gets the **original ticket** — not OC's partial work
 - Dev Engineer creates a **fresh worktree** from the same branch
 - QA Engineer reviews Dev Engineer's output with the same acceptance criteria
-- Log the fallback in `.powerhouse/dispatch-log.md` with status `FALLBACK(reason)`
+- Log the fallback in `.internal/.powerhouse/dispatch-log.md` with status `FALLBACK(reason)`
 
 ---
 
@@ -99,6 +99,6 @@ Then instruct the user to merge the feature branch via normal PR flow.
 ## See also
 
 - `.opencode/commands/follow-ticket.md` — OC slash command
-- `.powerhouse/setup.sh` — one-time environment check
-- `.powerhouse/dispatch.sh` — orchestration script
+- `.internal/.powerhouse/setup.sh` — one-time environment check
+- `.internal/.powerhouse/dispatch.sh` — orchestration script
 

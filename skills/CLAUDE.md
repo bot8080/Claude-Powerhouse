@@ -31,5 +31,5 @@ The `.skill` file format:
 
 - The `description:` in the frontmatter determines when the skill fires — make it exhaustive with trigger phrases, synonyms, and intent patterns
 - Skill instructions should be self-contained — assume no other context is available
-- Follow the `ai-project-setup-kit` pattern: detect context first, then branch into modes
+- Follow the `Powerhouse-Claude-Project-Setup-Kit` pattern: detect context first, then branch into modes
 - Skills that involve file output should use `present_files` and save to `/mnt/user-data/outputs/`
