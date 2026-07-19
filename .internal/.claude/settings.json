@@ -7,12 +7,11 @@
       "npx tsc --noEmit --incremental"
     ],
     "pre-tool-use": [
-      "bash .claude/hooks/warn-missing-specs.sh",
-      "bash .claude/hooks/check-gstack.sh"
+      "bash .internal/.claude/hooks/warn-missing-specs.sh"
     ],
     "post-tool-use": [
-      "node .claude/hooks/branch-name.js",
-      "node .claude/hooks/commit-msg.js"
+      "node .internal/.claude/hooks/branch-name.js",
+      "node .internal/.claude/hooks/commit-msg.js"
     ]
   }
 }

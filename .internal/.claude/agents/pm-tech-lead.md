@@ -25,7 +25,7 @@ Determine the active sub-project in this order:
 
 ## Output Format
 
-First write the ticket file to `.powerhouse/tickets/{id}.md` where `id = {slug}-{last6ofunixts}`.
+First write the ticket file to `.internal/.powerhouse/tickets/{id}.md` where `id = {slug}-{last6ofunixts}`.
 
 ```markdown
 ---
@@ -55,7 +55,7 @@ acceptance_criteria:
 Then print a summary to the user:
 
 ```
-Ticket written: .powerhouse/tickets/{id}.md
+Ticket written: .internal/.powerhouse/tickets/{id}.md
 Branch: feature/{subproject}/{slug}
 Files: [list]
 

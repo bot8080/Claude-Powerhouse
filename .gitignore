@@ -7,4 +7,4 @@ dist/
 build/
 .pytest_cache/
 .gstack/
-.claude/settings.local.json
+**/.claude/settings.local.json

@@ -5,7 +5,7 @@
 REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || echo "$PWD")"
 cd "$REPO_ROOT" || exit 1
 
-PROJECT=$(bash .powerhouse/lib/detect-project.sh "$@")
+PROJECT=$(bash .internal/.powerhouse/lib/detect-project.sh "$@")
 
 if [[ "$PROJECT" == "root" ]]; then
   BUILD_FILE="BUILD_STATUS.md"

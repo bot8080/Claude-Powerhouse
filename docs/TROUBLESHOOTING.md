@@ -138,7 +138,7 @@ Worktree conflict: already exists
 **Fix:**
 ```bash
 git worktree prune
-rm -rf .powerhouse/wt/*
+rm -rf .internal/.powerhouse/wt/*
 ```
 
 ```

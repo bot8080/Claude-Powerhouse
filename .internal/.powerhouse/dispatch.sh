@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Dispatch a ticket to OpenCode. On hard failure, hands off to Dev Engineer.
-# Usage: bash .powerhouse/dispatch.sh <path-to-ticket.md>
+# Usage: bash .internal/.powerhouse/dispatch.sh <path-to-ticket.md>
 #
 # Hard failures (auto Dev Engineer fallback):
 #   - opencode binary missing
@@ -21,7 +21,7 @@ REPO_ROOT="$(git rev-parse --show-toplevel)"
 _log_dispatch() {
   local id="$1" dur="$2" status="$3"
   local ts; ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-  echo "| ${ts} | ${id} | opencode/minimax-m2.5-free | ${dur} | ${status} |" >> "${REPO_ROOT}/.powerhouse/dispatch-log.md"
+  echo "| ${ts} | ${id} | opencode/minimax-m2.5-free | ${dur} | ${status} |" >> "${REPO_ROOT}/.internal/.powerhouse/dispatch-log.md"
 }
 
 _dev_engineer_fallback() {
@@ -46,7 +46,7 @@ _dev_engineer_fallback() {
 TICKET_PATH="${1:-}"
 
 if [ -z "$TICKET_PATH" ]; then
-  echo "Usage: bash .powerhouse/dispatch.sh <path-to-ticket.md>"
+  echo "Usage: bash .internal/.powerhouse/dispatch.sh <path-to-ticket.md>"
   exit 1
 fi
 
@@ -67,12 +67,12 @@ FILES_TO_TOUCH="$(awk '/^files_to_touch:/,/^[a-z]/' "$TICKET_PATH" | grep '^ *-'
 
 if [ -z "$TICKET_ID" ] || [ -z "$BRANCH" ] || [ -z "$FILES_TO_TOUCH" ]; then
   echo "ERROR: Ticket is missing required fields (id, branch, or files_to_touch)."
-  echo "       See .powerhouse/tickets/SCHEMA.md for the required format."
+  echo "       See .internal/.powerhouse/tickets/SCHEMA.md for the required format."
   exit 1
 fi
 
-WT="${REPO_ROOT}/.powerhouse/wt/${TICKET_ID}"
-NDJSON_OUT="${REPO_ROOT}/.powerhouse/dispatches/${TICKET_ID}.ndjson"
+WT="${REPO_ROOT}/.internal/.powerhouse/wt/${TICKET_ID}"
+NDJSON_OUT="${REPO_ROOT}/.internal/.powerhouse/dispatches/${TICKET_ID}.ndjson"
 
 # ── Pre-flight ────────────────────────────────────────────────────────────────
 

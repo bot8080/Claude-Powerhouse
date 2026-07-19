@@ -7,4 +7,4 @@ Read `BUILD_STATUS.md` for the active sub-project and report:
 2. First unchecked task
 3. Any uncommitted work
 
-Use `.powerhouse/lib/pst-status.sh` with optional `--project <name>` to scope to a sub-project.
+Use `.internal/.powerhouse/lib/pst-status.sh` with optional `--project <name>` to scope to a sub-project.

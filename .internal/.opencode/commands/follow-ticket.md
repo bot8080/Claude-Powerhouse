@@ -2,7 +2,7 @@
 name: follow-ticket
 description: Execute a PST ticket — implement acceptance criteria, no scope creep
 ---
-Load the ticket from `.powerhouse/tickets/<id>.md` and implement exactly:
+Load the ticket from `.internal/.powerhouse/tickets/<id>.md` and implement exactly:
 
 1. Read files_to_touch list
 2. Read TECH_SPEC.md for the active sub-project

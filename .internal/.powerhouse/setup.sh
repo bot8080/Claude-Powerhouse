@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Run once before first dispatch to verify the environment is ready.
-# Usage: bash .powerhouse/setup.sh
+# Usage: bash .internal/.powerhouse/setup.sh
 
 set -euo pipefail
 
@@ -53,7 +53,7 @@ fi
 
 # 5. powerhouse dirs
 REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
-for dir in ".powerhouse/tickets" ".powerhouse/dispatches" ".powerhouse/wt"; do
+for dir in ".internal/.powerhouse/tickets" ".internal/.powerhouse/dispatches" ".internal/.powerhouse/wt"; do
   if [ -d "${REPO_ROOT}/${dir}" ]; then
     check "${dir}/ exists" 1
   else

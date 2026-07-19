@@ -2,7 +2,7 @@
 name: pst-review
 description: Invoke QA Engineer to validate changes against specs
 ---
-Load `.claude/agents/qa-engineer.md` and activate the QA Engineer agent.
+Load `.internal/.claude/agents/qa-engineer.md` and activate the QA Engineer agent.
 
 Run the 7-point checklist:
 1. Spec compliance — schemas match TECH_SPEC.md
