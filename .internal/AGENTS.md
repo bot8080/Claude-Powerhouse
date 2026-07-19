@@ -128,7 +128,7 @@ Skills live in `skills/` and `~/.claude/skills/`. Use the `skill` tool to load t
 | Skill | Purpose |
 |---|---|
 | `software-team` | Full PM→Dev→QA pipeline |
-| `Powerhouse-Claud-Project-Setup-Kit` | Project setup and knowledge-base auditing |
+| `Powerhouse-Claude-Project-Setup-Kit` | Project setup and knowledge-base auditing |
 | `Powerhouse-Prompt-Optimizer` | Prompt engineering |
 | `Powerhouse-Resume-Specialist` | DOCX resume formatting |
 

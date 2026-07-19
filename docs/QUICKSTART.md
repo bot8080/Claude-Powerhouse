@@ -66,7 +66,7 @@ python main.py analyze NVDA
 |-------|------|--------------|
 | Software Team | [.skill](../skills/Powerhouse-software-team/Powerhouse-software-team.skill) | PM→Dev→QA pipeline |
 | Prompt Optimizer | [.skill](../skills/Powerhouse-Prompt-Optimizer/Powerhouse-Prompt-Optimizer.skill) | Fix vague prompts |
-| Project Setup Kit | [.skill](../skills/Powerhouse-Claud-Project-Setup-Kit/Powerhouse-Claud-Project-Setup-Kit.skill) | Audit knowledge base |
+| Project Setup Kit | [.skill](../skills/Powerhouse-Claude-Project-Setup-Kit/Powerhouse-Claude-Project-Setup-Kit.skill) | Audit knowledge base |
 | Resume Specialist | [.skill](../skills/Powerhouse-Resume-Specialist/Powerhouse-Resume-Specialist.skill) | Format DOCX resumes |
 
 **Install steps:**

@@ -128,7 +128,7 @@ Installable skills that extend Claude's behavior. Manual download required.
 | Skill | Target | What it does | When to Use |
 |-------|--------|--------------|-------------|
 | [Software Team](./skills/Powerhouse-software-team/) | CLI | PM→Dev→QA pipeline with spec-first discipline | Building complex apps with structured development |
-| [Project Setup Kit](./skills/Powerhouse-Claud-Project-Setup-Kit/) | Both | Project knowledge base setup and audit | Starting a new project or auditing existing code |
+| [Project Setup Kit](./skills/Powerhouse-Claude-Project-Setup-Kit/) | Both | Project knowledge base setup and audit | Starting a new project or auditing existing code |
 | [Prompt Optimizer](./skills/Powerhouse-Prompt-Optimizer/) | Both | Prompt engineering using Anthropic 2025 heuristics | Fixing vague or ineffective prompts |
 | [Resume Specialist](./skills/Powerhouse-Resume-Specialist/) | Both | ATS-optimized DOCX resume formatting | Formatting professional resumes |
 
@@ -223,7 +223,7 @@ MultiAgents-Powerhouse/
 │   └── investment-brain/          # Scoring, screening, portfolio (7 layers)
 ├── skills/                        # AI workflow skills
 │   ├── Powerhouse-software-team/  # PM→Dev→QA pipeline [CLI]
-│   ├── Powerhouse-Claud-Project-Setup-Kit/  # Project setup
+│   ├── Powerhouse-Claude-Project-Setup-Kit/  # Project setup
 │   ├── Powerhouse-Prompt-Optimizer/        # Prompt engineering
 │   └── Powerhouse-Resume-Specialist/       # DOCX resume
 ├── docs/                          # Quickstart, cheatsheet, troubleshooting

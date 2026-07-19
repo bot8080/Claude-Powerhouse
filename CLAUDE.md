@@ -230,11 +230,11 @@ Each skill lives in `skills/<skill-name>/` with a `.skill` file and `README.md`.
 | Skill | Target | Purpose |
 |---|---|---|
 | `Powerhouse-software-team` | **CLI** | Full PM→Dev→QA pipeline for structured AI-assisted development |
-| `Powerhouse-Claud-Project-Setup-Kit` | **Both** | AI Workspace Architect for project setup and auditing |
+| `Powerhouse-Claude-Project-Setup-Kit` | **Both** | AI Workspace Architect for project setup and auditing |
 | `Powerhouse-Prompt-Optimizer` | **Both** | Expert prompt engineering using latest heuristics |
 | `Powerhouse-Resume-Specialist` | **Both** | DOCX formatting + ATS optimization |
 
-**Authoring pattern:** detect context first, then branch into modes (see `Powerhouse-Claud-Project-Setup-Kit` as the reference implementation). Skills that produce file output should save to `/mnt/user-data/outputs/`.
+**Authoring pattern:** detect context first, then branch into modes (see `Powerhouse-Claude-Project-Setup-Kit` as the reference implementation). Skills that produce file output should save to `/mnt/user-data/outputs/`.
 
 ---
 

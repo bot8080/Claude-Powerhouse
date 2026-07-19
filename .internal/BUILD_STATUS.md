@@ -19,7 +19,7 @@ Tracks the shipping status of MultiAgents-Powerhouse itself: skills, MCPs, infra
 
 ## Layer 2 — Skills: Core Shipping
 
-- [x] `Powerhouse-Claud-Project-Setup-Kit` — shipped
+- [x] `Powerhouse-Claude-Project-Setup-Kit` — shipped
 - [x] `Powerhouse-Prompt-Optimizer` — shipped
 - [x] `Powerhouse-Resume-Specialist` — shipped
 - [x] `Powerhouse-software-team` — shipped (CLI target)

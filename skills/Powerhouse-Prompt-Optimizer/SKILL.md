@@ -1,5 +1,5 @@
 ---
-name: Powerhouse-Prompt-Optimizer
+name: powerhouse-prompt-optimizer
 description: >
   Rewrites and improves prompts using Anthropic's official prompt engineering methodologies.
   Use this skill whenever a user shares a prompt and asks to improve it, fix it, make it better,

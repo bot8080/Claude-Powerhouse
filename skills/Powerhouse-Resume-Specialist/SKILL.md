@@ -1,5 +1,5 @@
 ---
-name: Powerhouse-Resume-Specialist
+name: powerhouse-resume-specialist
 description: Generate professional, ATS-optimized resumes in DOCX format with consistent typography, color scheme, and layout. Use this skill whenever creating or formatting a resume as a .docx file, regardless of whose resume it is or what job it's for. Handles page dimensions, margins, fonts, colors, tab stops, bullets, headers, section layouts, and validation.
 compatibility: Requires docx npm package v2.10.0+
 ---

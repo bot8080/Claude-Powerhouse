@@ -55,7 +55,7 @@ Type these inside a **Claude Code** session:
 | Skill | Install | Trigger |
 |-------|---------|---------|
 | Software Team | [Download](../skills/Powerhouse-software-team/Powerhouse-software-team.skill) | "Set up AI dev team" |
-| Project Setup Kit | [Download](../skills/Powerhouse-Claud-Project-Setup-Kit/Powerhouse-Claud-Project-Setup-Kit.skill) | "Audit my project" |
+| Project Setup Kit | [Download](../skills/Powerhouse-Claude-Project-Setup-Kit/Powerhouse-Claude-Project-Setup-Kit.skill) | "Audit my project" |
 | Prompt Optimizer | [Download](../skills/Powerhouse-Prompt-Optimizer/Powerhouse-Prompt-Optimizer.skill) | "Improve this prompt" |
 | Resume Specialist | [Download](../skills/Powerhouse-Resume-Specialist/Powerhouse-Resume-Specialist.skill) | "Format my resume" |
 
